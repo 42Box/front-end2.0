@@ -1,0 +1,20 @@
+.search-dropdown-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.search-input {
+  padding: 6px 10px;
+  border: 2px solid #ffbf80;
+  border-radius: 4px;
+  margin: 20px;
+  outline: none;
+}
+
+.dropdown {
+  padding: 6px 10px;
+  border: 2px solid #ffbf80;
+  border-radius: 4px;
+  margin: 20px;
+}
