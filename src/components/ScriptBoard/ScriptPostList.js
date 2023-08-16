@@ -1,15 +1,15 @@
-import "./PostList.css";
+import "./ScriptPostList.css";
 
-import PostPreview from "./PostPreview";
+import PostPreview from "../PostPreview/PostPreview";
 
-const PostList = (props) => {
+const ScriptPostList = (props) => {
   const postViewHandler = (key) => {
     props.onPostView(key);
   };
 
   return (
     <div>
-      {props.postList.map((post) => (
+      {props.ScriptPostList.map((post) => (
         <PostPreview
           key={post.key}
           title={post.title}
@@ -24,4 +24,4 @@ const PostList = (props) => {
   );
 };
 
-export default PostList;
+export default ScriptPostList;

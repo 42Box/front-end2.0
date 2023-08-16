@@ -1,6 +1,6 @@
 import "./PostPreview.css";
 
-import PostDate from "../../Util/PostDate";
+import PostDate from "../Util/PostDate";
 
 const PostPreview = (props) => {
   const postViewHandler = () => {

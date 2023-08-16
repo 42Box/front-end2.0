@@ -1,82 +1,56 @@
 import React, { useState } from "react";
 
 import Container from "./components/UI/Container";
-import MainBoard from "./components/MainBoard/MainBoard";
-import PostWrite from "./components/PostWrite/PostWrite";
-import Post from "./components/MainBoard/PostList/Post/Post";
 
-const DummyPosts = [
-  {
-    key: Math.random().toString(),
-    title: "title1",
-    author: "user1",
-    commentCount: 10,
-    recommendationCount: 42,
-    date: new Date(2023, 8, 15),
-  },
-  {
-    key: Math.random().toString(),
-    title: "title2",
-    author: "user2",
-    commentCount: 8,
-    recommendationCount: 0,
-    date: new Date(2023, 8, 15),
-  },
-  {
-    key: Math.random().toString(),
-    title: "title3",
-    author: "user3",
-    commentCount: 12,
-    recommendationCount: 231,
-    date: new Date(2023, 7, 22),
-  },
-  {
-    key: Math.random().toString(),
-    title: "title4",
-    author: "user4",
-    commentCount: 2832,
-    recommendationCount: 21,
-    date: new Date(2023, 1, 15),
-  },
-];
+import MainBoard from "./components/ScriptBoard/ScriptBoard";
+import PostWrite from "./components/ScriptBoard/PostWrite/ScriptPostWrite";
+import Post from "./components/ScriptBoard/Post/ScriptPost";
+
+import DummyPosts from "./DummyPosts";
+
+const ViewTypes = {
+  SCRIPT_BOARD: "script-board",
+  SCRIPT_WRITE: "script-write",
+  SCRIPT_POST: "script-post",
+};
 
 const App = () => {
-  const [viewSelector, setViewSelector] = useState("main");
+  const [viewType, setViewType] = useState(ViewTypes.SCRIPT_BOARD);
 
   const postWriteHandler = () => {
-    if (viewSelector === "main") {
-      setViewSelector("write");
+    if (viewType === ViewTypes.SCRIPT_BOARD) {
+      setViewType(ViewTypes.SCRIPT_WRITE);
     } else {
-      setViewSelector("main");
+      setViewType(ViewTypes.SCRIPT_BOARD);
     }
   };
 
   let postKey = "";
   const postViewHandler = (key) => {
-    if (viewSelector === "main") {
-      setViewSelector("post");
+    if (viewType === ViewTypes.SCRIPT_BOARD) {
+      setViewType(ViewTypes.SCRIPT_POST);
       postKey = key;
     } else {
-      setViewSelector("main");
+      setViewType(ViewTypes.SCRIPT_BOARD);
     }
   };
 
-  let content;
-  if (viewSelector === "main") {
-    content = (
+  let view;
+  if (viewType === ViewTypes.SCRIPT_BOARD) {
+    view = (
       <MainBoard
         posts={DummyPosts}
         onWriteButton={postWriteHandler}
         onPostView={postViewHandler}
       />
     );
-  } else if (viewSelector === "write") {
-    content = <PostWrite onCancleButton={postWriteHandler} />;
-  } else {
-    content = <Post onCancleButton={postViewHandler} />;
+  } else if (viewType === ViewTypes.SCRIPT_WRITE) {
+    view = <PostWrite onCancleButton={postWriteHandler} />;
+  } else if (viewType === ViewTypes.SCRIPT_POST) {
+    view = <Post onCancleButton={postViewHandler} />;
   }
 
-  return <Container>{content}</Container>;
+  return <Container>{view}</Container>;
 };
 
 export default App;

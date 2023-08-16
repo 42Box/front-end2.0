@@ -1,6 +1,6 @@
 import "./SearchDropDownContainer.css";
 
-const ListingOptions = () => {
+const SearchDropDownContainer = () => {
   const handleSearch = (event) => {
     const searchTerm = event.target.value;
     // 검색 로직을 추가해주세요.
@@ -30,4 +30,4 @@ const ListingOptions = () => {
   );
 };
 
-export default ListingOptions;
+export default SearchDropDownContainer;
