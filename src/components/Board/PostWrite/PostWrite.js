@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
-import styles from "./ScriptPostWrite.module.css";
+import styles from "./PostWrite.module.css";
 
 import Button from "../../UI/Button";
 import TopNav from "../../UI/TopNav";
 
-const ScriptPostWrite = (props) => {
+const PostWrite = (props) => {
   const [isValidTitle, setIsValidTitle] = useState("true");
 
   const titleInputHandler = (event) => {
@@ -42,4 +42,4 @@ const ScriptPostWrite = (props) => {
   );
 };
 
-export default ScriptPostWrite;
+export default PostWrite;

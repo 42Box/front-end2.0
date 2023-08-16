@@ -1,7 +1,7 @@
 import Button from "../UI/Button";
 import TopNav from "../UI/TopNav";
 
-const ScriptBoardNav = (props) => {
+const BoardNav = (props) => {
   const handleRefresh = () => {
     window.location.reload();
   };
@@ -15,4 +15,4 @@ const ScriptBoardNav = (props) => {
   );
 };
 
-export default ScriptBoardNav;
+export default BoardNav;

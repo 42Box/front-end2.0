@@ -2,52 +2,59 @@ import React, { useState } from "react";
 
 import Container from "./components/UI/Container";
 
-import MainBoard from "./components/ScriptBoard/ScriptBoard";
-import PostWrite from "./components/ScriptBoard/PostWrite/ScriptPostWrite";
-import Post from "./components/ScriptBoard/Post/ScriptPost";
+import Board from "./components/Board/Board";
+import PostWrite from "./components/Board/PostWrite/PostWrite";
+import Post from "./components/Board/Post/Post";
 
 import DummyPosts from "./DummyPosts";
 
 const ViewTypes = {
-  SCRIPT_BOARD: "script-board",
-  SCRIPT_WRITE: "script-write",
-  SCRIPT_POST: "script-post",
+  _BOARD: "-board",
+  _WRITE: "-write",
+  _POST: "-post",
 };
 
 const App = () => {
-  const [viewType, setViewType] = useState(ViewTypes.SCRIPT_BOARD);
+  const [viewType, setViewType] = useState(ViewTypes._BOARD);
 
   const postWriteHandler = () => {
-    if (viewType === ViewTypes.SCRIPT_BOARD) {
-      setViewType(ViewTypes.SCRIPT_WRITE);
+    if (viewType === ViewTypes._BOARD) {
+      setViewType(ViewTypes._WRITE);
     } else {
-      setViewType(ViewTypes.SCRIPT_BOARD);
+      setViewType(ViewTypes._BOARD);
     }
   };
 
   let postKey = "";
   const postViewHandler = (key) => {
-    if (viewType === ViewTypes.SCRIPT_BOARD) {
-      setViewType(ViewTypes.SCRIPT_POST);
+    if (viewType === ViewTypes._BOARD) {
+      setViewType(ViewTypes._POST);
       postKey = key;
     } else {
-      setViewType(ViewTypes.SCRIPT_BOARD);
+      setViewType(ViewTypes._BOARD);
     }
   };
 
   let view;
-  if (viewType === ViewTypes.SCRIPT_BOARD) {
+  if (viewType === ViewTypes._BOARD) {
     view = (
-      <MainBoard
+      <Board
         posts={DummyPosts}
         onWriteButton={postWriteHandler}
         onPostView={postViewHandler}
       />
     );
-  } else if (viewType === ViewTypes.SCRIPT_WRITE) {
+  } else if (viewType === ViewTypes._WRITE) {
     view = <PostWrite onCancleButton={postWriteHandler} />;
-  } else if (viewType === ViewTypes.SCRIPT_POST) {
-    view = <Post onCancleButton={postViewHandler} />;
+  } else if (viewType === ViewTypes._POST) {
+    view = (
+      <Post
+        title="Hello World!!!"
+        author="jincpark"
+        date={new Date("2023.8.21")}
+        onCancleButton={postViewHandler}
+      />
+    );
   }
 
   return <Container>{view}</Container>;

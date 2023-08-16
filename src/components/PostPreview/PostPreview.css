@@ -1,6 +1,7 @@
 .post-preview-container {
   border: 1px solid #ccc;
   padding: 20px;
+  cursor: pointer;
 }
 .post-preview-container span {
   margin-right: 10px;
