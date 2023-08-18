@@ -1,7 +1,9 @@
 import Header from "./Util/Header";
 import RefreshButton from "./Util/Button/RefreshButton";
 import WriteButton from "./Util/Button/WriteButton";
-import Card from "./Util/Card";
+
+import TextPreviewList from "./TextPreviewList";
+import dummyPosts from "../dummyPosts";
 
 const ScriptBoard = () => {
   return (
@@ -10,8 +12,8 @@ const ScriptBoard = () => {
         pageTitle="스크립트 게시판"
         leftButton={<RefreshButton />}
         rightButton={<WriteButton path="/boards/script-boards/write" />}
-      />
-      <Card />
+      ></Header>
+      <TextPreviewList posts={dummyPosts} />
     </div>
   );
 };
