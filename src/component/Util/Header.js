@@ -2,9 +2,9 @@ import "./Header.css";
 
 const Header = (props) => {
   return (
-    <div class="header">
+    <div className="header">
       {props.leftButton}
-      <h1 class="pageTitle">{props.pageTitle}</h1>
+      <h1 className="pageTitle">{props.pageTitle}</h1>
       {props.rightButton}
     </div>
   );
