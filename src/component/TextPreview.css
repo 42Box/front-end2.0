@@ -1,18 +1,23 @@
+/* 픽셀 없애기 */
 .text-preview {
+  border: 2px solid #000;
+  background: #fff;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   display: flex;
-  border: 1px solid #ccc;
   padding: 10px;
   margin-bottom: 10px;
 }
 
-.text-preview.left {
-  justify-content: flex-start;
-  flex-direction: column;
-  margin-right: 10px;
+.text-preview__left,
+.text-preview__right {
+  display: flex;
+  flex-direction: row;
 }
 
-.text-preview.right {
-  justify-content: flex-end;
-  flex-direction: column;
-  align-items: flex-end;
+.text-preview__right {
+  margin-left: auto;
+}
+
+.text-preview span {
+  margin-bottom: auto;
 }
