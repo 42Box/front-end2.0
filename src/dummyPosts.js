@@ -1,6 +1,6 @@
 const dummyPosts = [
   {
-    key: Math.random(),
+    id: Math.random(),
     title: "Hello World",
     author: "jincpark",
     comments: 10,
@@ -8,7 +8,7 @@ const dummyPosts = [
     date: new Date(2023, 8, 11),
   },
   {
-    key: Math.random(),
+    id: Math.random(),
     title: "Hello World",
     author: "jincpark",
     comments: 10,
@@ -16,7 +16,7 @@ const dummyPosts = [
     date: new Date(2023, 8, 11),
   },
   {
-    key: Math.random(),
+    id: Math.random(),
     title: "Hello World",
     author: "jincpark",
     comments: 10,
@@ -24,7 +24,7 @@ const dummyPosts = [
     date: new Date(2023, 8, 11),
   },
   {
-    key: Math.random(),
+    id: Math.random(),
     title: "Hello World",
     author: "jincpark",
     comments: 10,
@@ -32,7 +32,7 @@ const dummyPosts = [
     date: new Date(2023, 8, 11),
   },
   {
-    key: Math.random(),
+    id: Math.random(),
     title: "Hello World",
     author: "jincpark",
     comments: 10,
