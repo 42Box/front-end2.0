@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import ScriptBoard from "./component/ScriptBoard";
 import ScriptBoardNew from "./component/ScriptBoardNew";
+import ScriptBoardContent from "./component/ScriptBoardContent";
 
 const App = () => {
   return (
@@ -11,6 +12,10 @@ const App = () => {
         <Route
           path="/boards/script-boards/write"
           element={<ScriptBoardNew />}
+        />
+        <Route
+          path="/boards/script-boards/content"
+          element={<ScriptBoardContent />}
         />
       </Routes>
     </BrowserRouter>
