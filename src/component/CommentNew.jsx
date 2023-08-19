@@ -18,12 +18,14 @@ const CommentNew = () => {
   };
 
   return (
-    <form className="comment-textarea" onSubmit={submitHandler}>
-      <textarea
-        onChange={inputChangeHandler}
-        placeholder="댓글을 입력하세요."
-      ></textarea>
-      <button type="submit">등록</button>
+    <form onSubmit={submitHandler}>
+      <div className="comment-form">
+        <textarea
+          onChange={inputChangeHandler}
+          placeholder="댓글을 입력하세요."
+        ></textarea>
+        <button type="submit">등록</button>
+      </div>
     </form>
   );
 };
