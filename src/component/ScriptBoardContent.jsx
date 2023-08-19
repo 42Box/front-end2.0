@@ -5,6 +5,7 @@ import Container from "./Util/Container";
 import { FaEllipsis } from "react-icons/fa6";
 import { GoTriangleRight } from "react-icons/go";
 
+import CommentNew from "./CommentNew";
 import CommentList from "./CommentList";
 
 import dummyComments from "../dummyComments";
@@ -43,7 +44,10 @@ const ScriptBoardContent = () => {
           <button>안돼요</button>
         </div>
       </div>
-      <CommentList comments={dummyComments}></CommentList>
+      <Container backgroundColor={"#ffdaba"}>
+        <CommentNew />
+        <CommentList comments={dummyComments}></CommentList>
+      </Container>
     </div>
   );
 };
