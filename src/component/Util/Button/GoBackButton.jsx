@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const GoBackButton = (props) => {
   return (
-    <Link to={props.path}>
+    <Link to={props.to}>
       <RiArrowGoBackFill />
     </Link>
   );

@@ -8,13 +8,14 @@ import { GoTriangleRight } from "react-icons/go";
 import CommentList from "./CommentList";
 
 import dummyComments from "../dummyComments";
+import GoBackButton from "./Util/Button/GoBackButton";
 
 const ScriptBoardContent = () => {
   return (
     <div>
       <Header
         pageTitle="스크립트 게시판"
-        leftButton={<button>뒤로가기</button>}
+        leftButton={<GoBackButton to="/boards/script-boards" />}
         rightButton={<FaEllipsis className="see-options" />}
       />
       <div>title: DUMMY TITLE author: jincpark date: 2023.08.19.Sat</div>
