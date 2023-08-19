@@ -3,9 +3,9 @@ import "./Header.css";
 const Header = (props) => {
   return (
     <div className="header">
-      {props.leftButton}
+      <span className="left-button">{props.leftButton}</span>
       <h1 className="pageTitle">{props.pageTitle}</h1>
-      {props.rightButton}
+      <span className="right-button">{props.rightButton}</span>
     </div>
   );
 };
