@@ -11,7 +11,7 @@ const ScriptBoard = () => {
       <Header
         pageTitle="스크립트 게시판"
         leftButton={<RefreshButton />}
-        rightButton={<WriteButton path="/boards/script-boards/write" />}
+        rightButton={<WriteButton path="/boards/script-boards/new" />}
       ></Header>
       <TextPreviewList posts={dummyPosts} />
     </div>
