@@ -14,6 +14,7 @@ import GoBackButton from "./Util/Button/GoBackButton";
 const ScriptBoardContent = () => {
   return (
     <Container backgroundColor="#ffffff">
+
       <Header
         pageTitle="스크립트 게시판"
         leftButton={<GoBackButton to="/boards/script-boards" />}
