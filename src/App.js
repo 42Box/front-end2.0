@@ -7,6 +7,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<ScriptBoard />} />
         <Route path="/boards/script-boards" element={<ScriptBoard />} />
         <Route
           path="/boards/script-boards/:id"
