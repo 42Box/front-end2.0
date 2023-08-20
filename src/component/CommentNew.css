@@ -1,0 +1,11 @@
+.comment-form {
+  height: 60px;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+}
+
+.comment-form textarea {
+  max-width: 700px;
+  width: 90%;
+}

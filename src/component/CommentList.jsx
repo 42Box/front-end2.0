@@ -15,7 +15,6 @@ const CommentList = (props) => {
           content={comment.content}
         />
       ))}
-      <button>sdjklfjlsdkjfskl</button>
     </div>
   );
 };
