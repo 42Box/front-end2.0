@@ -1,0 +1,21 @@
+.header {
+  display: flex;
+  align-items: center; /* 세로 방향 가운데 정렬 */
+  background-color: #f1f1f1;
+  padding: 10px;
+}
+
+.pageTitle {
+  flex: 1; /* 남은 공간을 차지하도록 설정 */
+  text-align: center; /* 텍스트를 중앙에 정렬 */
+  margin: 0;
+}
+
+.left-button,
+.right-button {
+  display: flex;
+  flex-direction: row;
+}
+.right-button {
+  margin-left: auto; /* 항상 오른쪽에 위치 */
+}

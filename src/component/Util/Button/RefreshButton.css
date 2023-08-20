@@ -1,0 +1,17 @@
+.refresh-button {
+  cursor: pointer;
+  padding: 10px;
+  background-color: #007bff;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.refresh-button svg {
+  fill: #ffffff;
+  width: 24px;
+  height: 24px;
+}
+
+.refresh-button:hover {
+  background-color: #0056b3;
+}
