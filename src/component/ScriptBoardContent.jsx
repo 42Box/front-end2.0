@@ -13,15 +13,15 @@ import GoBackButton from "./Util/Button/GoBackButton";
 
 const ScriptBoardContent = () => {
   return (
-    <div>
+    <Container backgroundColor="#ffffff">
       <Header
         pageTitle="스크립트 게시판"
         leftButton={<GoBackButton to="/boards/script-boards" />}
         rightButton={<FaEllipsis className="see-options" />}
       />
-      <div>title: DUMMY TITLE author: jincpark date: 2023.08.19.Sat</div>
-      <GoTriangleRight className="see-script" />
-      <Container backgroundColor="#ffdaba">
+      <div className="comments-section">
+        <div>title: DUMMY TITLE author: jincpark date: 2023.08.19.Sat</div>
+        <GoTriangleRight className="see-script" />
         This is dummy content This is dummy content This is dummy content This
         is dummy content This is dummy content This is dummy content This is
         dummy content This is dummy content This is dummy content This is dummy
@@ -33,22 +33,20 @@ const ScriptBoardContent = () => {
         content This is dummy content This is dummy content This is dummy
         content This is dummy content This is dummy content This is dummy
         content This is dummy content
-      </Container>
-      <div>
         <div>
-          <button>실행</button>
-          <button>다운로드</button>
+          <div>
+            <button>실행</button>
+            <button>다운로드</button>
+          </div>
+          <div>
+            <button>좋아요</button>
+            <button>안돼요</button>
+          </div>
         </div>
-        <div>
-          <button>좋아요</button>
-          <button>안돼요</button>
-        </div>
-      </div>
-      <Container backgroundColor={"#ffdaba"}>
         <CommentNew />
         <CommentList comments={dummyComments}></CommentList>
-      </Container>
-    </div>
+      </div>
+    </Container>
   );
 };
 
