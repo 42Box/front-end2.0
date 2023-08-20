@@ -40,7 +40,7 @@ const ScriptBoardNew = () => {
       <Container>
         <Header
           pageTitle="스크립트 게시판 글쓰기"
-          leftButton={<GoBackButton path="/boards/script-boards" />}
+          leftButton={<GoBackButton to="/boards/script-boards" />}
         ></Header>
         <div className={`form-control ${isTitleValid ? "" : "invalid"}`}>
           <input
