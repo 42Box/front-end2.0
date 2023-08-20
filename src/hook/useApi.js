@@ -42,26 +42,3 @@ const useApi = (method, url, data) => {
 };
 
 export default useApi;
-
-/*
-
-const useApi = (method, url, data) => {
-    const { addErrorDialog } = useNewDialog();
-  
-    const request = useCallback(
-      (resolve, reject) => {
-        axiosPromise(method, url, data)
-          ?.then(response => {
-            resolve(response);
-          })
-          ?.catch(error => {
-            if (reject) reject(error);
-            else addErrorDialog(error);
-          });
-      },
-      [method, url, data],
-    );
-  
-    return { request };
-  };
-*/
