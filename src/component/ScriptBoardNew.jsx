@@ -49,6 +49,7 @@ const ScriptBoardNew = () => {
           ></input>
         </div>
         <input type="file" onChange={fileChangeHandler} />
+        {selectedFile && <span>{selectedFile.name}</span>}
         <div className={`form-control ${isDetailValid ? "" : "invalid"}`}>
           <textarea
             placeholder="내용을 입력하세요."
