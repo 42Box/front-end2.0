@@ -9,17 +9,8 @@ import TextPreviewList from "./TextPreviewList";
 import dummyPosts from "../dummyPosts";
 
 const ScriptBoard = () => {
-  const apiHook = useApi("GET", "", "");
-
-  const buttonHandler = () => {
-    apiHook((response) => {
-      console.log(response);
-    });
-  };
-
   return (
     <Container>
-      <button onClick={buttonHandler}>NAVER</button>
       <Header
         pageTitle="스크립트 게시판"
         leftButton={<RefreshButton />}

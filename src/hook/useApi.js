@@ -2,7 +2,7 @@ import axios from "axios";
 import { useCallback } from "react";
 
 const api = axios.create({
-  baseURL: "naver.com/",
+  baseURL: "https://42box.site/api/",
   withCredentials: true,
 });
 
@@ -38,7 +38,7 @@ const useApi = (method, url, data) => {
     },
     [method, url, data] // dependency array of useCallback()
   );
-  return { apiHook };
+  return apiHook;
 };
 
 export default useApi;
