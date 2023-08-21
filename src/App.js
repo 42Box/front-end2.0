@@ -12,7 +12,6 @@ const App = () => {
         <Route path="/boards/script-boards" element={<ScriptBoard />} />
         <Route
           path="/boards/script-boards/:id"
-          ㅌ
           element={<ScriptBoardSelect />}
         />
       </Routes>
