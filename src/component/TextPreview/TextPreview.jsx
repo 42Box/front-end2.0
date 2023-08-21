@@ -1,6 +1,6 @@
 import "./TextPreview.css";
 
-import Date from "./Util/Date";
+import Date from "../Util/Date";
 
 const TextPreview = ({ title, author, comments, upvotes, date }) => {
   return (

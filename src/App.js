@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import RandingPage from "./component/main/RandingPage";
-import ScriptBoard from "./component/ScriptBoard";
-import ScriptBoardSelect from "./component/ScriptBoardSelect";
+import ScriptBoard from "./component/ScripBoard/ScriptBoard";
+import ScriptBoardSelect from "./component/ScripBoard/ScriptBoardSelect";
 
 const App = () => {
   return (
@@ -12,7 +12,6 @@ const App = () => {
         <Route path="/boards/script-boards" element={<ScriptBoard />} />
         <Route
           path="/boards/script-boards/:id"
-          ㅌ
           element={<ScriptBoardSelect />}
         />
       </Routes>

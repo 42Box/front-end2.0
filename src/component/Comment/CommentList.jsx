@@ -2,7 +2,7 @@ import "./CommentList.css";
 
 import Comment from "./Comment";
 
-import Date from "./Util/Date";
+import Date from "../Util/Date";
 
 const CommentList = (props) => {
   return (
