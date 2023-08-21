@@ -3,9 +3,10 @@ import useApi from "../hook/useApi";
 import userState from "../atom/userState";
 
 const useAuth = () => {
-  const request = useApi("GET", "auth-service", "");
-  const setUser = useSetRecoilState(userState);
+  const request = useApi("GET", "auth-service", ""); // GET 42box.site/api/auth-service
+  const setUser = useSetRecoilState(userState); // set hook
 
+  // set userState with new user when useAuth is called on success response
   const onSuccess = (response) => {
     const { data } = response;
     const newUser = {
@@ -28,7 +29,7 @@ const useAuth = () => {
     );
   };
 
-  return () => request(onSuccess, onFailure);
+  return () => request(onSuccess, onFailure); // return function
 };
 
 export default useAuth;
