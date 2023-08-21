@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
 import "./ScriptBoardNew.css";
-import GoBackButton from "./Util/Button/GoBackButton";
+import GoBackButton from "../Util/Button/GoBackButton";
 
-import Header from "./Util/Header";
-import Container from "./Util/Container";
+import Header from "../Util/Header";
+import Container from "../Util/Container";
 
 const ScriptBoardNew = () => {
   const [inputTitle, setInputTitle] = useState("");
