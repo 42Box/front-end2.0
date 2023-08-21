@@ -17,6 +17,6 @@
     -  `wip` : 진행 중인 커밋의 경우 
 
 2. Git 브랜치
-    - `main` : 배포
+    - `randingPage` : 배포
     - `develop` : 개발된 기능을 병합하는 브랜치
     - `#[Tracker ID] [Commit Convention Name] / [Function Name]` : 각 기능별 개발을 진행하는 브랜치
