@@ -2,8 +2,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import RandingPage from "./component/main/RandingPage";
 import MyPage from "./component/MyPage/MyPage";
-import ScriptBoard from "./component/ScripBoard/ScriptBoard";
-import ScriptBoardSelect from "./component/ScripBoard/ScriptBoardSelect";
+import ScriptBoard from "./component/ScriptBoard/ScriptBoard";
+import ScriptBoardSelect from "./component/ScriptBoard/ScriptBoardSelect";
 
 const App = () => {
   return (
