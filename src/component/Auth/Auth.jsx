@@ -1,4 +1,4 @@
-import useAuth from "../hook/useAuth";
+import useAuth from "../../hook/useAuth";
 import { Navigate } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -8,7 +8,7 @@ const Auth = () => {
   // it's called when component is rendering
   useEffect(() => {
     login();
-  }, []);
+  }, [login]);
 
   return <Navigate to="/" replace={true} />; // replace : do not add current url(auth page) to browser history
 };
