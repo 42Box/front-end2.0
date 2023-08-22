@@ -2,7 +2,7 @@ import axios from "axios";
 import { useCallback } from "react";
 
 const api = axios.create({
-  baseURL: "https://42box.site/api/",
+  baseURL: "https://api.42box.site/",
   withCredentials: true,
 });
 
