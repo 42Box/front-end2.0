@@ -2,8 +2,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import RandingPage from "./component/main/RandingPage";
 import MyPage from "./component/MyPage/MyPage";
-import ScriptBoard from "./component/ScripBoard/ScriptBoard";
-import ScriptBoardSelect from "./component/ScripBoard/ScriptBoardSelect";
+import ScriptBoard from "./component/ScriptBoard/ScriptBoard";
+import ScriptBoardSelect from "./component/ScriptBoard/ScriptBoardSelect";
+import IconBoard from "./component/IconBoard/IconBoard";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
           path="/boards/script-boards/:id"
           element={<ScriptBoardSelect />}
         />
+        <Route path="/boards/Icon-boards" element={<IconBoard />} />
       </Routes>
     </BrowserRouter>
   );
