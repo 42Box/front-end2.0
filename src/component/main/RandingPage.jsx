@@ -32,7 +32,11 @@ export default function RandingPage() {
           </CommonButton>
         </div>
       </main>
-      <footer></footer>
+      <footer>
+        <Link to="/login">
+          <button>LOGIN</button>
+        </Link>
+      </footer>
     </div>
   );
 }
