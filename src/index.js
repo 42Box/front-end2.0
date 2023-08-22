@@ -1,11 +1,11 @@
 import ReactDOM from "react-dom/client";
 import { RecoilRoot } from "recoil";
-import { mockBrowser } from "./test/mockBrowser";
 import App from "./App";
 import "./index.css";
 
 if (process.env.NODE_ENV === "development") {
-  mockBrowser.start().catch((Error) => console.log(Error));
+  const { worker } = require("./mocks/browser");
+  worker.start().catch((Error) => console.log(Error));
 }
 
 // 사용자 인터페이스의 기본 진입점 혹은 메인 훅 생성

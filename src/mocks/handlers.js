@@ -7,7 +7,6 @@ export const handlers = [
       console.log("intercept request!");
       return res(
         ctx.json({
-          isLoggedIn: false,
           userUuid: "uu1234",
           userNickname: "jiyun",
           theme: 1,
