@@ -1,10 +1,10 @@
-import Header from "./Util/Header";
-import RefreshButton from "./Util/Button/RefreshButton";
-import WriteButton from "./Util/Button/WriteButton";
-import Container from "./Util/Container";
+import Header from "../Util/Header";
+import RefreshButton from "../Util/Button/RefreshButton";
+import WriteButton from "../Util/Button/WriteButton";
+import Container from "../Util/Container";
 
-import TextPreviewList from "./TextPreviewList";
-import dummyPosts from "../dummyPosts";
+import TextPreviewList from "../TextPreview/TextPreviewList";
+import dummyPosts from "../../dummyPosts";
 
 const ScriptBoard = () => {
   return (

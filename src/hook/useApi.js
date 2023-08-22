@@ -2,7 +2,7 @@ import axios from "axios";
 import { useCallback } from "react";
 
 const api = axios.create({
-  baseURL: "https://42box.site/api/",
+  baseURL: "https://api.42box.site/",
   withCredentials: true,
 });
 
@@ -13,11 +13,11 @@ const apiCall = (method, url, data) => {
   if (method === "POST") {
     return api.post(url, data);
   }
-  if (method === "PUT") {
-    return api.put(url, data);
-  }
   if (method === "DELETE") {
     return api.delete(url);
+  }
+  if (method === "PUT") {
+    return api.put(url, data);
   }
   if (method === "OPTIONS") {
     return api.options(url);
@@ -25,7 +25,7 @@ const apiCall = (method, url, data) => {
 };
 
 const useApi = (method, url, data) => {
-  const apiHook = useCallback(
+  const request = useCallback(
     (resolve, reject) => {
       apiCall(method, url, data)
         ?.then((response) => {
@@ -38,7 +38,7 @@ const useApi = (method, url, data) => {
     },
     [method, url, data] // dependency array of useCallback()
   );
-  return apiHook;
+  return request;
 };
 
 export default useApi;

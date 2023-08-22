@@ -1,20 +1,19 @@
 import "./ScriptBoardContent.css";
 
-import Header from "./Util/Header";
-import Container from "./Util/Container";
+import Header from "../Util/Header";
+import Container from "../Util/Container";
 import { FaEllipsis } from "react-icons/fa6";
 import { GoTriangleRight } from "react-icons/go";
 
-import CommentNew from "./CommentNew";
-import CommentList from "./CommentList";
+import CommentNew from "../Comment/CommentNew";
+import CommentList from "../Comment/CommentList";
 
-import dummyComments from "../dummyComments";
-import GoBackButton from "./Util/Button/GoBackButton";
+import dummyComments from "../../dummyComments";
+import GoBackButton from "../Util/Button/GoBackButton";
 
 const ScriptBoardContent = () => {
   return (
     <Container backgroundColor="#ffffff">
-
       <Header
         pageTitle="스크립트 게시판"
         leftButton={<GoBackButton to="/boards/script-boards" />}

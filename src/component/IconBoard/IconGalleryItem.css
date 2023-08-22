@@ -1,0 +1,27 @@
+.icon-gallery-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding-top: 100%; /* 정사각형 모양 유지 */
+}
+
+.image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* 이미지가 컨테이너 내에 맞게 표시되도록 설정 */
+  transition: transform 0.2s ease-in-out;
+}
