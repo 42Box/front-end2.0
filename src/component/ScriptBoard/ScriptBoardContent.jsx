@@ -3,15 +3,27 @@ import "./ScriptBoardContent.css";
 import Header from "../Util/Header";
 import Container from "../Util/Container";
 import { FaEllipsis } from "react-icons/fa6";
-import { GoTriangleRight } from "react-icons/go";
+import { BiSolidUpArrow, BiSolidRightArrow } from "react-icons/bi";
 
 import CommentNew from "../Comment/CommentNew";
 import CommentList from "../Comment/CommentList";
 
 import dummyComments from "../../dummyComments";
 import GoBackButton from "../Util/Button/GoBackButton";
+import { useState } from "react";
 
 const ScriptBoardContent = () => {
+  const [openPreview, setOpenPreview] = useState(false);
+
+  const scriptContent =
+    "Functions starting with use are called Hooks. " +
+    "useState is a built-in Hook provided by React. " +
+    "You can find other built-in Hooks in the API reference. " +
+    "You can also write your own Hooks by combining the existing ones. " +
+    "Hooks are more restrictive than other functions. " +
+    "You can only call Hooks at the top of your components (or other Hooks). " +
+    "If you want to use useState in a condition or a loop, extract a new component and put it there.";
+
   return (
     <Container backgroundColor="#ffffff">
       <Header
@@ -20,19 +32,23 @@ const ScriptBoardContent = () => {
         rightButton={<FaEllipsis className="see-options" />}
       />
       <div className="comments-section">
-        <div>title: DUMMY TITLE author: jincpark date: 2023.08.19.Sat</div>
-        <GoTriangleRight className="see-script" />
-        This is dummy content This is dummy content This is dummy content This
-        is dummy content This is dummy content This is dummy content This is
-        dummy content This is dummy content This is dummy content This is dummy
-        content This is dummy content This is dummy content This is dummy
-        content This is dummy content This is dummy content This is dummy
-        content This is dummy content This is dummy content This is dummy
-        content This is dummy content This is dummy content This is dummy
-        content This is dummy content This is dummy content This is dummy
-        content This is dummy content This is dummy content This is dummy
-        content This is dummy content This is dummy content This is dummy
-        content This is dummy content
+        <div className={"title"}>
+          <div>title: DUMMY TITLE</div>
+          <div>author: jincpark date: 2023.08.19.Sat</div>
+        </div>
+        <div
+          className={"see-script"}
+          onClick={() => setOpenPreview(!openPreview)}
+        >
+          {openPreview === true ? (
+            <BiSolidUpArrow className={"arrow"} />
+          ) : (
+            <BiSolidRightArrow className={"arrow"} />
+          )}
+          <div>{openPreview && scriptContent}</div>
+          <div>{!openPreview && "스크립트 보기"}</div>
+        </div>
+        <div>{scriptContent}</div>
         <div>
           <div>
             <button>실행</button>
