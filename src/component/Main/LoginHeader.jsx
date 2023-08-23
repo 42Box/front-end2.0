@@ -39,9 +39,11 @@ export const LoginHeader = () => {
       ) : (
         <GrLogout onClick={logoutHandler} className="icon1"></GrLogout>
       )}
-      <Link to="/my-page">
-        <MdOutlineContactPage className="icon1" />
-      </Link>
+      {loginStateValue === true && (
+        <Link to="/my-page">
+          <MdOutlineContactPage className="icon1" />
+        </Link>
+      )}
     </header>
   );
 };
