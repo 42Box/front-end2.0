@@ -12,6 +12,6 @@ export const userState = atom({
 });
 
 export const loginState = atom({
-  key: "isLoggedIn",
+  key: "loginState",
   default: false,
 });
