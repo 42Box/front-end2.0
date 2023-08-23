@@ -1,42 +1,27 @@
-import NotiBell from "./NotiBell";
-import "./RandingPage.css";
-import "./NotiBell.css";
 import { Link } from "react-router-dom";
+import { LoginHeader } from "./LoginHeader";
+import "./RandingPage.css";
 
-export default function RandingPage() {
-  function CommonButton({ path, children }) {
-    return <Link to={path}>{children}</Link>;
-  }
-  function BoardPreview() {
-    return (
-      <div>
-        <h1>PREVIEW</h1>
-      </div>
-    );
-  }
-
+const RandingPage = () => {
   return (
     <div>
-      <header className={"header"}>
-        <NotiBell />
-      </header>
+      <LoginHeader />
       <main className={"main"}>
+        <div className={"board-container"}>ad-area</div>
         <div className={"board-container"}>
-          <CommonButton path={"/boards/script-boards"}>
-            <BoardPreview />
-          </CommonButton>
+          <Link to={"/boards/script-boards"}>
+            <h1>Script-Board</h1>
+          </Link>
         </div>
         <div className={"board-container"}>
-          <CommonButton path={"/boards/script-boards"}>
-            <BoardPreview />
-          </CommonButton>
+          <Link to={"/boards/Icon-boards"}>
+            <h1>Icon-Board</h1>
+          </Link>
         </div>
       </main>
-      <footer>
-        <Link to="/login">
-          <button>LOGIN</button>
-        </Link>
-      </footer>
+      <footer className={"footer"}></footer>
     </div>
   );
-}
+};
+
+export default RandingPage;
