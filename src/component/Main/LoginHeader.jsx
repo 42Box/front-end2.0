@@ -1,42 +1,46 @@
 import { Link } from "react-router-dom";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
+import { userState, loginState } from "../../atom/states";
+
+import "./RandingPage.css";
 import { GrLogin } from "react-icons/gr";
 import { GrLogout } from "react-icons/gr";
 import { MdOutlineContactPage } from "react-icons/md";
-import { loginState, userState } from "../../atom/userState";
-import { SetUserState } from "../../mocks/fetchData";
-import "./RandingPage.css";
 
 export const LoginHeader = () => {
-  const [isLoggedIn, SetIsLoggedIn] = useRecoilState(loginState);
-  const setUser = useSetRecoilState(userState);
-
-  const userStateValue = useRecoilValue(userState);
-
-  const loginHandler = async () => {
-    await SetUserState(setUser); // msw에 요청 보내는 부분
-    SetIsLoggedIn(true);
-    console.log("logged in!");
-  };
+  const [loginStateValue, setLoginStateValue] = useRecoilState(loginState);
+  const [userStateValue, setUserStateValue] = useRecoilState(userState);
 
   const logoutHandler = () => {
     // window.localStorage.clear();
-    SetIsLoggedIn(false);
+    setLoginStateValue(false);
+    setUserStateValue({
+      userUuid: null,
+      userNickname: null,
+      theme: null,
+      icon: null,
+    });
+
+    // remove jwt tokken
+    document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
     console.log("logged out!");
   };
 
-  console.log("isLoggedIn: ", isLoggedIn);
+  console.log("isLoggedIn: ", loginStateValue);
   console.log(userStateValue);
 
   return (
-    <header className={"header"}>
-      {isLoggedIn === false ? (
-        <GrLogin onClick={loginHandler} className={"icon1"}></GrLogin>
+    <header className="header">
+      {loginStateValue === false ? (
+        <a href="https://api.42box.site/auth-service/oauth2/authorization/42api">
+          <GrLogin className="icon1" />
+        </a>
       ) : (
-        <GrLogout onClick={logoutHandler} className={"icon1"}></GrLogout>
+        <GrLogout onClick={logoutHandler} className="icon1"></GrLogout>
       )}
-      <Link to={"/my-page"}>
-        <MdOutlineContactPage className={"icon1"} />
+      <Link to="/my-page">
+        <MdOutlineContactPage className="icon1" />
       </Link>
     </header>
   );

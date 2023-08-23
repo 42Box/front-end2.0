@@ -1,9 +1,9 @@
-import useAuth from "../../hook/useAuth";
+import useOAuth from "../../hook/useOAuth";
 import { Navigate } from "react-router-dom";
 import { useEffect } from "react";
 
 const Auth = () => {
-  const login = useAuth(); // hook function
+  const login = useOAuth(); // hook function
 
   // it's called when component is rendering
   useEffect(() => {
