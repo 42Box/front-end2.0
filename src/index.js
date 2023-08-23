@@ -2,6 +2,7 @@ import ReactDOM from "react-dom/client";
 import { RecoilRoot } from "recoil";
 import App from "./App";
 import "./index.css";
+import { BrowserRouter } from "react-router-dom";
 
 if (process.env.NODE_ENV === "development") {
   const { worker } = require("./mocks/browser");
@@ -12,9 +13,10 @@ if (process.env.NODE_ENV === "development") {
 // id='root' 인 <div> 가리킴, React로 만들어진 interface는 여기에 렌더링
 const root = ReactDOM.createRoot(document.getElementById("root"));
 // "root" <div>의 콘텐츠는 <App />으로 대체됨
-// JSX syntax
 root.render(
-  <RecoilRoot>
-    <App />
-  </RecoilRoot>,
+  <BrowserRouter>
+    <RecoilRoot>
+      <App />
+    </RecoilRoot>
+  </BrowserRouter>
 );
