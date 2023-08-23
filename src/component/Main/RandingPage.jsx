@@ -18,6 +18,11 @@ const RandingPage = () => {
             <h1>Icon-Board</h1>
           </Link>
         </div>
+        <div className={"board-container"}>
+          <Link to={"/boards/service-register-boards"}>
+            <h1>Service-Register-Board</h1>
+          </Link>
+        </div>
       </main>
       <footer className={"footer"}></footer>
     </div>
