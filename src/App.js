@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 
-import RandingPage from "./component/Main/RandingPageReal";
+import RandingPage from "./component/Main/RandingPage";
 import MyPage from "./component/MyPage/MyPage";
 import ScriptBoard from "./component/ScriptBoard/ScriptBoard";
 import ScriptBoardSelect from "./component/ScriptBoard/ScriptBoardSelect";
