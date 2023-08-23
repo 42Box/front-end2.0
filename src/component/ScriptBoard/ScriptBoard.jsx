@@ -33,7 +33,7 @@ const ScriptBoard = () => {
           {viewFilterList === true ? <BiSolidUpArrow /> : <BiSolidDownArrow />}
         </div>
       </div>
-      <TextPreviewList posts={dummyPosts} />
+      <TextPreviewList to="/boards/script-boards" posts={dummyPosts} />
     </Container>
   );
 };
