@@ -36,18 +36,16 @@ const ScriptBoardContent = () => {
           <div>title: DUMMY TITLE</div>
           <div>author: jincpark date: 2023.08.19.Sat</div>
         </div>
-        <div
+        <ul
           className={"see-script"}
           onClick={() => setOpenPreview(!openPreview)}
         >
-          {openPreview === true ? (
-            <BiSolidUpArrow className={"arrow"} />
-          ) : (
-            <BiSolidRightArrow className={"arrow"} />
-          )}
-          <div>{openPreview && scriptContent}</div>
-          <div>{!openPreview && "스크립트 보기"}</div>
-        </div>
+          <li>
+            {openPreview === true ? <BiSolidUpArrow /> : <BiSolidRightArrow />}
+          </li>
+          <li>{openPreview === true && scriptContent}</li>
+          <li>{openPreview === false && "스크립트 보기"}</li>
+        </ul>
         <div>{scriptContent}</div>
         <div>
           <div>
