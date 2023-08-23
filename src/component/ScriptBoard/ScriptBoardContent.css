@@ -2,6 +2,17 @@
   cursor: pointer;
 }
 
+.title {
+  margin: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
 .see-script {
+  max-width: 80%;
+  padding-left: 20px;
   cursor: pointer;
+  margin: 1rem;
+  display: flex;
+  list-style-type: none;
 }
