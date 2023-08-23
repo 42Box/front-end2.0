@@ -1,22 +1,23 @@
 import { useSetRecoilState } from "recoil";
 import useApi from "../hook/useApi";
-import userState from "../atom/userState";
+import {userState, loginState} from "../atom/userState";
 
 const useAuth = () => {
   const request = useApi("GET", "auth-service/oauth2/authorization/42api", ""); // GET 42box.site/api/auth-service
   const setUser = useSetRecoilState(userState); // set hook
+  const setIsLoggedIn = useSetRecoilState(loginState);
 
   // set userState with new user when useAuth is called on success response
   const onSuccess = (response) => {
     const { data } = response;
     const newUser = {
-      isLoggedIn: true,
       userUuid: data.userUuid,
       userNickname: data.userNickname,
       theme: data.theme,
       icon: data.Icon,
     };
     setUser(newUser);
+    setIsLoggedIn(true);
     window.localStorage.setItem("user", JSON.stringify(newUser));
 
     const jwtToken = response.headers
