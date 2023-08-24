@@ -13,3 +13,7 @@
   height: auto;
   transition: transform 0.3s ease-in-out;
 }
+
+.ad-image-link {
+  display: block; /* a 요소가 블록 레벨 요소로 영역을 차지하도록 설정 */
+}
