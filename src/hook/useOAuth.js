@@ -14,7 +14,7 @@ const useOAuth = () => {
       userUuid: data.userUuid,
       userNickname: data.userNickname,
       theme: data.theme,
-      icon: data.Icon,
+      icon: data.icon,
     };
     setUserState(newUser);
     setLoginState(true);
@@ -27,7 +27,7 @@ const useOAuth = () => {
       .split("=")[1];
 
     document.cookie = `jwt=${jwtToken}; expires=${new Date(
-      data.expiresAt
+      data.expiresAt,
     ).toUTCString()}; path=/`;
   };
 
@@ -37,7 +37,7 @@ const useOAuth = () => {
     const [title, message] = ["dummy error", "dummy error message"];
     window.localStorage.setItem(
       "error",
-      JSON.stringify({ title, message: errorCode ? message : error.message })
+      JSON.stringify({ title, message: errorCode ? message : error.message }),
     );
   };
 

@@ -1,5 +1,4 @@
 import Header from "../Util/Header";
-import RefreshButton from "../Util/Button/RefreshButton";
 import WriteButton from "../Util/Button/WriteButton";
 import Container from "../Util/Container";
 
@@ -12,7 +11,6 @@ const ServiceRegisterBoard = () => {
     <Container>
       <Header
         pageTitle="서비스 등록 게시판"
-        leftButton={<RefreshButton />}
         rightButton={<WriteButton path="/boards/script-boards/new" />}
       />
       <TextPreviewList

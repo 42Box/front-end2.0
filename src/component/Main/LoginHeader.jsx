@@ -39,11 +39,12 @@ export const LoginHeader = () => {
       ) : (
         <GrLogout onClick={logoutHandler} className="icon1"></GrLogout>
       )}
-      {loginStateValue === true && (
-        <Link to="/my-page">
-          <MdOutlineContactPage className="icon1" />
-        </Link>
-      )}
+      {/* oauth 로그인 제대로 될 때까지 마이페이지는 숨겨놓지 맙시다.*/}
+      {/*{loginStateValue === true && (*/}
+      <Link to="/my-page">
+        <MdOutlineContactPage className="icon1" />
+      </Link>
+      {/*)}*/}
     </header>
   );
 };
