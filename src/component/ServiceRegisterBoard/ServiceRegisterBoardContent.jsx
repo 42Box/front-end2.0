@@ -8,14 +8,16 @@ import CommentNew from "../Comment/CommentNew";
 import CommentList from "../Comment/CommentList";
 
 import dummyRegisterComments from "../../dummyRegisterComments";
-import GoBackButton from "../Util/Button/GoBackButton";
+import { AiOutlineArrowLeft } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 const ServiceRegisterBoardContent = () => {
+  const navigate = useNavigate();
   return (
     <Container backgroundColor="#ffffff">
       <Header
         pageTitle="서비스 등록 게시판"
-        leftButton={<GoBackButton to="/boards/service-register-boards" />}
+        leftButton={<AiOutlineArrowLeft onClick={() => navigate(-1)} />}
         rightButton={<FaEllipsis className="see-options" />}
       />
       <div className="comments-section">

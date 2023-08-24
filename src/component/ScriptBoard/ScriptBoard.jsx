@@ -1,23 +1,26 @@
 import Header from "../Util/Header";
-import RefreshButton from "../Util/Button/RefreshButton";
 import WriteButton from "../Util/Button/WriteButton";
 import Container from "../Util/Container";
 
 import TextPreviewList from "../TextPreview/TextPreviewList";
 import dummyPosts from "../../dummyPosts";
 import { useState } from "react";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 import { BiSolidDownArrow, BiSolidUpArrow } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 import "./ScriptBoard.css";
 
 const ScriptBoard = () => {
   const [viewFilterList, setViewFilterList] = useState(false);
+
+  const navigate = useNavigate();
 
   const filterList = ["추천 20 미만", "추천 30개 미만"];
   return (
     <Container>
       <Header
         pageTitle="스크립트 게시판"
-        leftButton={<RefreshButton />}
+        leftButton={<AiOutlineArrowLeft onClick={() => navigate(-1)} />}
         rightButton={<WriteButton path="/boards/script-boards/new" />}
       ></Header>
       <div className={"sort-option"}>
