@@ -12,7 +12,7 @@ const IconBoard = () => {
       <Header
         pageTitle="이모티콘 게시판"
         leftButton={<RefreshButton />}
-        rightButton={<WriteButton path="/boards/script-boards/new" />}
+        rightButton={<WriteButton path="/board/script/new" />}
       />
       <IconGallaryView />
     </Container>

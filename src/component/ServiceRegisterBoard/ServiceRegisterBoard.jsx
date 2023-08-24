@@ -13,12 +13,9 @@ const ServiceRegisterBoard = () => {
       <Header
         pageTitle="서비스 등록 게시판"
         leftButton={<RefreshButton />}
-        rightButton={<WriteButton path="/boards/script-boards/new" />}
+        rightButton={<WriteButton path="/new/script" />}
       />
-      <TextPreviewList
-        to="/boards/service-register-boards"
-        posts={dummyRegisters}
-      />
+      <TextPreviewList to="/content/service-register" posts={dummyRegisters} />
     </Container>
   );
 };

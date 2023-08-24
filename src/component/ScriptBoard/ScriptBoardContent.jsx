@@ -4,6 +4,7 @@ import Header from "../Util/Header";
 import Container from "../Util/Container";
 import { FaEllipsis } from "react-icons/fa6";
 import { BiSolidUpArrow, BiSolidRightArrow } from "react-icons/bi";
+//import { useParams } from "react-router-dom";
 
 import CommentNew from "../Comment/CommentNew";
 import CommentList from "../Comment/CommentList";
@@ -14,6 +15,9 @@ import { useState } from "react";
 
 const ScriptBoardContent = () => {
   const [openPreview, setOpenPreview] = useState(false);
+  // const params = useParams();
+  // const { id } = params;
+  // api/id 요청해서 없으면 오류메시지
 
   const scriptContent =
     "Functions starting with use are called Hooks. " +
@@ -28,7 +32,7 @@ const ScriptBoardContent = () => {
     <Container backgroundColor="#ffffff">
       <Header
         pageTitle="스크립트 게시판"
-        leftButton={<GoBackButton to="/boards/script-boards" />}
+        leftButton={<GoBackButton to="/board/script" />}
         rightButton={<FaEllipsis className="see-options" />}
       />
       <div className="comments-section">

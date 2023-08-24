@@ -18,7 +18,7 @@ const ScriptBoard = () => {
       <Header
         pageTitle="스크립트 게시판"
         leftButton={<RefreshButton />}
-        rightButton={<WriteButton path="/boards/script-boards/new" />}
+        rightButton={<WriteButton path="/new/script" />}
       ></Header>
       <div className={"sort-option"}>
         <button>최신순</button>
@@ -33,7 +33,7 @@ const ScriptBoard = () => {
           {viewFilterList === true ? <BiSolidUpArrow /> : <BiSolidDownArrow />}
         </div>
       </div>
-      <TextPreviewList to="/boards/script-boards" posts={dummyPosts} />
+      <TextPreviewList to="/content/script" posts={dummyPosts} />
     </Container>
   );
 };
