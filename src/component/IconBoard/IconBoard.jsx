@@ -10,7 +10,7 @@ const IconBoard = () => {
     <Container>
       <Header
         pageTitle="이모티콘 게시판"
-        rightButton={<WriteButton path="/boards/script-boards/new" />}
+        rightButton={<WriteButton path="/script/new" />}
       />
       <IconGallaryView />
     </Container>
