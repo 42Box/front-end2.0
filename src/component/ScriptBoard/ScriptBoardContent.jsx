@@ -10,7 +10,6 @@ import CommentNew from "../Comment/CommentNew";
 import CommentList from "../Comment/CommentList";
 
 import dummyComments from "../../dummyComments";
-import GoBackButton from "../Util/Button/GoBackButton";
 import { useState } from "react";
 
 const ScriptBoardContent = () => {
@@ -32,7 +31,6 @@ const ScriptBoardContent = () => {
     <Container backgroundColor="#ffffff">
       <Header
         pageTitle="스크립트 게시판"
-        leftButton={<GoBackButton to="/script/board" />}
         rightButton={<FaEllipsis className="see-options" />}
       />
       <div className="comments-section">

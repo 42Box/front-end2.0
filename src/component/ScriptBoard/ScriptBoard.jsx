@@ -1,5 +1,4 @@
 import Header from "../Util/Header";
-import RefreshButton from "../Util/Button/RefreshButton";
 import WriteButton from "../Util/Button/WriteButton";
 import Container from "../Util/Container";
 
@@ -17,7 +16,6 @@ const ScriptBoard = () => {
     <Container>
       <Header
         pageTitle="스크립트 게시판"
-        leftButton={<RefreshButton />}
         rightButton={<WriteButton path="/script/new" />}
       ></Header>
       <div className={"sort-option"}>
