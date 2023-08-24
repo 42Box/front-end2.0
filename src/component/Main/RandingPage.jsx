@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { LoginHeader } from "./LoginHeader";
+import AdBanner from "../AdBanner/AdBanner";
 import "./RandingPage.css";
 
 const RandingPage = () => {
@@ -7,7 +8,9 @@ const RandingPage = () => {
     <div>
       <LoginHeader />
       <main className={"main"}>
-        <div className={"board-container"}>ad-area</div>
+        <div className={"ad-section"}>
+          <AdBanner />
+        </div>
         <div className={"board-container"}>
           <Link to={"/script/board"}>
             <h1>Script-Board</h1>
