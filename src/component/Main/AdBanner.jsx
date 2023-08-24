@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Flex, Image } from "@chakra-ui/react";
 
 import "./AdBanner.css";
 
@@ -22,16 +23,33 @@ const AdBanner = () => {
   }, []);
 
   return (
-    <div className="ad-banner">
+    <Flex
+      width="704px"
+      height="100px"
+      flexShrink={0}
+      borderRadius="14px"
+      background="#F0F0F0"
+      justifyContent="center"
+      alignItems="center"
+      margin="auto"
+    >
       <a
         className="ad-image-link"
-        href="https://42seoul.kr" // 여기에 링크 주소를 넣으세요
-        target="_blank" // 새 탭에서 열도록 설정
-        rel="noopener noreferrer" // 보안 및 웹 접근성을 위해 필요한 속성
+        href="https://42seoul.kr"
+        target="_blank"
+        rel="noopener noreferrer"
       >
-        <img className="ad-image" src={adImages[currentAd]} alt="Ad Banner" />
+        <Image
+          className="ad-image"
+          src={adImages[currentAd]}
+          alt="Ad Banner"
+          borderRadius="14px"
+          objectFit="cover"
+          width="100%"
+          height="100%"
+        />
       </a>
-    </div>
+    </Flex>
   );
 };
 
