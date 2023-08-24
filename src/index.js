@@ -1,8 +1,9 @@
+import React from "react";
+import { BrowserRouter } from "react-router-dom";
 import ReactDOM from "react-dom/client";
 import { RecoilRoot } from "recoil";
 import App from "./App";
 import "./index.css";
-import { BrowserRouter } from "react-router-dom";
 
 if (process.env.NODE_ENV === "development") {
   const { worker } = require("./mocks/browser");
@@ -14,9 +15,11 @@ if (process.env.NODE_ENV === "development") {
 const root = ReactDOM.createRoot(document.getElementById("root"));
 // "root" <div>의 콘텐츠는 <App />으로 대체됨
 root.render(
-  <BrowserRouter>
-    <RecoilRoot>
-      <App />
-    </RecoilRoot>
-  </BrowserRouter>
+  <React.StrictMode>
+    <BrowserRouter>
+      <RecoilRoot>
+        <App />
+      </RecoilRoot>
+    </BrowserRouter>
+  </React.StrictMode>
 );
