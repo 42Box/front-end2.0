@@ -8,6 +8,7 @@ import IconBoard from "./component/IconBoard/IconBoard";
 import ServiceRegisterBoard from "./component/ServiceRegisterBoard/ServiceRegisterBoard";
 import ServiceRegisterBoardSelect from "./component/ServiceRegisterBoard/ServiceRegisterBoardSelect";
 import Auth from "./component/Auth/Auth";
+import NotFound from "./component/Util/NotFound";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
         path="/boards/service-register-boards/:id"
         element={<ServiceRegisterBoardSelect />}
       />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
