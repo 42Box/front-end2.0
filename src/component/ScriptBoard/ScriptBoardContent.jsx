@@ -3,7 +3,6 @@ import "./ScriptBoardContent.css";
 import Header from "../Util/Header";
 import Container from "../Util/Container";
 import { FaEllipsis } from "react-icons/fa6";
-import { AiOutlineArrowLeft } from "react-icons/ai";
 import { BiSolidUpArrow, BiSolidRightArrow } from "react-icons/bi";
 
 import CommentNew from "../Comment/CommentNew";
@@ -11,11 +10,9 @@ import CommentList from "../Comment/CommentList";
 
 import dummyComments from "../../dummyComments";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 const ScriptBoardContent = () => {
   const [openPreview, setOpenPreview] = useState(false);
-  const navigate = useNavigate();
 
   const scriptContent =
     "Functions starting with use are called Hooks. " +
@@ -30,7 +27,6 @@ const ScriptBoardContent = () => {
     <Container backgroundColor="#ffffff">
       <Header
         pageTitle="스크립트 게시판"
-        leftButton={<AiOutlineArrowLeft onClick={() => navigate(-1)} />}
         rightButton={<FaEllipsis className="see-options" />}
       />
       <div className="comments-section">

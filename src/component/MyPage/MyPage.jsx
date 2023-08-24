@@ -4,11 +4,8 @@ import Header from "../Util/Header";
 import Container from "../Util/Container";
 import MyProfile from "./MyProfile";
 import MyContents from "./MyContents";
-import { useNavigate } from "react-router-dom";
-import { AiOutlineArrowLeft } from "react-icons/ai";
 
 const MyPage = () => {
-  const navigate = useNavigate();
   // dummyUserData
   const userProfile = {
     profileImage:
@@ -29,10 +26,7 @@ const MyPage = () => {
 
   return (
     <Container>
-      <Header
-        pageTitle="마이페이지"
-        leftButton={<AiOutlineArrowLeft onClick={() => navigate(-1)} />}
-      />
+      <Header pageTitle="마이페이지" />
       <div className="my-page">
         <MyProfile userProfile={userProfile} />
         <MyContents userProfile={userProfile} />

@@ -9,16 +9,12 @@ import CommentNew from "../Comment/CommentNew";
 import CommentList from "../Comment/CommentList";
 
 import dummyComments from "../../dummyComments";
-import { AiOutlineArrowLeft } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
 
 const ScriptBoardContent = () => {
-  const navigate = useNavigate();
   return (
     <Container backgroundColor="#ffffff">
       <Header
         pageTitle="스크립트 게시판"
-        leftButton={<AiOutlineArrowLeft onClick={() => navigate(-1)} />}
         rightButton={<FaEllipsis className="see-options" />}
       />
       <div className="comments-section">

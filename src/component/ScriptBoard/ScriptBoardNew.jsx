@@ -4,8 +4,6 @@ import "./ScriptBoardNew.css";
 
 import Header from "../Util/Header";
 import Container from "../Util/Container";
-import { AiOutlineArrowLeft } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
 
 const ScriptBoardNew = () => {
   const [inputTitle, setInputTitle] = useState("");
@@ -13,8 +11,6 @@ const ScriptBoardNew = () => {
   const [isTitleValid, setIsTitleValid] = useState(true);
   const [isDetailValid, setIsDetailValid] = useState(true);
   const [selectedFile, setSelectedFile] = useState(null);
-
-  const navigate = useNavigate();
 
   const titleChangeHandler = (event) => {
     setIsTitleValid(event.target.value.trim().length > 10 ? true : false);
@@ -41,10 +37,7 @@ const ScriptBoardNew = () => {
   return (
     <form onSubmit={submitHandler}>
       <Container>
-        <Header
-          pageTitle="스크립트 게시판 글쓰기"
-          leftButton={<AiOutlineArrowLeft onClick={() => navigate(-1)} />}
-        ></Header>
+        <Header pageTitle="스크립트 게시판 글쓰기"></Header>
         <div className={`form-control ${isTitleValid ? "" : "invalid"}`}>
           <input
             placeholder="제목을 입력하세요."
