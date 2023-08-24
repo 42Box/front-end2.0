@@ -9,17 +9,17 @@ const RandingPage = () => {
       <main className={"main"}>
         <div className={"board-container"}>ad-area</div>
         <div className={"board-container"}>
-          <Link to={"/board/script"}>
+          <Link to={"/script/board"}>
             <h1>Script-Board</h1>
           </Link>
         </div>
         <div className={"board-container"}>
-          <Link to={"/board/icon"}>
+          <Link to={"/icon/board"}>
             <h1>Icon-Board</h1>
           </Link>
         </div>
         <div className={"board-container"}>
-          <Link to={"/board/service-register"}>
+          <Link to={"/service-register/board"}>
             <h1>Service-Register-Board</h1>
           </Link>
         </div>

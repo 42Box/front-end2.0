@@ -15,7 +15,7 @@ const ServiceRegisterBoardContent = () => {
     <Container backgroundColor="#ffffff">
       <Header
         pageTitle="서비스 등록 게시판"
-        leftButton={<GoBackButton to="/board/service-register" />}
+        leftButton={<GoBackButton to="/service-register/board" />}
         rightButton={<FaEllipsis className="see-options" />}
       />
       <div className="comments-section">

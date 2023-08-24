@@ -17,19 +17,19 @@ const App = () => {
       <Route path="/" element={<RandingPage />} />
       <Route path="/auth" element={<Auth />} />
       <Route path="/my-page" element={<MyPage />} />
-      <Route path="/board/script" element={<ScriptBoard />} />
-      <Route path="/board/icon" element={<IconBoard />} />
+      <Route path="/script/board" element={<ScriptBoard />} />
+      <Route path="/icon/board" element={<IconBoard />} />
       <Route
-        path="/board/service-register"
+        path="/service-register/board"
         element={<ServiceRegisterBoard />}
       />
-      <Route path="/new/script" element={<ScriptBoardNew />} />
-      {/* <Route path="/new/icon" element={<IconBoardNew />} />  */}
-      {/* <Route path="/new/register" element={<ServiceRegisterBoardNew />} /> */}
-      <Route path="/content/script/:id" element={<ScriptBoardContent />} />
-      {/* <Route path="/content/icon/:id" element={<IconBoardContent />} /> */}
+      <Route path="/script/new" element={<ScriptBoardNew />} />
+      {/* <Route path="/icon/new" element={<IconBoardNew />} />  */}
+      {/* <Route path="/service-register/new" element={<ServiceRegisterBoardNew />} /> */}
+      <Route path="/script/content/:id" element={<ScriptBoardContent />} />
+      {/* <Route path="/icon/content/:id" element={<IconBoardContent />} /> */}
       <Route
-        path="/content/service-register/:id"
+        path="/service-register/content/:id"
         element={<ServiceRegisterBoardContent />}
       />
       <Route path="*" element={<NotFound />} />

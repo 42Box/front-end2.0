@@ -32,7 +32,7 @@ const ScriptBoardContent = () => {
     <Container backgroundColor="#ffffff">
       <Header
         pageTitle="스크립트 게시판"
-        leftButton={<GoBackButton to="/board/script" />}
+        leftButton={<GoBackButton to="/script/board" />}
         rightButton={<FaEllipsis className="see-options" />}
       />
       <div className="comments-section">
