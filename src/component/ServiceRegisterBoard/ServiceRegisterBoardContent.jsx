@@ -8,14 +8,12 @@ import CommentNew from "../Comment/CommentNew";
 import CommentList from "../Comment/CommentList";
 
 import dummyRegisterComments from "../../dummyRegisterComments";
-import GoBackButton from "../Util/Button/GoBackButton";
 
 const ServiceRegisterBoardContent = () => {
   return (
     <Container backgroundColor="#ffffff">
       <Header
         pageTitle="서비스 등록 게시판"
-        leftButton={<GoBackButton to="/boards/service-register-boards" />}
         rightButton={<FaEllipsis className="see-options" />}
       />
       <div className="comments-section">

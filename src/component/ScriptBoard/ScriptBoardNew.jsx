@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 import "./ScriptBoardNew.css";
-import GoBackButton from "../Util/Button/GoBackButton";
 
 import Header from "../Util/Header";
 import Container from "../Util/Container";
@@ -38,10 +37,7 @@ const ScriptBoardNew = () => {
   return (
     <form onSubmit={submitHandler}>
       <Container>
-        <Header
-          pageTitle="스크립트 게시판 글쓰기"
-          leftButton={<GoBackButton to="/boards/script-boards" />}
-        ></Header>
+        <Header pageTitle="스크립트 게시판 글쓰기"></Header>
         <div className={`form-control ${isTitleValid ? "" : "invalid"}`}>
           <input
             placeholder="제목을 입력하세요."
