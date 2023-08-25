@@ -4,8 +4,8 @@ import { Flex, Image } from "@chakra-ui/react";
 import "./AdBanner.css";
 
 import banner1 from "../../asset/banner1.png";
-import banner2 from "../../asset/banner2.png";
-import banner3 from "../../asset/banner3.png";
+import banner2 from "../../asset/banner1.png";
+import banner3 from "../../asset/banner1.png";
 
 const adImages = [banner1, banner2, banner3];
 
@@ -25,13 +25,12 @@ const AdBanner = () => {
   return (
     <Flex
       width="704px"
-      height="100px"
+      height="151px"
       flexShrink={0}
       borderRadius="14px"
-      background="#F0F0F0"
       justifyContent="center"
       alignItems="center"
-      margin="auto"
+      marginTop="36px"
     >
       <a
         className="ad-image-link"
@@ -44,9 +43,8 @@ const AdBanner = () => {
           src={adImages[currentAd]}
           alt="Ad Banner"
           borderRadius="14px"
-          objectFit="cover"
-          width="100%"
-          height="100%"
+          width="704px"
+          height="151px"
         />
       </a>
     </Flex>

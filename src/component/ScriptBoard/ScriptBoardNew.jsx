@@ -13,12 +13,12 @@ const ScriptBoardNew = () => {
   const [selectedFile, setSelectedFile] = useState(null);
 
   const titleChangeHandler = (event) => {
-    setIsTitleValid(event.target.value.trim().length > 10 ? true : false);
+    setIsTitleValid(event.target.value.trim().length > 2);
     setInputTitle(event.target.value);
   };
 
   const detailChangeHandler = (event) => {
-    setIsDetailValid(event.target.value.trim().length > 0 ? true : false);
+    setIsDetailValid(event.target.value.trim().length > 2);
     setInputDetail(event.target.value);
   };
 
@@ -31,7 +31,11 @@ const ScriptBoardNew = () => {
     event.preventDefault(); // block sending GET request
     console.log(inputTitle);
     console.log(inputDetail);
-    // 제목, 내용, 첨부파일 없으면 에러메시지 출력하도록
+    if (!isTitleValid || !isDetailValid || !selectedFile) {
+      alert(
+        "⚠️글을 등록할 수 없습니다.⚠️\n파일이 첨부되었는지, 제목과 내용을 2자 이상 입력하였는지 확인해주세요.",
+      ); // 추후 디자인 적용
+    }
   };
 
   return (
