@@ -64,6 +64,7 @@ const IconBoardPreview = () => {
             borderRadius="8px"
             background="#D9D9D9"
             marginRight="10px"
+
           />
         </Flex>
       </Link>
