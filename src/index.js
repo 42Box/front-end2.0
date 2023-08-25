@@ -3,6 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import ReactDOM from "react-dom/client";
 import { RecoilRoot } from "recoil";
 import App from "./App";
+import { ChakraProvider } from "@chakra-ui/react";
 import "./index.css";
 
 if (process.env.NODE_ENV === "development") {
@@ -18,7 +19,9 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <RecoilRoot>
-        <App />
+        <ChakraProvider>
+          <App />
+        </ChakraProvider>
       </RecoilRoot>
     </BrowserRouter>
   </React.StrictMode>
