@@ -9,29 +9,27 @@ const RandingPage = () => {
   return (
     <Box
       width="768px"
-      height="1176px"
       flexShrink={0}
       borderRadius="20px"
       background="#FFF"
       display="flex"
       flexDirection="column"
+      margin="auto"
     >
-      <LoginHeader />
-      <Box marginTop={{ base: "20px", md: "40px" }}>
+      <Box width="704px" marginTop="45px" marginLeft="32px" marginRight="32px">
+        <LoginHeader />
         <AdBanner />
-      </Box>
-      <Box marginTop={{ base: "20px", md: "40px" }}>
         <ScriptBoardPreview />
+        <Box marginTop={{ base: "20px", md: "40px" }}>
+          <IconBoardPreview />
+        </Box>
+        <Box marginTop={{ base: "20px", md: "40px" }}>
+          <ServiceRegisterBoardPreview />
+        </Box>
+        <Flex minHeight="calc(100vh * 0.1)" alignItems="baseline">
+          {/* Footer 내용 */}
+        </Flex>
       </Box>
-      <Box marginTop={{ base: "20px", md: "40px" }}>
-        <IconBoardPreview />
-      </Box>
-      <Box marginTop={{ base: "20px", md: "40px" }}>
-        <ServiceRegisterBoardPreview />
-      </Box>
-      <Flex minHeight="calc(100vh * 0.1)" alignItems="baseline">
-        {/* Footer 내용 */}
-      </Flex>
     </Box>
   );
 };
