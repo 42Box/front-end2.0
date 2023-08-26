@@ -1,6 +1,6 @@
 import Header from "../Util/Header";
 import WriteButton from "../Util/Button/WriteButton";
-import Container from "../Util/Container";
+import BackGround from "../Util/BackGround";
 
 import TextPreviewList from "../TextPreview/TextPreviewList";
 import dummyPosts from "../../dummyPosts";
@@ -13,9 +13,9 @@ const ScriptBoard = () => {
 
   const filterList = ["추천 20 미만", "추천 30개 미만"];
   return (
-    <Container>
+    <BackGround>
       <Header
-        pageTitle="스크립트 게시판"
+        pageTitle="스크립트"
         rightButton={<WriteButton path="/script/new" />}
       ></Header>
       <div className={"sort-option"}>
@@ -32,7 +32,7 @@ const ScriptBoard = () => {
         </div>
       </div>
       <TextPreviewList to="/script/content" posts={dummyPosts} />
-    </Container>
+    </BackGround>
   );
 };
 
