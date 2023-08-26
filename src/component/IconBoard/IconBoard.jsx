@@ -9,8 +9,8 @@ const IconBoard = () => {
   return (
     <Container>
       <Header
-        pageTitle="이모티콘 게시판"
-        rightButton={<WriteButton path="/script/new" />}
+        pageTitle="아이콘 게시판"
+        rightButton={<WriteButton path="/icon/new" />}
       />
       <IconGallaryView />
     </Container>

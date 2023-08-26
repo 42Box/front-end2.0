@@ -5,6 +5,7 @@ import Auth from "./component/Auth/Auth";
 import MyPage from "./component/MyPage/MyPage";
 import ScriptBoard from "./component/ScriptBoard/ScriptBoard";
 import IconBoard from "./component/IconBoard/IconBoard";
+import IconBoardNew from "./component/IconBoard/IconBoardNew";
 import ServiceRegisterBoard from "./component/ServiceRegisterBoard/ServiceRegisterBoard";
 import ScriptBoardNew from "./component/ScriptBoard/ScriptBoardNew";
 import ScriptBoardContent from "./component/ScriptBoard/ScriptBoardContent";
@@ -24,7 +25,7 @@ const App = () => {
         element={<ServiceRegisterBoard />}
       />
       <Route path="/script/new" element={<ScriptBoardNew />} />
-      {/* <Route path="/icon/new" element={<IconBoardNew />} />  */}
+      <Route path="/icon/new" element={<IconBoardNew />} />
       {/* <Route path="/service-register/new" element={<ServiceRegisterBoardNew />} /> */}
       <Route path="/script/content/:id" element={<ScriptBoardContent />} />
       {/* <Route path="/icon/content/:id" element={<IconBoardContent />} /> */}

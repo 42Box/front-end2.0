@@ -11,6 +11,7 @@
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
     "axios": "^1.4.0",
+    "chakra": "^0.0.3",
     "framer-motion": "^10.16.1",
     "i": "^0.3.7",
     "msw": "^1.2.3",
