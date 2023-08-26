@@ -20,12 +20,8 @@ const RandingPage = () => {
         <LoginHeader />
         <AdBanner />
         <ScriptBoardPreview />
-        <Box marginTop={{ base: "20px", md: "40px" }}>
-          <IconBoardPreview />
-        </Box>
-        <Box marginTop={{ base: "20px", md: "40px" }}>
-          <ServiceRegisterBoardPreview />
-        </Box>
+        <IconBoardPreview />
+        <ServiceRegisterBoardPreview />
         <Flex minHeight="calc(100vh * 0.1)" alignItems="baseline">
           {/* Footer 내용 */}
         </Flex>
