@@ -11,7 +11,6 @@ const IconBoardNew = () => {
   const fileInput = useRef(null);
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
-
   const [imgPreview, setImgPreview] = useState([]);
   const [openAlert, setOpenAlert] = useState(false);
 
@@ -40,13 +39,9 @@ const IconBoardNew = () => {
     }
   };
 
-  const fileInputClick = () => {
-    fileInput.current.click();
-  };
-
   const fileHandler = (event) => {
     onChangeHandler(event);
-    const files = Array.from(event.target.files);
+    const files = Array.from(event.target.files); // 밑에서 forEach를 쓰려면 array로 만들어야함
 
     console.log(files);
     if (files && files.length > 0) {
@@ -79,10 +74,22 @@ const IconBoardNew = () => {
   const submitHandler = async (event) => {
     event.preventDefault();
     try {
-      if (title.length < 2 || file === "" || title.length < 2) {
+      if (title.length < 2 || file.length < 1 || title.length < 2) {
         setOpenAlert(true);
         return;
       }
+      // 파일 용량 체크
+      const maxSize = 500 * 1024; // 500kb
+      const totalSize = file.reduce(
+        (total, uploadedFile) => total + uploadedFile.size,
+        0,
+      );
+
+      if (totalSize > maxSize) {
+        setOpenAlert(true);
+        return;
+      }
+
       await axios.post(
         "https://42box.site/api/user-service/boards/icon-boards",
         board,
@@ -107,7 +114,13 @@ const IconBoardNew = () => {
           ></input>
         </div>
         <Box>
-          <Button colorScheme="orange" size="sm" onClick={fileInputClick}>
+          <Button
+            colorScheme="orange"
+            size="sm"
+            onClick={() => {
+              fileInput.current.click();
+            }}
+          >
             ﹢ 파일 선택
           </Button>
           <input
