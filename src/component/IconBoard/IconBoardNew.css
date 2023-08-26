@@ -1,54 +1,43 @@
 .form-control {
     margin: 0.5rem 0;
+    background-color: white;
 }
 
-.form-control label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 0.5rem;
+.line {
+    position: relative;
 }
 
-.form-control input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #c4c4c4;
-    font-size: 14px;
-    line-height: 1;
+.line::before,
+.line::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: grey; /* 원하는 색상으로 변경 */
 }
 
-.form-control textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #c8c8c8;
-    font-size: 14px;
+.line::before {
+    top: 0;
 }
 
-.form-control input:focus {
-    outline: none;
-    background: #ffffff;
-    border-color: #b9b9b9;
+.line::after {
+    bottom: 0;
 }
 
-.form-control textarea:focus {
-    outline: none;
-    background: #ffffff;
-    border-color: #b9b9b9;
+input::placeholder {
+    color: #C7C7C7;
+    opacity: 1;
+    font-size: 30px;
+    position: absolute;
+    left: 20px;
 }
 
-.form-control.invalid input {
-    border-color: red;
-    background: rgb(255, 150, 150);
-}
-
-.form-control.invalid textarea {
-    border-color: red;
-    background: rgb(255, 150, 150);
-}
-
-.form-control.invalid label {
-    color: red;
+textarea::placeholder {
+    color: #C7C7C7;
+    opacity: 1;
+    font-size: 22px;
+    position: absolute;
+    top: 30px;
+    left: 20px;
 }

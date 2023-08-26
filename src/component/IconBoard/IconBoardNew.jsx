@@ -1,11 +1,17 @@
-import Container from "../Util/Container";
-import Header from "../Util/Header";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Box, Button, Text, useDisclosure } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Stack,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import AlertModal from "./AlertModal";
 import ImagePreviewItem from "./ImgPreviewItem";
+import "./IconBoardNew.css";
 
 const IconBoardNew = () => {
   const fileInput = useRef(null);
@@ -21,7 +27,7 @@ const IconBoardNew = () => {
     description: "",
   });
 
-  const { title, file, description } = board;
+  const { title, file, description } = board; // 밑에서 board.title 대신 그냥 title로 활용 가능
 
   const onChangeHandler = (event) => {
     let { name, value } = event.target;
@@ -75,7 +81,7 @@ const IconBoardNew = () => {
   const submitHandler = async (event) => {
     event.preventDefault();
     try {
-      if (title.length < 2 || file.length < 1 || title.length < 2) {
+      if (title.length < 2 || file.length < 1 || description.length < 10) {
         setFailAlert(true);
         return;
       }
@@ -105,59 +111,92 @@ const IconBoardNew = () => {
 
   return (
     <form onSubmit={submitHandler}>
-      <Container>
-        <Header pageTitle="아이콘 게시판 글쓰기"></Header>
-        <div className={`form-control ${title.length > 2 ? "" : "invalid"}`}>
+      <Box>
+        <div style={{ minHeight: "8vh" }}>
+          <Stack direction="row" spacing={3} fontSize="30" marginLeft="20px">
+            <div>스크립트</div>
+            <div>아이콘</div>
+            <div>서비스 등록</div>
+          </Stack>
+        </div>
+        <div className="line">
           <input
             name="title"
             placeholder="제목을 입력하세요."
             onChange={onChangeHandler}
-          ></input>
-        </div>
-        <Box>
-          <Button
-            colorScheme="orange"
-            size="sm"
-            onClick={() => {
-              fileInput.current.click();
+            style={{
+              minWidth: "100%",
+              minHeight: "10vh",
+              overflow: "visible",
+              border: "hidden",
+              backgroundColor: "white",
             }}
-          >
-            ﹢ 파일 선택
-          </Button>
-          <input
-            type="file"
-            name="file" // name이 위에서 쓰임. 꼭 필요
-            accept="image/png"
-            hidden={true}
-            ref={fileInput}
-            onChange={fileHandler}
-          />
-        </Box>
-        <div style={{ display: "flex" }}>
-          {imgPreview &&
-            imgPreview.length > 0 &&
-            imgPreview.map((img, index) => (
-              <ImagePreviewItem
-                key={index}
-                img={img}
-                index={index}
-                onDelete={deleteFileHandler}
-              />
-            ))}
-        </div>
-        <div
-          className={`form-control ${description.length > 2 ? "" : "invalid"}`}
-        >
+          ></input>
+          <Box marginLeft="20px">
+            <Button
+              colorScheme="orange"
+              size="md"
+              onClick={() => {
+                fileInput.current.click();
+              }}
+            >
+              ﹢ 파일 선택
+            </Button>
+            <input
+              type="file"
+              name="file" // name이 위에서 쓰임. 꼭 필요
+              accept="image/png"
+              hidden={true}
+              ref={fileInput}
+              onChange={fileHandler}
+            />
+          </Box>
+          <div style={{ display: "flex" }}>
+            {imgPreview &&
+              imgPreview.length > 0 &&
+              imgPreview.map((img, index) => (
+                <ImagePreviewItem
+                  key={index}
+                  img={img}
+                  index={index}
+                  onDelete={deleteFileHandler}
+                />
+              ))}
+          </div>
           <textarea
             name="description"
-            placeholder="내용을 입력하세요."
+            placeholder="본문 내용을 10자 이상 입력하세요."
             onChange={onChangeHandler}
+            style={{
+              minWidth: "100%",
+              minHeight: "70vh",
+              overflow: "visible",
+              border: "hidden",
+              backgroundColor: "white",
+            }}
           ></textarea>
         </div>
-        <button type="submit" onClick={onOpen}>
-          등록
-        </button>
-      </Container>
+        <Flex
+          width="100%"
+          height="100%"
+          justifyContent="flex-end"
+          marginTop="20px"
+        >
+          <Button
+            type="submit"
+            onClick={onOpen}
+            width="93px"
+            height="33px"
+            padding="13px 5px"
+            borderRadius="20px"
+            borderWidth="1px"
+            marginRight="10px"
+            marginLeft="10px"
+          >
+            등록
+          </Button>
+        </Flex>
+      </Box>
       {failAlert === true && (
         <AlertModal open={isOpen} close={onClose} header={"❌Denied❌"}>
           <Text>확인해주세요!</Text>

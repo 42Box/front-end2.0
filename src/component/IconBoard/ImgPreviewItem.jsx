@@ -9,11 +9,17 @@ const ImagePreviewItem = ({ img, index, onDelete }) => {
         style={{
           width: "auto",
           height: "auto",
-          maxWidth: "80px",
-          maxHeight: "80px",
+          maxWidth: "50px",
+          maxHeight: "50px",
+          marginLeft: "25px",
         }}
       />
-      <Button size="xs" variant="ghost" onClick={() => onDelete(index)}>
+      <Button
+        size="xs"
+        variant="ghost"
+        onClick={() => onDelete(index)}
+        marginLeft="25px"
+      >
         ❌
       </Button>
     </div>
