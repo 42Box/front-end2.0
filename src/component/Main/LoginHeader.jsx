@@ -24,15 +24,17 @@ export const LoginHeader = () => {
 
   return (
     <Flex
+      height="45px"
       justifyContent="space-between"
       alignItems="center"
       background="#FFFFFF"
       borderRadius="10px"
       mb="20px"
     >
-      <Flex alignItems="center">
+      <Flex alignItems="center" height="100%">
         {/* 로고 아이콘 */}
         <Flex
+          height="100%"
           display="inline-flex"
           padding="13px 8px"
           flexDirection="column"
@@ -52,7 +54,7 @@ export const LoginHeader = () => {
           42Box
         </Text>
       </Flex>
-      <Flex alignItems="center">
+      <Flex alignItems="center" height="100%">
         {/* 마이페이지 아이콘 */}
         {!loginStateValue && (
           <Link to="/my-page">
@@ -62,26 +64,28 @@ export const LoginHeader = () => {
         <Box marginLeft="15px" />
         {/* 로그인 버튼 */}
         {!loginStateValue ? (
-          <a href="https://api.42box.site/auth-service/oauth2/authorization/42api">
-            <Box
-              display="inline-flex"
-              padding="7px 16px"
-              justifyContent="center"
-              alignItems="center"
-              gap="10px"
-              borderRadius="47px"
-              border="1.5px solid var(--main-orange, #FF9548)"
-              background="var(--light-orange, #FFEDE0)"
-              color="var(--main-orange, #FF9548)"
-            >
+          <Box
+            height="100%"
+            display="inline-flex"
+            padding="7px 16px"
+            justifyContent="center"
+            alignItems="center"
+            gap="10px"
+            borderRadius="47px"
+            border="1.5px solid var(--main-orange, #FF9548)"
+            background="var(--light-orange, #FFEDE0)"
+            color="var(--main-orange, #FF9548)"
+          >
+            <a href="https://api.42box.site/auth-service/oauth2/authorization/42api">
               <Text fontSize="16px" fontWeight="700" letterSpacing="0.05em">
                 로그인
               </Text>
-            </Box>
-          </a>
+            </a>
+          </Box>
         ) : (
           // 로그아웃 버튼
           <Box
+            height="100%"
             onClick={logoutHandler}
             display="inline-flex"
             padding="7px 16px"
