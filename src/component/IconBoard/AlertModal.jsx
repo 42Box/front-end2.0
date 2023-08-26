@@ -7,10 +7,9 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  Text,
 } from "@chakra-ui/react";
 
-const AlertModal = ({ open, close }) => {
+const AlertModal = ({ open, close, header, children }) => {
   return (
     <Modal isOpen={open} onClose={close}>
       <ModalOverlay
@@ -18,14 +17,9 @@ const AlertModal = ({ open, close }) => {
         backdropFilter="blur(10px) hue-rotate(90deg)"
       />
       <ModalContent>
-        <ModalHeader textAlign="center">❌Denied❌</ModalHeader>
+        <ModalHeader textAlign="center">{header}</ModalHeader>
         <ModalCloseButton />
-        <ModalBody textAlign="center">
-          <Text>확인해주세요!</Text>
-          <Text>✅.png 이미지를 잘 첨부했나요?</Text>
-          <Text>✅총 용량이 500KB 이하인가요?</Text>
-          <Text>✅제목과 내용이 2자 이상인가요?</Text>
-        </ModalBody>
+        <ModalBody textAlign="center">{children}</ModalBody>
         <ModalFooter>
           <Button onClick={close}>Close</Button>
         </ModalFooter>

@@ -3,7 +3,7 @@ import Header from "../Util/Header";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Box, Button, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, Text, useDisclosure } from "@chakra-ui/react";
 import AlertModal from "./AlertModal";
 import ImagePreviewItem from "./ImgPreviewItem";
 
@@ -12,7 +12,8 @@ const IconBoardNew = () => {
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [imgPreview, setImgPreview] = useState([]);
-  const [openAlert, setOpenAlert] = useState(false);
+  const [failAlert, setFailAlert] = useState(false);
+  const [successAlert, setSuccessAlert] = useState(false);
 
   const [board, setBoard] = useState({
     title: "",
@@ -75,7 +76,7 @@ const IconBoardNew = () => {
     event.preventDefault();
     try {
       if (title.length < 2 || file.length < 1 || title.length < 2) {
-        setOpenAlert(true);
+        setFailAlert(true);
         return;
       }
       // 파일 용량 체크
@@ -86,7 +87,7 @@ const IconBoardNew = () => {
       );
 
       if (totalSize > maxSize) {
-        setOpenAlert(true);
+        setFailAlert(true);
         return;
       }
 
@@ -94,8 +95,8 @@ const IconBoardNew = () => {
         "https://42box.site/api/user-service/boards/icon-boards",
         board,
       );
-      setOpenAlert(false);
-      navigate("/icon/board");
+      setFailAlert(false);
+      setSuccessAlert(true);
     } catch (Error) {
       alert("post 실패"); // 임시
       // post 에러 처리
@@ -157,7 +158,26 @@ const IconBoardNew = () => {
           등록
         </button>
       </Container>
-      {openAlert === true && <AlertModal open={isOpen} close={onClose} />}
+      {failAlert === true && (
+        <AlertModal open={isOpen} close={onClose} header={"❌Denied❌"}>
+          <Text>확인해주세요!</Text>
+          <Text>✅ .png 이미지를 잘 첨부했나요?</Text>
+          <Text>✅ 총 용량이 500KB 이하인가요?</Text>
+          <Text>✅ 제목과 내용이 2자 이상인가요?</Text>
+        </AlertModal>
+      )}
+      {successAlert === true && (
+        <AlertModal
+          open={successAlert}
+          close={() => {
+            setSuccessAlert(false);
+            navigate("/icon/board");
+          }}
+          header={"⭕Success⭕"}
+        >
+          <Text>성공적으로 등록되었습니다!</Text>
+        </AlertModal>
+      )}
     </form>
   );
 };
