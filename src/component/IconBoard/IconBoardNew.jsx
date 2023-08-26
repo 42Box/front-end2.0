@@ -1,21 +1,23 @@
 import Container from "../Util/Container";
 import Header from "../Util/Header";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useDisclosure } from "@chakra-ui/react";
+import { Box, Button, useDisclosure } from "@chakra-ui/react";
 import AlertModal from "./AlertModal";
+import ImagePreviewItem from "./ImgPreviewItem";
 
 const IconBoardNew = () => {
+  const fileInput = useRef(null);
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const [imgPreview, setImgPreview] = useState(null);
+  const [imgPreview, setImgPreview] = useState([]);
   const [openAlert, setOpenAlert] = useState(false);
 
   const [board, setBoard] = useState({
     title: "",
-    file: "",
+    file: [],
     description: "",
   });
 
@@ -25,26 +27,53 @@ const IconBoardNew = () => {
     let { name, value } = event.target;
 
     if (name === "file") {
-      value = event.target.files?.[0];
+      const newFiles = [...board.file, ...event.target.files];
+      setBoard({
+        ...board,
+        [name]: newFiles,
+      });
+    } else {
+      setBoard({
+        ...board,
+        [name]: value,
+      });
     }
-    setBoard({
-      ...board,
-      [name]: value,
-    });
+  };
+
+  const fileInputClick = () => {
+    fileInput.current.click();
   };
 
   const fileHandler = (event) => {
     onChangeHandler(event);
-    const file = event.target.files[0];
-    const reader = new FileReader();
+    const files = Array.from(event.target.files);
 
-    if (file) reader.readAsDataURL(file);
+    console.log(files);
+    if (files && files.length > 0) {
+      const reader = new FileReader();
 
-    reader.onloadend = () => {
-      const previewImgUrl = reader.result;
+      // 파일 여러개 처리
+      files.forEach((f) => {
+        reader.readAsDataURL(f);
 
-      if (previewImgUrl) setImgPreview(previewImgUrl);
-    };
+        reader.onloadend = () => {
+          const previewImgUrl = reader.result;
+          if (previewImgUrl) setImgPreview([...imgPreview, previewImgUrl]);
+          event.target.value = ""; // 지웠다가 다시 똑같은걸 올릴 때 필요.
+        };
+      });
+    }
+  };
+
+  const deleteFileHandler = (index) => {
+    const newFiles = file.filter((f, idx) => idx !== index);
+    const newImgPreview = imgPreview.filter((f, idx) => idx !== index);
+
+    setBoard({
+      ...board,
+      file: [...newFiles],
+    });
+    setImgPreview([...newImgPreview]);
   };
 
   const submitHandler = async (event) => {
@@ -77,19 +106,31 @@ const IconBoardNew = () => {
             onChange={onChangeHandler}
           ></input>
         </div>
-        <input
-          type="file"
-          name="file"
-          accept="image/png"
-          onChange={fileHandler}
-        />
-        {imgPreview && (
-          <img
-            src={imgPreview}
-            alt="preview"
-            style={{ width: "200px", height: "200px" }}
+        <Box>
+          <Button colorScheme="orange" size="sm" onClick={fileInputClick}>
+            ﹢ 파일 선택
+          </Button>
+          <input
+            type="file"
+            name="file" // name이 위에서 쓰임. 꼭 필요
+            accept="image/png"
+            hidden={true}
+            ref={fileInput}
+            onChange={fileHandler}
           />
-        )}
+        </Box>
+        <div style={{ display: "flex" }}>
+          {imgPreview &&
+            imgPreview.length > 0 &&
+            imgPreview.map((img, index) => (
+              <ImagePreviewItem
+                key={index}
+                img={img}
+                index={index}
+                onDelete={deleteFileHandler}
+              />
+            ))}
+        </div>
         <div
           className={`form-control ${description.length > 2 ? "" : "invalid"}`}
         >
