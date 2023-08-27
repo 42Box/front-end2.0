@@ -1,7 +1,7 @@
 import { Text, Flex } from "@chakra-ui/react";
 import { ReactComponent as LikeIcon } from "../../asset/like.svg";
 import { ReactComponent as MsgIcon } from "../../asset/message.svg";
-import IconAndCount from "./LikeAndComment";
+import IconAndCount from "../Util/IconAndCount";
 
 const MainTextPreview = () => {
   return (
