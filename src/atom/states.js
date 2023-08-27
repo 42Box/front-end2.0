@@ -4,10 +4,12 @@ import { atom } from "recoil";
 export const userState = atom({
   key: "userState",
   default: {
-    userUuid: null,
-    userNickname: null,
+    uuid: null,
+    nickname: null,
     theme: null,
     icon: null,
+    urlList: null,
+    profileImage: null,
   },
 });
 
