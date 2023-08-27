@@ -12,7 +12,7 @@ const Header = (props) => {
       <Text fontSize="30px" fontWeight="700" marginLeft="32px" marginTop="45px">
         {props.pageTitle}
       </Text>
-      <span className="right-button">{props.rightButton}</span>
+      {props.rightButton}
     </Flex>
   );
 };
