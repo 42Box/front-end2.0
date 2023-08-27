@@ -1,8 +1,10 @@
-import { Link } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { userState, loginState } from "../../atom/states";
-import { Box, Flex, Icon, Text } from "@chakra-ui/react";
-import { ReactComponent as MyPageIcon } from "../../asset/my-page-icon.svg";
+import { Box, Flex } from "@chakra-ui/react";
+import Logo from "./Logo";
+import MainTitle from "./MainTitle";
+import MyPageIcon from "./MyPageIcon";
+import LoginButton from "./LoginButton";
 
 export const LoginHeader = () => {
   const [loginStateValue, setLoginStateValue] = useRecoilState(loginState);
@@ -11,13 +13,16 @@ export const LoginHeader = () => {
   const logoutHandler = () => {
     setLoginStateValue(false);
     setUserStateValue({
-      userUuid: null,
-      userNickname: null,
+      uuid: null,
+      nickname: null,
       theme: null,
       icon: null,
+      urlList: null,
+      profileImage: null,
     });
 
-    document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie =
+      "box-auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
     console.log("logged out!");
   };
@@ -32,80 +37,17 @@ export const LoginHeader = () => {
       mb="20px"
     >
       <Flex alignItems="center" height="100%">
-        {/* 로고 아이콘 */}
-        <Flex
-          height="100%"
-          display="inline-flex"
-          padding="13px 8px"
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
-          gap="10px"
-          borderRadius="10px"
-          background="#FF9548"
-        >
-          <Text color="#FFF" fontSize="12px" fontWeight="700">
-            Logo
-          </Text>
-        </Flex>
+        <Logo />
         <Box marginLeft="10px" />
-        {/* 페이지 타이틀 */}
-        <Text fontSize="30px" fontWeight="700" display="inline-flex">
-          42Box
-        </Text>
+        <MainTitle />
       </Flex>
       <Flex alignItems="center" height="100%">
-        {/* 마이페이지 아이콘 */}
-        {!loginStateValue && (
-          <Link to="/my-page">
-            <Icon as={MyPageIcon} w={6} h={6} display="inline-flex" />
-          </Link>
-        )}
+        <MyPageIcon loginStateValue={loginStateValue} />
         <Box marginLeft="15px" />
-        {/* 로그인 버튼 */}
-        {!loginStateValue ? (
-          <Box
-            height="100%"
-            display="inline-flex"
-            padding="7px 16px"
-            justifyContent="center"
-            alignItems="center"
-            gap="10px"
-            borderRadius="47px"
-            border="1.5px solid var(--main-orange, #FF9548)"
-            background="var(--light-orange, #FFEDE0)"
-            color="var(--main-orange, #FF9548)"
-          >
-            <a href="https://api.42box.site/auth-service/oauth2/authorization/42api">
-              <Text fontSize="16px" fontWeight="700" letterSpacing="0.05em">
-                로그인
-              </Text>
-            </a>
-          </Box>
-        ) : (
-          // 로그아웃 버튼
-          <Box
-            height="100%"
-            onClick={logoutHandler}
-            display="inline-flex"
-            padding="7px 16px"
-            justifyContent="center"
-            alignItems="center"
-            gap="10px"
-            borderRadius="47px"
-            border="1px solid var(--dg-02, #CECECE)"
-          >
-            <Text
-              color="var(--dg-03, #8E8E8E)"
-              fontSize="16px"
-              fontWeight="700"
-              letterSpacing="-0.02em"
-              textTransform="uppercase"
-            >
-              로그아웃
-            </Text>
-          </Box>
-        )}
+        <LoginButton
+          loginStateValue={loginStateValue}
+          logoutHandler={logoutHandler}
+        />
       </Flex>
     </Flex>
   );

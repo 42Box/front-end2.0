@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { loginState } from "../../atom/states";
+import { useRecoilValue } from "recoil";
 import { Flex } from "@chakra-ui/react";
 import Header from "../Util/Header";
 import WriteButton from "../Util/Button/WriteButton";
@@ -15,6 +17,7 @@ const ScriptBoard = () => {
   const [newestClicked, setNewestClicked] = useState(false);
   const [popularClicked, setPopularClicked] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
+  const loginStateValue = useRecoilValue(loginState);
 
   const toggleFilter = () => {
     setFilterClicked(!filterClicked);
@@ -45,7 +48,7 @@ const ScriptBoard = () => {
     <BackGround>
       <Header
         pageTitle="스크립트"
-        rightButton={<WriteButton path="/script/new" />}
+        rightButton={loginStateValue && <WriteButton path="/script/new" />}
       />
       <Flex height="78.7px">
         <FilterButton
