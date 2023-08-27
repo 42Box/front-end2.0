@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const TextPreviewList = (props) => {
   return (
-    <ul className={"previews"}>
+    <ul>
       {props.posts.map((post) => (
         <Link to={`${props.to}/${post.id}`} key={post.id}>
           <TextPreview
