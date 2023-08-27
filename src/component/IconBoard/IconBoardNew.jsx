@@ -97,6 +97,7 @@ const IconBoardNew = () => {
         return;
       }
 
+      // 파일 어떻게 변환해서 줄지 (그 자체로 객체에 담아서 / base64로 인코딩 / 이미지 url 등)
       await axios.post(
         "https://42box.site/api/user-service/boards/icon-boards",
         board,
