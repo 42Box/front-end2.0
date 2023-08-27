@@ -1,11 +1,19 @@
 import "./Header.css";
+import { Flex, Text } from "@chakra-ui/react";
 
 const Header = (props) => {
   return (
-    <div className="header">
-      <h1 className="pageTitle">{props.pageTitle}</h1>
-      <span className="right-button">{props.rightButton}</span>
-    </div>
+    <Flex
+      height="114px"
+      width="100%"
+      borderBottom="1px solid #C7C7C7"
+      justifyContent="space-between"
+    >
+      <Text fontSize="30px" fontWeight="700" marginLeft="32px" marginTop="45px">
+        {props.pageTitle}
+      </Text>
+      {props.rightButton}
+    </Flex>
   );
 };
 
