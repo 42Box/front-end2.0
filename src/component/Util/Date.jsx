@@ -1,17 +1,15 @@
-import "./Date.css";
+import { Text } from "@chakra-ui/react";
 
-const Date = (props) => {
-  const month = props.date.toLocaleString("en-US", { month: "long" });
-  const day = props.date.toLocaleString("en-US", { day: "2-digit" });
+const DateComponent = (props) => {
   const year = props.date.getFullYear();
+  const month = (props.date.getMonth() + 1).toString().padStart(2, "0");
+  const day = props.date.getDate().toString().padStart(2, "0");
 
   return (
-    <span>
-      <span className="date__month">{month}</span>
-      <span className="date__day">{day}</span>
-      <span className="date__year">{year}</span>
-    </span>
+    <Text>
+      {year}. {month}. {day}
+    </Text>
   );
 };
 
-export default Date;
+export default DateComponent;
