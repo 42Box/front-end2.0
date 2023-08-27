@@ -18,22 +18,15 @@ const useOAuth = () => {
       urlList: data.urlList,
       profileImage: data.profileImage,
     };
+    console.log("login success!!!");
+    console.log(newUser);
     setUserState(newUser);
     setLoginState(true);
     window.localStorage.setItem("user", JSON.stringify(newUser));
-
-    const jwtToken = response.headers
-      .get("Set-Cookie")
-      .split(";")
-      .find((cookie) => cookie.trim().startsWith("box-auth="))
-      .split("=")[1];
-
-    document.cookie = `box-auth=${jwtToken}; expires=${new Date(
-      data.expiresAt
-    ).toUTCString()}; path=/`;
   };
 
   const onFailure = (error) => {
+    console.log("login failed!!!!");
     const errorCode = parseInt(error?.response?.data?.errorCode, 10);
     const [title, message] = ["dummy error", "dummy error message"];
     window.localStorage.setItem(
