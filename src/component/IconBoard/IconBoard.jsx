@@ -3,7 +3,7 @@ import "./IconBoard.css";
 import Container from "../Util/Container";
 import Header from "../Util/Header";
 import WriteButton from "../Util/Button/WriteButton";
-import IconGallaryView from "./IconGalleryView";
+import IconGalleryView from "./IconGalleryView";
 
 const IconBoard = () => {
   // const [iconList, setIconList] = useState([]);
@@ -25,7 +25,7 @@ const IconBoard = () => {
         pageTitle="아이콘 게시판"
         rightButton={<WriteButton path="/icon/new" />}
       />
-      <IconGallaryView />
+      <IconGalleryView />
     </Container>
   );
 };
