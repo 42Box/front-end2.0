@@ -6,10 +6,12 @@ export const handlers = [
       console.log("intercept request!");
       return res(
         ctx.json({
-          userUuid: "uu1234",
-          userNickname: "jiyun",
-          theme: 1,
-          icon: 1,
+          uuid: "1ec38349-8899-4cf7-8fd0-6789332c54a8",
+          nickname: "jiyun",
+          theme: 0,
+          icon: "fox",
+          urlList: {},
+          profileImage: null,
         }),
       );
     },
