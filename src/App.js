@@ -20,6 +20,7 @@ const App = () => {
       <Route path="/my-page" element={<MyPage />} />
       <Route path="/script/board" element={<ScriptBoard />} />
       <Route path="/icon/board" element={<IconBoard />} />
+      <Route path="/icon/board/:id" element={<RandingPage />} />
       <Route
         path="/service-register/board"
         element={<ServiceRegisterBoard />}
