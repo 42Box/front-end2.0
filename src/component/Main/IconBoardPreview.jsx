@@ -5,16 +5,17 @@ import axios from "axios";
 
 const IconBoardPreview = () => {
   const navigate = useNavigate();
+
   const onClickHandler = async (icon) => {
     const response = await axios.put(
       "https://api.42box.site/user-service/users/me/icon",
-      {
-        icon: icon,
-      },
+      { icon: icon },
       { withCredentials: true },
     );
+
     if (response.status === 200) {
       navigate("/icon/board/" + icon);
+      window.location.reload();
       // 추후 성공 모달("아이콘이 바뀌었습니다")
     } else {
       // 추후 실패 모달

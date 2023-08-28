@@ -23,4 +23,12 @@ export const handlers = [
       return res(ctx.status(201));
     },
   ),
+
+  rest.put(
+    "https://api.42box.site/user-service/users/me/icon",
+    (req, res, ctx) => {
+      console.log(req.json());
+      return res(ctx.status(200));
+    },
+  ),
 ];
