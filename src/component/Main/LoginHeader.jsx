@@ -24,6 +24,7 @@ export const LoginHeader = () => {
     document.cookie =
       "box-auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
+    window.localStorage.removeItem("loginState");
     console.log("logged out!");
   };
 
