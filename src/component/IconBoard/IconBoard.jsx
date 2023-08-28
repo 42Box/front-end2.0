@@ -4,8 +4,6 @@ import Container from "../Util/Container";
 import Header from "../Util/Header";
 import WriteButton from "../Util/Button/WriteButton";
 import IconGallaryView from "./IconGalleryView";
-import { useEffect, useState } from "react";
-import axios from "axios";
 
 const IconBoard = () => {
   // const [iconList, setIconList] = useState([]);
