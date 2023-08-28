@@ -1,0 +1,43 @@
+.form-control {
+    margin: 0.5rem 0;
+    background-color: white;
+}
+
+.line {
+    position: relative;
+}
+
+.line::before,
+.line::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: grey; /* 원하는 색상으로 변경 */
+}
+
+.line::before {
+    top: 0;
+}
+
+.line::after {
+    bottom: 0;
+}
+
+input::placeholder {
+    color: #C7C7C7;
+    opacity: 1;
+    font-size: 30px;
+    position: absolute;
+    left: 20px;
+}
+
+textarea::placeholder {
+    color: #C7C7C7;
+    opacity: 1;
+    font-size: 22px;
+    position: absolute;
+    top: 30px;
+    left: 20px;
+}
