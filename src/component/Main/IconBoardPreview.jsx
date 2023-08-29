@@ -7,17 +7,11 @@ const IconBoardPreview = () => {
   const navigate = useNavigate();
 
   const onClickHandler = async (icon) => {
-    const response = await axios.put(
-      "https://api.42box.site/user-service/users/me/icon",
-      { icon: icon },
-      { withCredentials: true },
-    );
-
-    if (response.status === 200) {
-      navigate("/icon/board/" + icon);
-      window.location.reload();
+    try {
+      await window.webkit.messageHandlers.icon.postMessage(icon);
       // 추후 성공 모달("아이콘이 바뀌었습니다")
-    } else {
+    } catch (error) {
+      console.error("Error changing icon:", error);
       // 추후 실패 모달
     }
   };

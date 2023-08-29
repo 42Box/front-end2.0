@@ -27,8 +27,8 @@ const ScriptBoardContent = () => {
 
   const downloadFile = async (path) => {
     try {
-
-      window.webkit.messageHandlers.download.postMessage(path);
+      await window.webkit.messageHandlers.download.postMessage(path);
+      // 추후 성공 모달("스크립트를 다운받았습니ㄷ")
     } catch (error) {
       console.error("Error downloading file:", error);
       // 추후 실패 모달
