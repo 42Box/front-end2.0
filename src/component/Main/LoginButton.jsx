@@ -1,14 +1,14 @@
 import React from "react";
 import { Box, Text } from "@chakra-ui/react";
-import { SetUserState } from "../../mocks/fetchData";
+// import { SetUserState } from "../../mocks/fetchData";
 
-const LoginButton = ({
-  loginStateValue,
-  setLoginStateValue,
-  setUserStateValue,
-  logoutHandler,
-}) => {
-  // const LoginButton = ({ loginStateValue, logoutHandler }) => {
+// const LoginButton = ({
+//   loginStateValue,
+//   setLoginStateValue,
+//   setUserStateValue,
+//   logoutHandler,
+// }) => {
+const LoginButton = ({ loginStateValue, logoutHandler }) => {
   const commonButtonStyles = {
     height: "100%",
     display: "inline-flex",
@@ -49,27 +49,27 @@ const LoginButton = ({
           </Text>
         </Box>
       ) : (
-        // <Box {...commonButtonStyles} {...loginButtonStyles}>
-        //   <a href="https://api.42box.site/auth-service/oauth2/authorization/42api">
-        //     <Text fontSize="16px" fontWeight="700" letterSpacing="0.05em">
-        //       로그인
-        //     </Text>
-        //   </a>
-        // </Box>
-        <Box
-          {...commonButtonStyles}
-          {...loginButtonStyles}
-          onClick={() =>
-            SetUserState({
-              setLoginStateValue,
-              setUserStateValue,
-            })
-          }
-        >
-          <Text fontSize="16px" fontWeight="700" letterSpacing="0.05em">
-            로그인
-          </Text>
+        <Box {...commonButtonStyles} {...loginButtonStyles}>
+          <a href="https://api.42box.site/auth-service/oauth2/authorization/42api">
+            <Text fontSize="16px" fontWeight="700" letterSpacing="0.05em">
+              로그인
+            </Text>
+          </a>
         </Box>
+        // <Box
+        //   {...commonButtonStyles}
+        //   {...loginButtonStyles}
+        //   onClick={() =>
+        //     SetUserState({
+        //       setLoginStateValue,
+        //       setUserStateValue,
+        //     })
+        //   }
+        // >
+        //   <Text fontSize="16px" fontWeight="700" letterSpacing="0.05em">
+        //     로그인
+        //   </Text>
+        // </Box>
       )}
     </Box>
   );
