@@ -22,7 +22,16 @@ const useOAuth = () => {
     console.log(newUser);
     setUserState(newUser);
     setLoginState(true);
+    window.localStorage.setItem("loginState", "true");
     window.localStorage.setItem("user", JSON.stringify(newUser));
+
+    const send = new Promise((resolve, reject) =>
+      window.webkit.messageHandlers.userProfile.postMessage(
+        JSON.stringify(newUser),
+      ),
+    );
+    send.then((resolve) => console.log("send success:", resolve));
+    send.catch((reject) => console.error("Error downloading file:", reject));
   };
 
   const onFailure = (error) => {
@@ -31,7 +40,7 @@ const useOAuth = () => {
     const [title, message] = ["dummy error", "dummy error message"];
     window.localStorage.setItem(
       "error",
-      JSON.stringify({ title, message: errorCode ? message : error.message })
+      JSON.stringify({ title, message: errorCode ? message : error.message }),
     );
   };
 
