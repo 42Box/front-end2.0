@@ -11,8 +11,17 @@ import ScriptBoardNew from "./component/ScriptBoard/ScriptBoardNew";
 import ScriptBoardContent from "./component/ScriptBoard/ScriptBoardContent";
 import ServiceRegisterBoardContent from "./component/ServiceRegisterBoard/ServiceRegisterBoardContent";
 import NotFound from "./component/Util/NotFound";
+import { useEffect } from "react";
+import { useSetRecoilState } from "recoil";
+import { loginState } from "./atom/states";
 
 const App = () => {
+  const setLoginValue = useSetRecoilState(loginState);
+
+  useEffect(() => {
+    if (localStorage.getItem("loginState")) setLoginValue(true);
+  }, []);
+
   return (
     <Routes>
       <Route path="/" element={<RandingPage />} />

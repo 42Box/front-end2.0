@@ -14,6 +14,7 @@ const ScriptBoardContent = () => {
   // const params = useParams();
   // const { id } = params;
   // api/id 요청해서 없으면 오류메시지
+  const path = "https://42box.kr/user_profile_image/cleanCache.sh"; // 나중에 스크립트 절대 경로를 꺼내오기(?)
 
   const scriptContent =
     "Functions starting with use are called Hooks. " +
@@ -26,9 +27,7 @@ const ScriptBoardContent = () => {
 
   const downloadFile = async (path) => {
     try {
-      window.webkit.messageHandlers.download.postMessage(
-        "https://42box.kr/user_profile_image/cleanCache.sh",
-      );
+      window.webkit.messageHandlers.download.postMessage(path);
     } catch (error) {
       console.error("Error downloading file:", error);
       // 추후 실패 모달
@@ -59,15 +58,7 @@ const ScriptBoardContent = () => {
         <div>{scriptContent}</div>
         <div>
           <div>
-            <button
-              onClick={() =>
-                downloadFile(
-                  "https://42box.kr/user_profile_image/cleanCache.sh",
-                )
-              }
-            >
-              다운로드
-            </button>
+            <button onClick={() => downloadFile(path)}>다운로드</button>
             <button>실행</button>
           </div>
           <div>
