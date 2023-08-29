@@ -11,7 +11,9 @@ export const handlers = [
           theme: 0,
           icon: "fox",
           urlList: {},
-          profileImage: null,
+          statusMessage: "hi",
+          profileImageUrl: null,
+          profileImagePath: null,
         }),
       );
     },

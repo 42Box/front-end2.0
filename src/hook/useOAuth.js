@@ -16,7 +16,9 @@ const useOAuth = () => {
       theme: data.theme,
       icon: data.icon,
       urlList: data.urlList,
-      profileImage: data.profileImage,
+      statusMessage: data.statusMessage,
+      profileImageUrl: data.profileImageUrl,
+      profileImagePath: data.profileImagePath,
     };
     console.log("login success!!!");
     console.log(newUser);

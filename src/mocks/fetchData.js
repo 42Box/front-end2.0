@@ -15,7 +15,9 @@ export const SetUserState = async ({
     theme: data.theme,
     icon: data.icon,
     urlList: data.urlList,
-    profileImage: data.profileImage,
+    statusMessage: data.statusMessage,
+    profileImageUrl: data.profileImageUrl,
+    profileImagePath: data.profileImagePath,
   };
   setLoginStateValue(true);
   setUserStateValue(newUser);
