@@ -1,11 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Flex } from "@chakra-ui/react";
 import BoardPreviewTitle from "./MainPreviewTitle";
-import axios from "axios";
-
 const IconBoardPreview = () => {
-  const navigate = useNavigate();
-
   const onClickHandler = async (icon) => {
     try {
       await window.webkit.messageHandlers.icon.postMessage(icon);
