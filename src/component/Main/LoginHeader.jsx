@@ -49,6 +49,12 @@ export const LoginHeader = () => {
           loginStateValue={loginStateValue}
           logoutHandler={logoutHandler}
         />
+        {/*<LoginButton*/}
+        {/*  loginStateValue={loginStateValue}*/}
+        {/*  setLoginStateValue={setLoginStateValue}*/}
+        {/*  setUserStateValue={setUserStateValue}*/}
+        {/*  logoutHandler={logoutHandler}*/}
+        {/*/>*/}
       </Flex>
     </Flex>
   );
