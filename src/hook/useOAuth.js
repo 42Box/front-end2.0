@@ -23,6 +23,7 @@ const useOAuth = () => {
     setUserState(newUser);
     setLoginState(true);
     window.localStorage.setItem("user", JSON.stringify(newUser));
+    window.localStorage.setItem("loginState", "true");
   };
 
   const onFailure = (error) => {
@@ -31,7 +32,7 @@ const useOAuth = () => {
     const [title, message] = ["dummy error", "dummy error message"];
     window.localStorage.setItem(
       "error",
-      JSON.stringify({ title, message: errorCode ? message : error.message })
+      JSON.stringify({ title, message: errorCode ? message : error.message }),
     );
   };
 

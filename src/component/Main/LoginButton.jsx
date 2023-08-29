@@ -1,6 +1,13 @@
 import React from "react";
 import { Box, Text } from "@chakra-ui/react";
+// import { SetUserState } from "../../mocks/fetchData";
 
+// const LoginButton = ({
+//   loginStateValue,
+//   setLoginStateValue,
+//   setUserStateValue,
+//   logoutHandler,
+// }) => {
 const LoginButton = ({ loginStateValue, logoutHandler }) => {
   const commonButtonStyles = {
     height: "100%",
@@ -49,6 +56,20 @@ const LoginButton = ({ loginStateValue, logoutHandler }) => {
             </Text>
           </a>
         </Box>
+        // <Box
+        //   {...commonButtonStyles}
+        //   {...loginButtonStyles}
+        //   onClick={() =>
+        //     SetUserState({
+        //       setLoginStateValue,
+        //       setUserStateValue,
+        //     })
+        //   }
+        // >
+        //   <Text fontSize="16px" fontWeight="700" letterSpacing="0.05em">
+        //     로그인
+        //   </Text>
+        // </Box>
       )}
     </Box>
   );
