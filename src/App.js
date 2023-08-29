@@ -20,7 +20,7 @@ const App = () => {
 
   useEffect(() => {
     if (localStorage.getItem("loginState")) setLoginValue(true);
-  }, []);
+  }, [setLoginValue]);
 
   return (
     <Routes>
