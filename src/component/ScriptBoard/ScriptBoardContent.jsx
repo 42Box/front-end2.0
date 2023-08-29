@@ -14,8 +14,8 @@ import dummyComments from "../../dummyComments";
 const ScriptBoardContent = () => {
   // const navigate = useNavigate();
   const [openPreview, setOpenPreview] = useState(false);
-  // const params = useParams();
-  // const { id } = params;
+  const params = useParams();
+  const { id } = params;
   // api/id 요청해서 없으면 오류메시지
 
   const scriptContent =
