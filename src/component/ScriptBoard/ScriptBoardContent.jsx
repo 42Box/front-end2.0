@@ -27,6 +27,7 @@ const ScriptBoardContent = () => {
 
   const downloadFile = async (path) => {
     try {
+
       window.webkit.messageHandlers.download.postMessage(path);
     } catch (error) {
       console.error("Error downloading file:", error);
