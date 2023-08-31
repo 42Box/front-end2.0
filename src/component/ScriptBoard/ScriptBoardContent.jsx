@@ -96,13 +96,14 @@ const ScriptBoardContent = () => {
           path: postInfo?.scriptPath,
         },
       );
-      const { savedId, name, description, path } = response.data;
+      const { savedId, name, description, path, userUuid } = response.data;
       window?.webkit?.messageHandlers?.downloadScript?.postMessage(
         JSON.stringify({
           savedId: savedId,
           name: name,
           description: description,
           path: path,
+          userUuid: userUuid,
         }),
       );
       setIsDownLoaded(true);
@@ -179,6 +180,7 @@ const ScriptBoardContent = () => {
                     name: postInfo?.scriptName,
                     description: postInfo?.content,
                     path: postInfo?.scriptPath,
+                    userUuid: postInfo?.userUuid,
                   }),
                 );
               }}
