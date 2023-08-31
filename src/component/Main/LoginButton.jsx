@@ -50,7 +50,7 @@ const LoginButton = ({ loginStateValue, logoutHandler }) => {
         </Box>
       ) : (
         <Box {...commonButtonStyles} {...loginButtonStyles}>
-          <a href="https://api.42box.site/auth-service/oauth2/authorization/42api">
+          <a href="https://api.42box.kr/auth-service/oauth2/authorization/42api">
             <Text fontSize="16px" fontWeight="700" letterSpacing="0.05em">
               로그인
             </Text>

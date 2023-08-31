@@ -64,7 +64,7 @@ const ScriptBoardContent = () => {
     try {
       const response = await apiCall(
         "GET",
-        `https://api.42box.site/board-service/script-boards/${postId}`,
+        `https://api.42box.kr/board-service/script-boards/${postId}`
       );
       setPostInfo(response.data);
       setIsDownLoaded(response?.data?.scriptSaved);
@@ -76,7 +76,7 @@ const ScriptBoardContent = () => {
   // const commentsApiCall = async () => {
   //   try {
   //     const response = await axios.get(
-  //       `https://api.42box.site/board-service/script-boards/${postId}/comments`,
+  //       `https://api.42box.kr/board-service/script-boards/${postId}/comments`,
   //       { params: { page: commentCurPage, size: 2 } },
   //     );
   //     setCommentList(response.data.commentList);
@@ -89,12 +89,12 @@ const ScriptBoardContent = () => {
     try {
       const response = await apiCall(
         "POST",
-        "https://api.42box.site/user-service/users/me/scripts",
+        "https://api.42box.kr/user-service/users/me/scripts",
         {
           name: postInfo?.scriptName,
           description: postInfo?.content,
           path: postInfo?.scriptPath,
-        },
+        }
       );
       const { savedId, name, description, path, userUuid } = response.data;
       window?.webkit?.messageHandlers?.downloadScript?.postMessage(
@@ -104,7 +104,7 @@ const ScriptBoardContent = () => {
           description: description,
           path: path,
           userUuid: userUuid,
-        }),
+        })
       );
       setIsDownLoaded(true);
       successAlert.openAlert({
@@ -121,7 +121,7 @@ const ScriptBoardContent = () => {
     try {
       await apiCall(
         "DELETE",
-        `https://api.42box.site/user-service/users/me/scripts/${postInfo?.myScriptId}`,
+        `https://api.42box.kr/user-service/users/me/scripts/${postInfo?.myScriptId}`
       );
       successAlert.openAlert({
         title: "파일을 삭제했습니다!",
@@ -181,7 +181,7 @@ const ScriptBoardContent = () => {
                     description: postInfo?.content,
                     path: postInfo?.scriptPath,
                     userUuid: postInfo?.userUuid,
-                  }),
+                  })
                 );
               }}
             >
