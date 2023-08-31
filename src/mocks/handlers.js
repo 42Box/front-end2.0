@@ -97,7 +97,7 @@ export const handlers = [
           reportCount: 0,
           commentCount: 0,
           isLiked: 1,
-          scriptSaved: 0,
+          scriptSaved: 1,
           myScriptId: 2,
         }),
       );
