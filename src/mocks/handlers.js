@@ -14,7 +14,7 @@ export const handlers = [
           statusMessage: "hi",
           profileImageUrl: null,
           profileImagePath: null,
-        })
+        }),
       );
     }
   ),
