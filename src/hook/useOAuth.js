@@ -16,6 +16,7 @@ const useOAuth = () => {
       theme: data.theme,
       icon: data.icon,
       urlList: data.urlList,
+      statusMessage: data.statusMessage,
       profileImageUrl: data.profileImageUrl,
       profileImagePath: data.profileImagePath,
     };
