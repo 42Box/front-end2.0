@@ -27,9 +27,10 @@ const ScriptBoardContent = () => {
 
   const errorHandling = (response) => {
     console.log("after: ", response);
-    if (response.status === 400)
+    if (response.status === 400) {
       errorAlert.openAlert({ title: "요청 실패", content: "400💥" });
-    else if (response.status === 401) {
+      console.log("hi");
+    } else if (response.status === 401) {
       errorAlert.openAlert({
         title: "다시 로그인해주세요",
         content: "401💥",
@@ -54,9 +55,9 @@ const ScriptBoardContent = () => {
     }
   };
 
-  const postInfoApiCall = () => {
+  const postInfoApiCall = async () => {
     try {
-      const response = apiCall(
+      const response = await apiCall(
         "GET",
         `https://api.42box.site/board-service/script-boards/${postId}`,
       );
@@ -78,9 +79,9 @@ const ScriptBoardContent = () => {
   //   }
   // };
 
-  const downloadFile = () => {
+  const downloadFile = async () => {
     try {
-      const response = apiCall(
+      const response = await apiCall(
         "POST",
         "https://api.42box.site/user-service/users/me/scripts",
         {
@@ -90,7 +91,7 @@ const ScriptBoardContent = () => {
         },
       );
       const { savedId, name, description, path } = response.data;
-      window.webkit.messageHandlers.downloadScript.postMessage(
+      window?.webkit?.messageHandlers?.downloadScript?.postMessage(
         JSON.stringify({
           savedId: savedId,
           name: name,
@@ -103,13 +104,14 @@ const ScriptBoardContent = () => {
         content: "",
       });
     } catch (error) {
+      console.log(error);
       errorHandling(error.response);
     }
   };
 
-  const deleteFile = () => {
+  const deleteFile = async () => {
     try {
-      apiCall(
+      await apiCall(
         "DELETE",
         `https://api.42box.site/user-service/users/me/scripts/${postInfo?.myScriptId}`,
       );
@@ -163,7 +165,7 @@ const ScriptBoardContent = () => {
               border="30px"
               gap="6px"
               onClick={() => {
-                window.webkit.messageHandlers.executeScript.postMessage(
+                window?.webkit?.messageHandlers?.executeScript?.postMessage(
                   JSON.stringify({
                     savedId: postInfo?.myScriptId,
                     name: postInfo?.scriptName,
