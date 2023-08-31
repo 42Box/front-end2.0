@@ -6,7 +6,7 @@ import BoardPreviewTitle from "./MainPreviewTitle";
 import useApi from "../../hook/useApi";
 
 const ScriptBoardPreview = () => {
-  const getPosts = useApi("GET", "/board-service/script-boards", {
+  const getPosts = useApi("GET", "board-service/script-boards", {
     page: 0,
     size: 3,
     sort: "regDate,DESC",
@@ -21,6 +21,7 @@ const ScriptBoardPreview = () => {
     console.log("useEffect called!!");
     getPosts(
       (response) => {
+        if (response.data.empty === true) return;
         setPosts(response.data.content);
       },
       (error) => {
@@ -34,7 +35,7 @@ const ScriptBoardPreview = () => {
       <BoardPreviewTitle title="스크립트" to="/script/board" />
       {posts.length > 0 ? (
         posts.map((post) => (
-          <Link to={`/script/board/${post.boardId}`} key={post.boardId}>
+          <Link to={`/script/content/${post.boardId}`} key={post.boardId}>
             <MainTextPreview
               title={post.title}
               likeCount={post.likeCount}
