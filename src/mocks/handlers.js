@@ -40,7 +40,7 @@ export const handlers = [
               modDate: "2023-08-30T15:42:59.153814",
             },
             {
-              boardId: 11,
+              boardId: 12,
               title: "Sample Title",
               content: "Sample Content",
               writerUuid: "user-uuid",
@@ -54,7 +54,7 @@ export const handlers = [
               modDate: "2023-08-30T15:42:59.153814",
             },
             {
-              boardId: 11,
+              boardId: 13,
               title: "Sample Title",
               content: "Sample Content",
               writerUuid: "user-uuid",
