@@ -29,7 +29,6 @@ const ScriptBoardContent = () => {
     console.log("after: ", response);
     if (response.status === 400) {
       errorAlert.openAlert({ title: "요청 실패", content: "400💥" });
-      console.log("hi");
     } else if (response.status === 401) {
       errorAlert.openAlert({
         title: "다시 로그인해주세요",
@@ -37,17 +36,17 @@ const ScriptBoardContent = () => {
       });
       window.localStorage.removeItem("loginState");
       navigate("/");
-    } else if (response.status === 404)
+    } else if (response.status === 404) {
       errorAlert.openAlert({
         title: "파일을 먼저 저장해주세요",
         content: "404💥",
       });
-    else if (response.status === 500 || response.status === 503)
+    } else if (response.status === 500 || response.status === 503) {
       errorAlert.openAlert({
         title: "서버 에러(신고 부탁드립니다🙏)",
         content: "50X💥",
       });
-    else {
+    } else {
       errorAlert.openAlert({
         title: "알 수 없는 에러(신고 부탁드립니다🙏)",
         content: "🥲",
