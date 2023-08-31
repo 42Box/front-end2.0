@@ -9,7 +9,8 @@ export const userState = atom({
     theme: null,
     icon: null,
     urlList: null,
-    profileImage: null,
+    profileImageUrl: null,
+    profileImagePath: null,
   },
 });
 

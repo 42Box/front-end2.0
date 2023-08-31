@@ -1,6 +1,6 @@
 import { useSetRecoilState } from "recoil";
 import useApi from "./useApi";
-import { userState, loginState } from "../atom/states";
+import { userState, loginState } from "../recoil/states";
 
 const useOAuth = () => {
   const request = useApi("GET", "user-service/users/me", ""); // GET user information
@@ -16,7 +16,6 @@ const useOAuth = () => {
       theme: data.theme,
       icon: data.icon,
       urlList: data.urlList,
-      statusMessage: data.statusMessage,
       profileImageUrl: data.profileImageUrl,
       profileImagePath: data.profileImagePath,
     };
