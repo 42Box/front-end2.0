@@ -5,7 +5,7 @@ export const SetUserState = async ({
   setUserStateValue,
 }) => {
   const response = await axios
-    .get("https://api.42box.site/auth-service/oauth2/authorization/42api")
+    .get("https://api.42box.kr/auth-service/oauth2/authorization/42api")
     .catch((error) => console.error("Axios error: ", error));
 
   const { data } = response;

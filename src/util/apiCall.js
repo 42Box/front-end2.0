@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://api.42box.site/",
+  baseURL: "https://api.42box.kr/",
   withCredentials: true,
 });
 

@@ -2,7 +2,7 @@ import { rest } from "msw";
 export const handlers = [
   //oauth 서비스
   rest.get(
-    "https://api.42box.site/auth-service/oauth2/authorization/42api",
+    "https://api.42box.kr/auth-service/oauth2/authorization/42api",
     (req, res, ctx) => {
       console.log("intercept request!");
       return res(
@@ -15,13 +15,13 @@ export const handlers = [
           statusMessage: null,
           profileImageUrl: null,
           profileImagePath: null,
-        }),
+        })
       );
-    },
+    }
   ),
   //script 서비스
   rest.get(
-    "https://api.42box.site/board-service/script-boards",
+    "https://api.42box.kr/board-service/script-boards",
     (req, res, ctx) => {
       console.log("intercept request!");
       return res(
@@ -70,12 +70,12 @@ export const handlers = [
               modDate: "2023-08-30T15:42:59.153814",
             },
           ],
-        }),
+        })
       );
-    },
+    }
   ),
   rest.get(
-    "https://api.42box.site/board-service/script-boards/:postId",
+    "https://api.42box.kr/board-service/script-boards/:postId",
     (req, res, ctx) => {
       return res(
         ctx.json({
@@ -99,25 +99,25 @@ export const handlers = [
           isLiked: 1,
           scriptSaved: 1,
           myScriptId: 2,
-        }),
+        })
       );
-    },
+    }
   ),
   rest.post(
-    "https://api.42box.site/user-service/users/me/scripts",
+    "https://api.42box.kr/user-service/users/me/scripts",
     (req, res, ctx) => {
       return res(ctx.status(400)); //statusCode 다르게 해서 테스트 해보기
-    },
+    }
   ),
   rest.delete(
-    "https://api.42box.site/user-service/users/me/scripts/:savedId",
+    "https://api.42box.kr/user-service/users/me/scripts/:savedId",
     (req, res, ctx) => {
       return res(ctx.status(200)); //statusCode 다르게 해서 테스트 해보기
-    },
+    }
   ),
   // comment
   rest.get(
-    "https://api.42box.site/board-service/script-boards/:postId/comments",
+    "https://api.42box.kr/board-service/script-boards/:postId/comments",
     (req, res, ctx) => {
       const page = req.url.searchParams.get("page");
       if (page === "1") {
@@ -170,7 +170,7 @@ export const handlers = [
             size: 2,
             numberOfElements: 2, // 현재 페이지의 댓글 수
             empty: false,
-          }),
+          })
         );
       } else {
         return res(
@@ -212,16 +212,16 @@ export const handlers = [
             size: 1,
             numberOfElements: 1, // 현재 페이지의 댓글 수
             empty: false,
-          }),
+          })
         );
       }
-    },
+    }
   ),
   //icon 서비스
   rest.put(
-    "https://api.42box.site/user-service/users/me/icon",
+    "https://api.42box.kr/user-service/users/me/icon",
     (req, res, ctx) => {
       return res(ctx.status(200));
-    },
+    }
   ),
 ];

@@ -5,11 +5,11 @@ const IconBoardPreview = () => {
   const onClickHandler = async (icon) => {
     try {
       await axios.put(
-        "https://api.42box.site/user-service/users/me/icon",
+        "https://api.42box.kr/user-service/users/me/icon",
         {
           icon: icon,
         },
-        { withCredentials: true },
+        { withCredentials: true }
       );
 
       window.webkit.messageHandlers.icon.postMessage(icon);
