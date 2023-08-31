@@ -16,9 +16,9 @@ const FilterArrow = ({ isClicked, isSelected }) => {
           id="Vector 1"
           d="M4 7.5L9 12.5L14 7.5"
           stroke={isSelected || isClicked ? "#FF9548" : "#8E8E8E"}
-          stroke-width="2.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </g>
     </svg>
