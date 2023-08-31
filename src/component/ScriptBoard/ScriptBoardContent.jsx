@@ -1,6 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { FaEllipsis } from "react-icons/fa6";
 import { Button, Text } from "@chakra-ui/react";
 import Header from "../Util/Header";
@@ -8,6 +7,7 @@ import Container from "../Util/Container";
 import AlertModal from "../Util/AlertModal";
 import { useAlert } from "../../hook/useAlert";
 import "./ScriptBoardContent.css";
+import apiCall from "../../util/apiCall";
 
 const ScriptBoardContent = () => {
   const navigate = useNavigate();
@@ -26,6 +26,7 @@ const ScriptBoardContent = () => {
   }, []);
 
   const errorHandling = (response) => {
+    console.log("after: ", response);
     if (response.status === 400)
       errorAlert.openAlert({ title: "요청 실패", content: "400💥" });
     else if (response.status === 401) {
@@ -53,9 +54,10 @@ const ScriptBoardContent = () => {
     }
   };
 
-  const postInfoApiCall = async () => {
+  const postInfoApiCall = () => {
     try {
-      const response = await axios.get(
+      const response = apiCall(
+        "GET",
         `https://api.42box.site/board-service/script-boards/${postId}`,
       );
       setPostInfo(response.data);
@@ -76,9 +78,10 @@ const ScriptBoardContent = () => {
   //   }
   // };
 
-  const downloadFile = async () => {
+  const downloadFile = () => {
     try {
-      const response = await axios.post(
+      const response = apiCall(
+        "POST",
         "https://api.42box.site/user-service/users/me/scripts",
         {
           name: postInfo?.scriptName,
@@ -104,9 +107,10 @@ const ScriptBoardContent = () => {
     }
   };
 
-  const deleteFile = async () => {
+  const deleteFile = () => {
     try {
-      await axios.delete(
+      apiCall(
+        "DELETE",
         `https://api.42box.site/user-service/users/me/scripts/${postInfo?.myScriptId}`,
       );
       successAlert.openAlert({
