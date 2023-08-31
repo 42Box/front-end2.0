@@ -14,16 +14,70 @@ export const handlers = [
           statusMessage: "hi",
           profileImageUrl: null,
           profileImagePath: null,
-        }),
+        })
       );
-    },
+    }
+  ),
+  rest.get(
+    "https://api.42box.site/board-service/script-boards",
+    (req, res, ctx) => {
+      console.log("intercept request!");
+      return res(
+        ctx.json({
+          content: [
+            {
+              boardId: 11,
+              title: "Sample Title",
+              content: "Sample Content",
+              writerUuid: "user-uuid",
+              writerName: "middle",
+              writerProfileImageUrl: "url",
+              writerProfileImagePath: "path",
+              viewCount: 0,
+              likeCount: 0,
+              commentCount: 0,
+              regDate: "2023-08-30T15:42:59.153814",
+              modDate: "2023-08-30T15:42:59.153814",
+            },
+            {
+              boardId: 12,
+              title: "Sample Title",
+              content: "Sample Content",
+              writerUuid: "user-uuid",
+              writerName: "middle",
+              writerProfileImageUrl: "url",
+              writerProfileImagePath: "path",
+              viewCount: 0,
+              likeCount: 0,
+              commentCount: 0,
+              regDate: "2023-08-30T15:42:59.153814",
+              modDate: "2023-08-30T15:42:59.153814",
+            },
+            {
+              boardId: 13,
+              title: "Sample Title",
+              content: "Sample Content",
+              writerUuid: "user-uuid",
+              writerName: "middle",
+              writerProfileImageUrl: "url",
+              writerProfileImagePath: "path",
+              viewCount: 0,
+              likeCount: 0,
+              commentCount: 0,
+              regDate: "2023-08-30T15:42:59.153814",
+              modDate: "2023-08-30T15:42:59.153814",
+            },
+          ],
+        })
+      );
+    }
   ),
   rest.post(
     "https://42box.site/api/user-service/boards/icon-boards",
     (req, res, ctx) => {
       console.log(req.json());
       return res(ctx.status(201));
-    },
+    }
   ),
 
   rest.put(
@@ -31,6 +85,6 @@ export const handlers = [
     (req, res, ctx) => {
       console.log(req.json());
       return res(ctx.status(200));
-    },
+    }
   ),
 ];

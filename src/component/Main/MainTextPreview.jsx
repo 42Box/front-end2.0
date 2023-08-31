@@ -3,7 +3,7 @@ import { ReactComponent as LikeIcon } from "../../asset/like.svg";
 import { ReactComponent as MsgIcon } from "../../asset/message.svg";
 import IconAndCount from "../Util/IconAndCount";
 
-const MainTextPreview = () => {
+const MainTextPreview = ({ title, likeCount, commentCount }) => {
   return (
     <Flex
       width="704px"
@@ -15,11 +15,11 @@ const MainTextPreview = () => {
       justifyContent="space-between"
     >
       <Text fontSize="16px" fontWeight="525">
-        낭만이란 배를 타고 떠나갈거야
+        {title}
       </Text>
       <Flex width="100px" justifyContent="space-between">
-        <IconAndCount icon={<LikeIcon />} count="12" />
-        <IconAndCount icon={<MsgIcon />} count="7" />
+        <IconAndCount icon={<LikeIcon />} count={likeCount} />
+        <IconAndCount icon={<MsgIcon />} count={commentCount} />
       </Flex>
     </Flex>
   );

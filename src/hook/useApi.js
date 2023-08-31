@@ -6,35 +6,40 @@ const api = axios.create({
   withCredentials: true,
 });
 
-const apiCall = (method, url, data) => {
-  if (method === "GET") {
-    return api.get(url, data);
-  }
-  if (method === "POST") {
-    return api.post(url, data);
-  }
-  if (method === "DELETE") {
-    return api.delete(url);
-  }
-  if (method === "PUT") {
-    return api.put(url, data);
-  }
-  if (method === "OPTIONS") {
-    return api.options(url);
+const apiCall = async (method, url, data) => {
+  try {
+    if (method === "GET") {
+      return await api.get(url, data);
+    }
+    if (method === "POST") {
+      return await api.post(url, data);
+    }
+    if (method === "DELETE") {
+      return await api.delete(url);
+    }
+    if (method === "PUT") {
+      return await api.put(url, data);
+    }
+    if (method === "OPTIONS") {
+      return await api.options(url);
+    }
+  } catch (error) {
+    throw error;
   }
 };
 
 const useApi = (method, url, data) => {
   const request = useCallback(
-    (resolve, reject) => {
-      apiCall(method, url, data)
-        ?.then((response) => {
+    async (resolve, reject) => {
+      try {
+        const response = await apiCall(method, url, data);
+        if (resolve) {
           resolve(response);
-        })
-        ?.catch((error) => {
-          if (reject) reject(error);
-          // else defaultErrorDialog(error);
-        });
+        }
+      } catch (error) {
+        if (reject) reject(error);
+        // else defaultErrorDialog(error);
+      }
     },
     [method, url, data] // dependency array of useCallback()
   );
