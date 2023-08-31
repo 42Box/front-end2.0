@@ -9,6 +9,7 @@ export const userState = atom({
     theme: null,
     icon: null,
     urlList: null,
+    statusMessage: null,
     profileImageUrl: null,
     profileImagePath: null,
   },

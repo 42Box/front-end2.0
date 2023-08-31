@@ -12,6 +12,7 @@ export const handlers = [
           theme: 0,
           icon: "fox",
           urlList: {},
+          statusMessage: null,
           profileImageUrl: null,
           profileImagePath: null,
         }),
