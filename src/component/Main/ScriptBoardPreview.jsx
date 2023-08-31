@@ -9,16 +9,16 @@ const ScriptBoardPreview = () => {
   const getPosts = useApi("GET", "/board-service/script-boards", {
     page: 0,
     size: 3,
-    sort: "regDate",
+    sort: "regDate,DESC",
     search: "",
     searchCondition: "NONE",
-    direction: "DESC",
     isNext: true,
   });
 
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
+    console.log("useEffect called!!");
     getPosts(
       (response) => {
         setPosts(response.data.content);
