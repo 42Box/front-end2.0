@@ -78,7 +78,6 @@ const ScriptBoardContent = () => {
 
   const downloadFile = async () => {
     try {
-      const userScriptId = postInfo?.myScriptId;
       const response = await axios.post(
         "https://api.42box.site/user-service/users/me/scripts",
         {
