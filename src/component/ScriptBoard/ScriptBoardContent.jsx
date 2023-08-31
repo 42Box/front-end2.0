@@ -11,6 +11,7 @@ import apiCall from "../../util/apiCall";
 
 const ScriptBoardContent = () => {
   const navigate = useNavigate();
+  const [isDownLoaded, setIsDownLoaded] = useState(false);
   const postId = useParams().postId;
   const [postInfo, setPostInfo] = useState(null);
 
@@ -41,6 +42,11 @@ const ScriptBoardContent = () => {
         title: "파일을 먼저 저장해주세요",
         content: "404💥",
       });
+    } else if (response.status === 405) {
+      errorAlert.openAlert({
+        title: "존재하지 않는 게시물입니다",
+        content: "405💥",
+      });
     } else if (response.status === 500 || response.status === 503) {
       errorAlert.openAlert({
         title: "서버 에러(신고 부탁드립니다🙏)",
@@ -61,6 +67,7 @@ const ScriptBoardContent = () => {
         `https://api.42box.site/board-service/script-boards/${postId}`,
       );
       setPostInfo(response.data);
+      setIsDownLoaded(response?.data?.scriptSaved);
     } catch (error) {
       errorHandling(error.response);
     }
@@ -89,17 +96,19 @@ const ScriptBoardContent = () => {
           path: postInfo?.scriptPath,
         },
       );
-      const { savedId, name, description, path } = response.data;
+      const { savedId, name, description, path, userUuid } = response.data;
       window?.webkit?.messageHandlers?.downloadScript?.postMessage(
         JSON.stringify({
           savedId: savedId,
           name: name,
           description: description,
           path: path,
+          userUuid: userUuid,
         }),
       );
+      setIsDownLoaded(true);
       successAlert.openAlert({
-        title: "파일을 다운로드했습니다!",
+        title: "파일을 저장했습니다!",
         content: "",
       });
     } catch (error) {
@@ -118,6 +127,7 @@ const ScriptBoardContent = () => {
         title: "파일을 삭제했습니다!",
         content: "",
       });
+      setIsDownLoaded(false);
     } catch (error) {
       console.log("before: ", error.response);
       errorHandling(error.response);
@@ -141,7 +151,7 @@ const ScriptBoardContent = () => {
         {/*meat-ball menubar*/}
       </div>
       <div>
-        <a href={`https://42box.kr/${postInfo?.scriptPath}`} download>
+        <a href={`https://42box.kr/${postInfo?.scriptPath}`}>
           <Button
             width="146px"
             height="33px"
@@ -170,13 +180,14 @@ const ScriptBoardContent = () => {
                     name: postInfo?.scriptName,
                     description: postInfo?.content,
                     path: postInfo?.scriptPath,
+                    userUuid: postInfo?.userUuid,
                   }),
                 );
               }}
             >
               실행
             </Button>
-            {postInfo?.scriptSaved ? (
+            {isDownLoaded ? (
               <Button
                 width="66px"
                 height="30px"
