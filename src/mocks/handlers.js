@@ -104,9 +104,9 @@ export const handlers = [
     },
   ),
   rest.post(
-    "https://api.42box.site/user-service/users/me/scripts/:savedId",
+    "https://api.42box.site/user-service/users/me/scripts",
     (req, res, ctx) => {
-      return res(ctx.status(200)); //statusCode 다르게 해서 테스트 해보기
+      return res(ctx.status(400)); //statusCode 다르게 해서 테스트 해보기
     },
   ),
   rest.delete(
