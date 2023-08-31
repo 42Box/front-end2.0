@@ -10,9 +10,20 @@ import SortNewestButton from "../Util/Button/SortNewestButton";
 import SortPopularButton from "../Util/Button/SortPopularButton";
 import FilterOptions from "../Util/FilterOptions";
 import TextPreviewList from "../TextPreview/TextPreviewList";
-import dummyPosts from "../../dummyPosts";
+import useGetPostList from "../../api/useGetPostList";
 
 const ScriptBoard = () => {
+  const [viewOption] = useState({
+    page: 0,
+    size: 10,
+    sort: "regDate,DESC",
+    search: "",
+    searchCondition: "NONE",
+    isNext: true,
+  });
+
+  const postList = useGetPostList("script-boards", viewOption);
+
   const [filterClicked, setFilterClicked] = useState(false);
   const [newestClicked, setNewestClicked] = useState(false);
   const [popularClicked, setPopularClicked] = useState(false);
@@ -70,7 +81,7 @@ const ScriptBoard = () => {
           isClicked={popularClicked}
         />
       </Flex>
-      <TextPreviewList to="/script/content" posts={dummyPosts} />
+      <TextPreviewList to="/script/content/" posts={postList} />
     </BackGround>
   );
 };
