@@ -26,7 +26,7 @@ const ScriptBoardPreview = () => {
       },
       (error) => {
         console.error("Error fetching script previews:", error);
-      }
+      },
     );
     // eslint-disable-next-line
   }, []);

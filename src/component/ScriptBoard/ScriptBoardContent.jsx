@@ -1,75 +1,228 @@
-import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { FaEllipsis } from "react-icons/fa6";
+import { Button, Text } from "@chakra-ui/react";
 import Header from "../Util/Header";
 import Container from "../Util/Container";
-import CommentNew from "../Comment/CommentNew";
-import CommentList from "../Comment/CommentList";
-import { FaEllipsis } from "react-icons/fa6";
-import { BiSolidUpArrow, BiSolidRightArrow } from "react-icons/bi";
+import AlertModal from "../Util/AlertModal";
+import { useAlert } from "../../hook/useAlert";
 import "./ScriptBoardContent.css";
-import dummyComments from "../../dummyComments";
-// import {useParams} from "react-router-dom";
 
 const ScriptBoardContent = () => {
-  const [openPreview, setOpenPreview] = useState(false);
-  // const params = useParams();
-  // const { id } = params;
-  // api/id 요청해서 없으면 오류메시지
-  const path = "https://42box.kr/user_profile_image/cleanCache.sh"; // 나중에 스크립트 절대 경로를 꺼내오기(?)
+  const navigate = useNavigate();
+  const postId = useParams().postId;
+  const [postInfo, setPostInfo] = useState(null);
 
-  const scriptContent =
-    "Functions starting with use are called Hooks. " +
-    "useState is a built-in Hook provided by React. " +
-    "You can find other built-in Hooks in the API reference. " +
-    "You can also write your own Hooks by combining the existing ones. " +
-    "Hooks are more restrictive than other functions. " +
-    "You can only call Hooks at the top of your components (or other Hooks). " +
-    "If you want to use useState in a condition or a loop, extract a new component and put it there.";
+  // const [commentList, setCommentList] = useState([]);
+  // const [commentCurPage, setCommentCurPage] = useState(1);
 
-  const downloadFile = async (path) => {
+  const errorAlert = useAlert();
+  const successAlert = useAlert();
+
+  useEffect(() => {
+    postInfoApiCall();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const errorHandling = (response) => {
+    if (response.status === 400)
+      errorAlert.openAlert({ title: "요청 실패", content: "400💥" });
+    else if (response.status === 401) {
+      errorAlert.openAlert({
+        title: "다시 로그인해주세요",
+        content: "401💥",
+      });
+      window.localStorage.removeItem("loginState");
+      navigate("/");
+    } else if (response.status === 404)
+      errorAlert.openAlert({
+        title: "파일을 먼저 저장해주세요",
+        content: "404💥",
+      });
+    else if (response.status === 500 || response.status === 503)
+      errorAlert.openAlert({
+        title: "서버 에러(신고 부탁드립니다🙏)",
+        content: "50X💥",
+      });
+    else {
+      errorAlert.openAlert({
+        title: "알 수 없는 에러(신고 부탁드립니다🙏)",
+        content: "🥲",
+      });
+    }
+  };
+
+  const postInfoApiCall = async () => {
     try {
-      await window.webkit.messageHandlers.download.postMessage(path);
-      // 추후 성공 모달("스크립트를 다운받았습니ㄷ")
+      const response = await axios.get(
+        `https://api.42box.site/board-service/script-boards/${postId}`,
+      );
+      setPostInfo(response.data);
     } catch (error) {
-      console.error("Error downloading file:", error);
-      // 추후 실패 모달
+      errorHandling(error.response);
+    }
+  };
+
+  // const commentsApiCall = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `https://api.42box.site/board-service/script-boards/${postId}/comments`,
+  //       { params: { page: commentCurPage, size: 2 } },
+  //     );
+  //     setCommentList(response.data.commentList);
+  //   } catch (error) {
+  //     errorHandling(error.response);
+  //   }
+  // };
+
+  const downloadFile = async () => {
+    try {
+      const data = {
+        name: postInfo?.scriptName,
+        description: postInfo?.content,
+        path: postInfo?.scriptPath,
+      };
+      const userScriptId = postInfo?.myScriptId;
+      await axios.post(
+        `https://api.42box.site/user-service/users/me/scripts/${userScriptId}`,
+        data,
+      );
+      window.webkit.messageHandlers.downloadScript.postMessage(
+        JSON.stringify({
+          savedId: userScriptId,
+          ...data,
+        }),
+      );
+      successAlert.openAlert({
+        title: "파일을 다운로드했습니다!",
+        content: "",
+      });
+    } catch (error) {
+      errorHandling(error.response);
+    }
+  };
+
+  const deleteFile = async () => {
+    try {
+      await axios.delete(
+        `https://api.42box.site/user-service/users/me/scripts/${postInfo?.myScriptId}`,
+      );
+      successAlert.openAlert({
+        title: "파일을 삭제했습니다!",
+        content: "",
+      });
+    } catch (error) {
+      console.log("before: ", error.response);
+      errorHandling(error.response);
     }
   };
 
   return (
     <Container backgroundColor="#ffffff">
       <Header
-        pageTitle="스크립트 게시판"
+        pageTitle="스크립트"
         rightButton={<FaEllipsis className="see-options" />}
       />
-      <div className="comments-section">
-        <div className={"title"}>
-          <div>title: DUMMY TITLE</div>
-          <div>author: jincpark date: 2023.08.19.Sat</div>
+      <div>
+        <div>
+          <div>{postInfo?.title}</div>
+          <div>
+            author: {postInfo?.writerNickname}
+            date: {postInfo?.regDate.substring(0, 10)}
+          </div>
         </div>
-        <ul
-          className={"see-script"}
-          onClick={() => setOpenPreview(!openPreview)}
-        >
-          <li>
-            {openPreview === true ? <BiSolidUpArrow /> : <BiSolidRightArrow />}
-          </li>
-          <li>{openPreview === true && scriptContent}</li>
-          <li>{openPreview === false && "스크립트 보기"}</li>
-        </ul>
-        <div>{scriptContent}</div>
+        {/*meat-ball menubar*/}
+      </div>
+      <div>
+        <a href={`https://42box.kr/${postInfo?.scriptPath}`} download>
+          <Button
+            width="146px"
+            height="33px"
+            padding="6px 10px 6px 10px"
+            border="1.5px"
+            gap="2px"
+            disabled={true}
+          >
+            스크립트 미리보기
+          </Button>
+        </a>
+      </div>
+      <div>{postInfo?.content}</div>
+      <div>
         <div>
           <div>
-            <button onClick={() => downloadFile(path)}>다운로드</button>
-            <button>실행</button>
+            <Button
+              width="66px"
+              height="30px"
+              border="30px"
+              gap="6px"
+              onClick={() => {
+                window.webkit.messageHandlers.executeScript.postMessage(
+                  JSON.stringify({
+                    savedId: postInfo?.myScriptId,
+                    name: postInfo?.scriptName,
+                    description: postInfo?.content,
+                    path: postInfo?.scriptPath,
+                  }),
+                );
+              }}
+            >
+              실행
+            </Button>
+            {postInfo?.scriptSaved ? (
+              <Button
+                width="66px"
+                height="30px"
+                border="30px"
+                gap="6px"
+                onClick={deleteFile}
+              >
+                삭제
+              </Button>
+            ) : (
+              <Button
+                width="66px"
+                height="30px"
+                border="30px"
+                gap="6px"
+                onClick={downloadFile}
+              >
+                저장
+              </Button>
+            )}
           </div>
           <div>
             <button>좋아요</button>
             <button>안돼요</button>
           </div>
         </div>
-        <CommentNew />
-        <CommentList comments={dummyComments}></CommentList>
+        <div>댓글창 구역</div>
       </div>
+      {errorAlert.alertData.isOpen && (
+        <AlertModal
+          open={errorAlert.alertData.isOpen}
+          close={() => {
+            errorAlert.closeAlert();
+            navigate(`/script/content/${postId}`);
+          }}
+          header={errorAlert.alertData.title}
+        >
+          <Text>{errorAlert.alertData.content}</Text>
+        </AlertModal>
+      )}
+      {successAlert.alertData.isOpen && (
+        <AlertModal
+          open={successAlert.alertData.isOpen}
+          close={() => {
+            successAlert.closeAlert();
+            navigate(`/script/content/${postId}`);
+          }}
+          header={successAlert.alertData.title}
+        >
+          <Text>{successAlert.alertData.content}</Text>
+        </AlertModal>
+      )}
     </Container>
   );
 };

@@ -1,9 +1,18 @@
 import { Flex } from "@chakra-ui/react";
 import BoardPreviewTitle from "./MainPreviewTitle";
+import axios from "axios";
 const IconBoardPreview = () => {
   const onClickHandler = async (icon) => {
     try {
-      await window.webkit.messageHandlers.icon.postMessage(icon);
+      await axios.put(
+        "https://api.42box.site/user-service/users/me/icon",
+        {
+          icon: icon,
+        },
+        { withCredentials: true },
+      );
+
+      window.webkit.messageHandlers.icon.postMessage(icon);
       // 추후 성공 모달("아이콘이 바뀌었습니다")
     } catch (error) {
       console.error("Error changing icon:", error);
