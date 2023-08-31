@@ -2,7 +2,7 @@ import "./CommentList.css";
 
 import Comment from "./Comment";
 
-import Date from "../Util/Date";
+import DateComponent from "../Util/DateComponent";
 
 const CommentList = (props) => {
   return (
@@ -11,7 +11,7 @@ const CommentList = (props) => {
         <Comment
           key={comment.id}
           author={comment.author}
-          date={<Date date={comment.date} />}
+          date={<DateComponent date={comment.date} />}
           content={comment.content}
         />
       ))}
