@@ -78,20 +78,21 @@ const ScriptBoardContent = () => {
 
   const downloadFile = async () => {
     try {
-      const data = {
-        name: postInfo?.scriptName,
-        description: postInfo?.content,
-        path: postInfo?.scriptPath,
-      };
-      const userScriptId = postInfo?.myScriptId;
-      await axios.post(
-        `https://api.42box.site/user-service/users/me/scripts/${userScriptId}`,
-        data,
+      const response = await axios.post(
+        "https://api.42box.site/user-service/users/me/scripts",
+        {
+          name: postInfo?.scriptName,
+          description: postInfo?.content,
+          path: postInfo?.scriptPath,
+        },
       );
+      const { savedId, name, description, path } = response.data;
       window.webkit.messageHandlers.downloadScript.postMessage(
         JSON.stringify({
-          savedId: userScriptId,
-          ...data,
+          savedId: savedId,
+          name: name,
+          description: description,
+          path: path,
         }),
       );
       successAlert.openAlert({
