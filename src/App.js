@@ -13,7 +13,7 @@ import ServiceRegisterBoardContent from "./component/ServiceRegisterBoard/Servic
 import NotFound from "./component/Util/NotFound";
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
-import { loginState } from "./atom/states";
+import { loginState } from "./recoil/states";
 
 const App = () => {
   const setLoginValue = useSetRecoilState(loginState);
@@ -29,7 +29,7 @@ const App = () => {
       <Route path="/my-page" element={<MyPage />} />
       <Route path="/script/board" element={<ScriptBoard />} />
       <Route path="/icon/board" element={<IconBoard />} />
-      <Route path="/icon/board/:id" element={<RandingPage />} />
+      <Route path="/icon/board/:postId" element={<RandingPage />} />
       <Route
         path="/service-register/board"
         element={<ServiceRegisterBoard />}
@@ -37,10 +37,10 @@ const App = () => {
       <Route path="/script/new" element={<ScriptBoardNew />} />
       <Route path="/icon/new" element={<IconBoardNew />} />
       {/* <Route path="/service-register/new" element={<ServiceRegisterBoardNew />} /> */}
-      <Route path="/script/content/:id" element={<ScriptBoardContent />} />
-      {/* <Route path="/icon/content/:id" element={<IconBoardContent />} /> */}
+      <Route path="/script/content/:postId" element={<ScriptBoardContent />} />
+      {/* <Route path="/icon/content/:postId" element={<IconBoardContent />} /> */}
       <Route
-        path="/service-register/content/:id"
+        path="/service-register/content/:postId"
         element={<ServiceRegisterBoardContent />}
       />
       <Route path="*" element={<NotFound />} />

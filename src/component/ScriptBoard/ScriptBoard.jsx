@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { loginState } from "../../atom/states";
+import { loginState } from "../../recoil/states";
 import { useRecoilValue } from "recoil";
 import { Flex } from "@chakra-ui/react";
 import Header from "../Util/Header";

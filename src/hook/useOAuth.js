@@ -1,6 +1,6 @@
 import { useSetRecoilState } from "recoil";
 import useApi from "./useApi";
-import { userState, loginState } from "../atom/states";
+import { userState, loginState } from "../recoil/states";
 
 const useOAuth = () => {
   const request = useApi("GET", "user-service/users/me", ""); // GET user information

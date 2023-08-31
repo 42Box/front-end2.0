@@ -1,5 +1,5 @@
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { userState, loginState } from "../../atom/states";
+import { userState, loginState } from "../../recoil/states";
 import { Box, Flex } from "@chakra-ui/react";
 import Logo from "./Logo";
 import MainTitle from "./MainTitle";
@@ -18,7 +18,9 @@ export const LoginHeader = () => {
       theme: null,
       icon: null,
       urlList: null,
-      profileImage: null,
+      statusMessage: null,
+      profileImageUrl: null,
+      profileImagePath: null,
     });
 
     document.cookie =

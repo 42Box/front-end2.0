@@ -9,9 +9,8 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import AlertModal from "./AlertModal";
+import AlertModal from "../Util/AlertModal";
 import ImagePreviewItem from "./ImgPreviewItem";
-import "./IconBoardNew.css";
 
 const IconBoardNew = () => {
   const fileInput = useRef(null);
