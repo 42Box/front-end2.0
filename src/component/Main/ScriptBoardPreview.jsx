@@ -28,7 +28,7 @@ const ScriptBoardPreview = () => {
         console.error("Error fetching script previews:", error);
       }
     );
-  }, [getPosts]);
+  }, []);
 
   return (
     <Flex flexDirection="column" alignItems="stretch" marginTop="50px">
