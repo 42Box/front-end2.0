@@ -19,7 +19,6 @@ const ScriptBoard = () => {
     sort: "regDate,DESC",
     search: "",
     searchCondition: "NONE",
-    isNext: true,
   });
 
   const postList = useGetPostList("script-boards", viewOption);
