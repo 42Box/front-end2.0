@@ -1,12 +1,23 @@
 import { Box, Text, Flex, Image } from "@chakra-ui/react";
-import sampleProfileImage from "../../asset/sampleProfileImage.png";
 
 import DateComponent from "../Util/DateComponent";
 import { ReactComponent as LikeIcon } from "../../asset/like.svg";
 import { ReactComponent as MsgIcon } from "../../asset/message.svg";
 import IconAndCount from "../Util/IconAndCount";
 
-const TextPreview = ({ title, content, author, comments, upvotes, date }) => {
+const TextPreview = ({
+  profileImagePath,
+  title,
+  content,
+  author,
+  comments,
+  upvotes,
+  date,
+}) => {
+  if (content.length >= 108) {
+    content = content.substr(0, 108) + "...";
+  }
+
   return (
     <Box
       height="191px"
@@ -30,7 +41,11 @@ const TextPreview = ({ title, content, author, comments, upvotes, date }) => {
         justifyContent="space-between"
       >
         <Flex height="100%">
-          <Image src={sampleProfileImage} width="23px" height="23px" />
+          <Image
+            src={`https://42box.kr/${profileImagePath}`}
+            width="23px"
+            height="23px"
+          />
           <Text marginLeft="8px">{author}</Text>
           <Flex marginLeft="12px" />|<Flex marginLeft="12px" />
           <DateComponent date={date} />
