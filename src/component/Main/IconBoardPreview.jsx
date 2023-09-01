@@ -1,19 +1,13 @@
 import { Flex } from "@chakra-ui/react";
 import BoardPreviewTitle from "./MainPreviewTitle";
-import axios from "axios";
+import apiCall from "../../util/apiCall";
 const IconBoardPreview = () => {
   const onClickHandler = async (icon) => {
     try {
-      await axios.put(
-        "https://api.42box.kr/user-service/users/me/icon",
-        {
-          icon: icon,
-        },
-        { withCredentials: true }
-      );
-
-      window.webkit.messageHandlers.icon.postMessage(icon);
-      // 추후 성공 모달("아이콘이 바뀌었습니다")
+      await apiCall("PUT", "https://api.42box.kr/user-service/users/me/icon", {
+        icon: icon,
+      });
+      window?.webkit?.messageHandlers?.icon.postMessage(icon);
     } catch (error) {
       console.error("Error changing icon:", error);
       // 추후 실패 모달
