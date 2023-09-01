@@ -7,7 +7,7 @@ const TextPreviewList = (props) => {
   return (
     <ul>
       {props.posts.map((post) => (
-        <Link to={`${props.to}${post.boardId}`} key={post.boardId}>
+        <Link to={`${props.to}/${post.boardId}`} key={post.boardId}>
           <TextPreview
             profileImagePath={post.writerProfileImagePath}
             title={post.title}
