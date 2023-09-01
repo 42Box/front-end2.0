@@ -1,17 +1,27 @@
 import { Text } from "@chakra-ui/react";
+import { DateTime } from "luxon";
 
 const DateComponent = (props) => {
-  const dateObj = new Date(props.date);
+  const currentDate = DateTime.local();
+  const dateObj = DateTime.fromISO(props.date).plus({ hours: 9 });
 
-  const year = dateObj.getFullYear();
-  const month = (dateObj.getMonth() + 1).toString().padStart(2, "0");
-  const day = dateObj.getDate().toString().padStart(2, "0");
-
-  return (
-    <Text>
-      {year}. {month}. {day}
-    </Text>
+  const timeDifference = Math.floor(
+    currentDate.diff(dateObj, "minutes").minutes
   );
+
+  if (timeDifference < 1) {
+    return <Text>방금 전</Text>;
+  }
+  if (timeDifference < 60) {
+    return <Text>{timeDifference}분 전</Text>;
+  }
+  if (currentDate.hasSame(dateObj, "day")) {
+    return <Text>{dateObj.toFormat("HH:mm")}</Text>;
+  }
+  if (currentDate.hasSame(dateObj.plus({ days: 1 }), "day")) {
+    return <Text>어제</Text>;
+  }
+  return <Text>{dateObj.toFormat("yyyy. MM. dd")}</Text>;
 };
 
 export default DateComponent;
