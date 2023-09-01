@@ -15,7 +15,7 @@ import Pagenation from "../Util/Pagenation";
 
 const ScriptBoard = () => {
   const [viewOption, setViewOption] = useState(() => {
-    const storedViewOption = localStorage.getItem("viewOption");
+    const storedViewOption = localStorage.getItem("scriptViewOption");
     return storedViewOption
       ? JSON.parse(storedViewOption)
       : {
@@ -29,16 +29,12 @@ const ScriptBoard = () => {
 
   // localStorage에 viewOption 저장
   useEffect(() => {
-    localStorage.setItem("viewOption", JSON.stringify(viewOption));
+    localStorage.setItem("scriptViewOption", JSON.stringify(viewOption));
   }, [viewOption]);
 
   // 5분마다 localStorage에 저장된 viewOption 삭제
   useEffect(() => {
-    const intervalId = setInterval(
-      () => localStorage.removeItem("viewOption"),
-      300000
-    );
-    return () => clearInterval(intervalId);
+    setInterval(() => localStorage.removeItem("scriptViewOption"), 10000);
   }, []);
 
   const boardInfo = useGetBoardInfo("script-boards", viewOption);
