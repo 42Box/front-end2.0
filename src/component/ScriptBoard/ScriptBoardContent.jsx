@@ -11,7 +11,7 @@ import apiCall from "../../util/apiCall";
 
 const ScriptBoardContent = () => {
   const navigate = useNavigate();
-  const [isDownLoaded, setIsDownLoaded] = useState(false);
+  const [userScriptSavedId, setUserScriptSavedId] = useState(null);
   const postId = useParams().postId;
   const [postInfo, setPostInfo] = useState(null);
 
@@ -67,7 +67,8 @@ const ScriptBoardContent = () => {
         `https://api.42box.kr/board-service/script-boards/${postId}`
       );
       setPostInfo(response.data);
-      setIsDownLoaded(response?.data?.scriptSaved);
+      if (response?.data?.scriptSaved)
+        setUserScriptSavedId(response?.data?.savedId);
     } catch (error) {
       errorHandling(error.response);
     }
@@ -106,7 +107,7 @@ const ScriptBoardContent = () => {
           userUuid: userUuid,
         })
       );
-      setIsDownLoaded(true);
+      setUserScriptSavedId(savedId);
       successAlert.openAlert({
         title: "파일을 저장했습니다!",
         content: "",
@@ -127,7 +128,7 @@ const ScriptBoardContent = () => {
         title: "파일을 삭제했습니다!",
         content: "",
       });
-      setIsDownLoaded(false);
+      setUserScriptSavedId(null);
     } catch (error) {
       console.log("before: ", error.response);
       errorHandling(error.response);
@@ -187,17 +188,7 @@ const ScriptBoardContent = () => {
             >
               실행
             </Button>
-            {isDownLoaded ? (
-              <Button
-                width="66px"
-                height="30px"
-                border="30px"
-                gap="6px"
-                onClick={deleteFile}
-              >
-                삭제
-              </Button>
-            ) : (
+            {userScriptSavedId === null ? (
               <Button
                 width="66px"
                 height="30px"
@@ -206,6 +197,16 @@ const ScriptBoardContent = () => {
                 onClick={downloadFile}
               >
                 저장
+              </Button>
+            ) : (
+              <Button
+                width="66px"
+                height="30px"
+                border="30px"
+                gap="6px"
+                onClick={deleteFile}
+              >
+                삭제
               </Button>
             )}
           </div>
