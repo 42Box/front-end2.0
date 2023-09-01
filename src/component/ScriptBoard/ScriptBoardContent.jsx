@@ -64,7 +64,7 @@ const ScriptBoardContent = () => {
     try {
       const response = await apiCall(
         "GET",
-        `https://api.42box.kr/board-service/script-boards/${postId}`
+        `https://api.42box.kr/board-service/script-boards/${postId}`,
       );
       setPostInfo(response.data);
       if (response?.data?.scriptSaved)
@@ -95,7 +95,7 @@ const ScriptBoardContent = () => {
           name: postInfo?.scriptName,
           description: postInfo?.content,
           path: postInfo?.scriptPath,
-        }
+        },
       );
       const { savedId, name, description, path, userUuid } = response.data;
       window?.webkit?.messageHandlers?.downloadScript?.postMessage(
@@ -105,7 +105,7 @@ const ScriptBoardContent = () => {
           description: description,
           path: path,
           userUuid: userUuid,
-        })
+        }),
       );
       setUserScriptSavedId(savedId);
       successAlert.openAlert({
@@ -122,7 +122,7 @@ const ScriptBoardContent = () => {
     try {
       await apiCall(
         "DELETE",
-        `https://api.42box.kr/user-service/users/me/scripts/${postInfo?.myScriptId}`
+        `https://api.42box.kr/user-service/users/me/scripts/${userScriptSavedId}`,
       );
       successAlert.openAlert({
         title: "파일을 삭제했습니다!",
@@ -182,7 +182,7 @@ const ScriptBoardContent = () => {
                     description: postInfo?.content,
                     path: postInfo?.scriptPath,
                     userUuid: postInfo?.userUuid,
-                  })
+                  }),
                 );
               }}
             >
