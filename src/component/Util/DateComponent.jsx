@@ -3,10 +3,7 @@ import { DateTime } from "luxon";
 
 const DateComponent = (props) => {
   const currentDate = DateTime.local();
-  let dateObj = DateTime.fromISO(props.date);
-
-  dateObj = dateObj.setZone(currentDate.zoneName);
-  dateObj = dateObj.plus({ hours: 9 });
+  const dateObj = DateTime.fromISO(props.date).plus({ hours: 9 });
 
   const timeDifference = Math.floor(
     currentDate.diff(dateObj, "minutes").minutes
