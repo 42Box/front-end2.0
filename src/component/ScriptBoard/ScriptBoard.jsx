@@ -10,18 +10,23 @@ import SortNewestButton from "../Util/Button/SortNewestButton";
 import SortPopularButton from "../Util/Button/SortPopularButton";
 import FilterOptions from "../Util/FilterOptions";
 import TextPreviewList from "../TextPreview/TextPreviewList";
-import useGetPostList from "../../api/useGetPostList";
+import useGetBoardInfo from "../../api/useGetBoardInfo";
+import Pagenation from "../Util/Pagenation";
 
 const ScriptBoard = () => {
-  const [viewOption] = useState({
+  const [viewOption, setViewOption] = useState({
     page: 0,
-    size: 10,
+    size: 1,
     sort: "regDate,DESC",
     search: "",
     searchCondition: "NONE",
   });
 
-  const postList = useGetPostList("script-boards", viewOption);
+  const boardInfo = useGetBoardInfo("script-boards", viewOption);
+
+  const pageNationHandler = (pageIndex) => {
+    setViewOption({ ...viewOption, page: pageIndex });
+  };
 
   const [filterClicked, setFilterClicked] = useState(false);
   const [newestClicked, setNewestClicked] = useState(false);
@@ -80,7 +85,12 @@ const ScriptBoard = () => {
           isClicked={popularClicked}
         />
       </Flex>
-      <TextPreviewList to="/script/content/" posts={postList} />
+      <TextPreviewList to="/script/content" posts={boardInfo.content} />
+      <Pagenation
+        onPagenation={pageNationHandler}
+        current={viewOption.page}
+        last={boardInfo.totalPages - 1}
+      ></Pagenation>
     </BackGround>
   );
 };
