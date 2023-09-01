@@ -4,7 +4,9 @@ import useApi from "../hook/useApi";
 const useGetPostList = (requestPath, viewOption) => {
   const [postList, setPostList] = useState([]);
 
-  const getPosts = useApi("GET", `board-service/${requestPath}`, viewOption);
+  const getPosts = useApi("GET", `board-service/${requestPath}`, {
+    params: viewOption,
+  });
 
   const onSuccess = (response) => {
     setPostList(response.data.content);
