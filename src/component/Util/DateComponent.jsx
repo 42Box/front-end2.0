@@ -1,41 +1,30 @@
 import { Text } from "@chakra-ui/react";
+import { DateTime } from "luxon";
 
 const DateComponent = (props) => {
-  const currentDate = new Date();
-  const dateObj = new Date(props.date);
+  const currentDate = DateTime.local();
+  let dateObj = DateTime.fromISO(props.date);
 
-  const timeDifference = Math.floor((currentDate - dateObj) / (60 * 1000)); // Difference in minutes
+  dateObj = dateObj.setZone(currentDate.zoneName);
+  dateObj = dateObj.plus({ hours: 9 });
 
+  const timeDifference = Math.floor(
+    currentDate.diff(dateObj, "minutes").minutes
+  );
+
+  if (timeDifference < 1) {
+    return <Text>방금 전</Text>;
+  }
   if (timeDifference < 60) {
     return <Text>{timeDifference} 분 전</Text>;
-  } else if (
-    currentDate.getDate() === dateObj.getDate() &&
-    currentDate.getMonth() === dateObj.getMonth() &&
-    currentDate.getFullYear() === dateObj.getFullYear()
-  ) {
-    const hour = dateObj.getHours().toString().padStart(2, "0");
-    const min = dateObj.getMinutes().toString().padStart(2, "0");
-    return (
-      <Text>
-        {hour}:{min}
-      </Text>
-    );
-  } else if (
-    currentDate.getDate() - dateObj.getDate() === 1 &&
-    currentDate.getMonth() === dateObj.getMonth() &&
-    currentDate.getFullYear() === dateObj.getFullYear()
-  ) {
-    return <Text>어제</Text>;
-  } else {
-    const year = dateObj.getFullYear();
-    const month = (dateObj.getMonth() + 1).toString().padStart(2, "0");
-    const day = dateObj.getDate().toString().padStart(2, "0");
-    return (
-      <Text>
-        {year}. {month}. {day}
-      </Text>
-    );
   }
+  if (currentDate.hasSame(dateObj, "day")) {
+    return <Text>{dateObj.toFormat("HH:mm")}</Text>;
+  }
+  if (currentDate.hasSame(dateObj.plus({ days: 1 }), "day")) {
+    return <Text>어제</Text>;
+  }
+  return <Text>{dateObj.toFormat("yyyy. MM. dd")}</Text>;
 };
 
 export default DateComponent;
