@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { loginState } from "../../recoil/states";
 import { useRecoilValue } from "recoil";
 import { Flex } from "@chakra-ui/react";
@@ -14,13 +14,32 @@ import useGetBoardInfo from "../../api/useGetBoardInfo";
 import Pagenation from "../Util/Pagenation";
 
 const ScriptBoard = () => {
-  const [viewOption, setViewOption] = useState({
-    page: 0,
-    size: 1,
-    sort: "regDate,DESC",
-    search: "",
-    searchCondition: "NONE",
+  const [viewOption, setViewOption] = useState(() => {
+    const storedViewOption = localStorage.getItem("viewOption");
+    return storedViewOption
+      ? JSON.parse(storedViewOption)
+      : {
+          page: 0,
+          size: 5,
+          sort: "regDate,DESC",
+          search: "",
+          searchCondition: "NONE",
+        };
   });
+
+  // localStorage에 viewOption 저장
+  useEffect(() => {
+    localStorage.setItem("viewOption", JSON.stringify(viewOption));
+  }, [viewOption]);
+
+  // 5분마다 localStorage에 저장된 viewOption 삭제
+  useEffect(() => {
+    const intervalId = setInterval(
+      () => localStorage.removeItem("viewOption"),
+      300000
+    );
+    return () => clearInterval(intervalId);
+  }, []);
 
   const boardInfo = useGetBoardInfo("script-boards", viewOption);
 

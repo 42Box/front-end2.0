@@ -33,7 +33,7 @@ const ScriptBoardNew = () => {
     console.log(inputDetail);
     if (
       inputTitle.length < 10 ||
-      inputTitle.length > 50 ||
+      inputTitle.length > 40 ||
       inputDetail.length < 10 ||
       inputDetail.length > 5000 ||
       !selectedFile
