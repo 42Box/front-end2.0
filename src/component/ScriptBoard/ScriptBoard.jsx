@@ -34,7 +34,7 @@ const ScriptBoard = () => {
 
   // 5분마다 localStorage에 저장된 viewOption 삭제
   useEffect(() => {
-    setInterval(() => localStorage.removeItem("scriptViewOption"), 10000);
+    setInterval(() => localStorage.removeItem("scriptViewOption"), 300000);
   }, []);
 
   const boardInfo = useGetBoardInfo("script-boards", viewOption);
