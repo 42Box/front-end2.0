@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { loginState } from "../../recoil/states";
 import { useRecoilValue } from "recoil";
 import { Flex } from "@chakra-ui/react";
@@ -10,19 +10,38 @@ import SortNewestButton from "../Util/Button/SortNewestButton";
 import SortPopularButton from "../Util/Button/SortPopularButton";
 import FilterOptions from "../Util/FilterOptions";
 import TextPreviewList from "../TextPreview/TextPreviewList";
-import useGetPostList from "../../api/useGetPostList";
+import useGetBoardInfo from "../../api/useGetBoardInfo";
+import Pagenation from "../Util/Pagenation";
 
 const ScriptBoard = () => {
-  const [viewOption] = useState({
-    page: 0,
-    size: 10,
-    sort: "regDate,DESC",
-    search: "",
-    searchCondition: "NONE",
-    isNext: true,
+  const [viewOption, setViewOption] = useState(() => {
+    const storedViewOption = localStorage.getItem("scriptViewOption");
+    return storedViewOption
+      ? JSON.parse(storedViewOption)
+      : {
+          page: 0,
+          size: 5,
+          sort: "regDate,DESC",
+          search: "",
+          searchCondition: "NONE",
+        };
   });
 
-  const postList = useGetPostList("script-boards", viewOption);
+  // localStorage에 viewOption 저장
+  useEffect(() => {
+    localStorage.setItem("scriptViewOption", JSON.stringify(viewOption));
+  }, [viewOption]);
+
+  // 5분마다 localStorage에 저장된 viewOption 삭제
+  useEffect(() => {
+    setInterval(() => localStorage.removeItem("scriptViewOption"), 300000);
+  }, []);
+
+  const boardInfo = useGetBoardInfo("script-boards", viewOption);
+
+  const pageNationHandler = (pageIndex) => {
+    setViewOption({ ...viewOption, page: pageIndex });
+  };
 
   const [filterClicked, setFilterClicked] = useState(false);
   const [newestClicked, setNewestClicked] = useState(false);
@@ -81,7 +100,12 @@ const ScriptBoard = () => {
           isClicked={popularClicked}
         />
       </Flex>
-      <TextPreviewList to="/script/content/" posts={postList} />
+      <TextPreviewList to="/script/content" posts={boardInfo.content} />
+      <Pagenation
+        onPagenation={pageNationHandler}
+        current={viewOption.page}
+        last={boardInfo.totalPages - 1}
+      ></Pagenation>
     </BackGround>
   );
 };
