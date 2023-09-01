@@ -13,7 +13,7 @@ const DateComponent = (props) => {
     return <Text>방금 전</Text>;
   }
   if (timeDifference < 60) {
-    return <Text>{timeDifference} 분 전</Text>;
+    return <Text>{timeDifference}분 전</Text>;
   }
   if (currentDate.hasSame(dateObj, "day")) {
     return <Text>{dateObj.toFormat("HH:mm")}</Text>;
