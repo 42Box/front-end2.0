@@ -9,6 +9,7 @@ const TextPreviewList = (props) => {
       {props.posts.map((post) => (
         <Link to={`${props.to}${post.boardId}`} key={post.boardId}>
           <TextPreview
+            profileImagePath={post.writerProfileImagePath}
             title={post.title}
             author={post.writerName}
             content={post.content}
