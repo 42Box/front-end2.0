@@ -30,7 +30,7 @@ const MyPage = () => {
     ],
     statusMessage: "hello 42Box!",
     profileImageUrl:
-      "https://cdn.intra.42.fr/users/73139f797eb48e61e4ba1d437171c56d/sechung.jpg",
+      "https://cdn.intra.42.fr/users/f9fcd02c969418126c1ecb69df8728a0/jincpark.jpg",
     profileImagePath:
       "user_profile_image/a52671f9-fca9-43ad-b0c0-1c5360831cf2.png",
   };
