@@ -14,13 +14,13 @@ const TextPreview = ({
   upvotes,
   date,
 }) => {
-  if (content.length >= 108) {
-    content = content.substr(0, 108) + "...";
+  if (content.length >= 50) {
+    content = content.substr(0, 50) + "...";
   }
 
   return (
     <Box
-      height="191px"
+      height="175px"
       width="704px"
       borderBottom="1px solid var(--line-02, #E8E8E8)"
       paddingTop="32px"
