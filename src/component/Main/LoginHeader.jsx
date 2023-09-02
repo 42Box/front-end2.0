@@ -41,12 +41,12 @@ export const LoginHeader = () => {
     >
       <Flex alignItems="center" height="100%">
         <Logo />
-        <Box marginLeft="10px" />
+        <Box paddingLeft="10px" />
         <MainTitle />
       </Flex>
       <Flex alignItems="center" height="100%">
         <MyPageIcon loginStateValue={loginStateValue} />
-        <Box marginLeft="15px" />
+        <Box paddingLeft="15px" />
         <LoginButton
           loginStateValue={loginStateValue}
           logoutHandler={logoutHandler}
