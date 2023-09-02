@@ -11,7 +11,6 @@ const SortButton = ({ isClicked, onClick, children }) => {
       flexShrink={0}
       borderRadius="20px"
       marginLeft="12px"
-      marginTop="30px"
       border={
         isClicked
           ? "1.5px solid var(--main-orange, #FF9548)"
@@ -26,7 +25,7 @@ const SortButton = ({ isClicked, onClick, children }) => {
           isClicked ? "var(--main-orange, #FF9548) " : "var(--dg-03, #8E8E8E)"
         }
         fontWeight="700"
-        marginTop="2px"
+        margin={0}
       >
         {children}
       </Text>
