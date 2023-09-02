@@ -12,6 +12,7 @@ export const userState = atom({
     statusMessage: null,
     profileImageUrl: null,
     profileImagePath: null,
+    quickSlotList: null,
   },
 });
 

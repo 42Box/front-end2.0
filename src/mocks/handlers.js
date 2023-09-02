@@ -15,6 +15,7 @@ export const handlers = [
           statusMessage: null,
           profileImageUrl: null,
           profileImagePath: null,
+          quickSlotList: null,
         }),
       );
     },
@@ -96,9 +97,9 @@ export const handlers = [
           likeCount: 3,
           reportCount: 0,
           commentCount: 0,
-          isLiked: 1,
-          scriptSaved: 1,
-          myScriptId: 2,
+          boardLiked: false,
+          scriptSaved: true,
+          myScriptId: 5,
         }),
       );
     },
