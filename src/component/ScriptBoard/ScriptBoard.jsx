@@ -1,19 +1,16 @@
 import { useState, useEffect } from "react";
 import { loginState } from "../../recoil/states";
 import { useRecoilValue } from "recoil";
-import { Flex } from "@chakra-ui/react";
 import Header from "../Util/Header";
 import WriteButton from "../Util/Button/WriteButton";
 import BackGround from "../Util/BackGround";
-import FilterButton from "../Util/Button/FilterButton";
-import SortNewestButton from "../Util/Button/SortNewestButton";
-import SortPopularButton from "../Util/Button/SortPopularButton";
-import FilterOptions from "../Util/FilterOptions";
 import TextPreviewList from "../TextPreview/TextPreviewList";
 import useGetBoardInfo from "../../api/useGetBoardInfo";
 import Pagenation from "../Util/Pagenation";
+import SearchFilterSort from "../Util/SearchFilterSort";
 
 const ScriptBoard = () => {
+  const loginStateValue = useRecoilValue(loginState);
   const [viewOption, setViewOption] = useState(() => {
     const storedViewOption = localStorage.getItem("scriptViewOption");
     return storedViewOption
@@ -43,35 +40,13 @@ const ScriptBoard = () => {
     setViewOption({ ...viewOption, page: pageIndex });
   };
 
-  const [filterClicked, setFilterClicked] = useState(false);
-  const [newestClicked, setNewestClicked] = useState(false);
-  const [popularClicked, setPopularClicked] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
-  const loginStateValue = useRecoilValue(loginState);
-
-  const toggleFilter = () => {
-    setFilterClicked(!filterClicked);
-    setNewestClicked(false);
-    setPopularClicked(false);
-  };
-
-  const handleNewestClick = () => {
-    setNewestClicked(!newestClicked);
-    setFilterClicked(false);
-    setPopularClicked(false);
-    setSelectedOption(null);
-  };
-
-  const handlePopularClick = () => {
-    setPopularClicked(!popularClicked);
-    setFilterClicked(false);
-    setNewestClicked(false);
-    setSelectedOption(null);
-  };
-
-  const handleSelectOption = (option) => {
-    setSelectedOption(option);
-    setFilterClicked(false);
+  const searchHandler = (word, condition) => {
+    setViewOption({
+      ...viewOption,
+      page: 0,
+      search: word,
+      searchCondition: condition,
+    });
   };
 
   return (
@@ -80,26 +55,7 @@ const ScriptBoard = () => {
         pageTitle="스크립트"
         rightButton={loginStateValue && <WriteButton path="/script/new" />}
       />
-      <Flex height="78.7px">
-        <FilterButton
-          onClick={toggleFilter}
-          isClicked={filterClicked}
-          selectedOption={selectedOption}
-        />
-        <FilterOptions
-          isOpen={filterClicked}
-          onSelect={handleSelectOption}
-          selectedOption={selectedOption}
-        />
-        <SortNewestButton
-          onClick={handleNewestClick}
-          isClicked={newestClicked}
-        />
-        <SortPopularButton
-          onClick={handlePopularClick}
-          isClicked={popularClicked}
-        />
-      </Flex>
+      <SearchFilterSort onSearch={searchHandler} />
       <TextPreviewList to="/script/content" posts={boardInfo.content} />
       <Pagenation
         onPagenation={pageNationHandler}
