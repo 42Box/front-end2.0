@@ -26,7 +26,7 @@ const LoginButton = ({ loginStateValue, logoutHandler }) => {
       onClick={loginStateValue ? logoutHandler : null}
       _hover={hoverStyles}
     >
-      {!loginStateValue ? (
+      {loginStateValue ? (
         "로그아웃"
       ) : (
         <a href="https://api.42box.kr/auth-service/oauth2/authorization/42api">
