@@ -8,6 +8,7 @@ const LittleHeader = (props) => {
       height="53px"
       justifyContent="space-between"
       borderBottom="1px solid #C7C7C7"
+      alignItems="center"
     >
       <Text fontWeight="700" fontSize="24px">
         {props.title}
