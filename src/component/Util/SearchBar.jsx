@@ -4,16 +4,27 @@ import { useState } from "react";
 
 const SearchBar = ({ onSearch }) => {
   const [inputValue, setInputValue] = useState("");
+  // const [isValidInput, setIsValidInput] = useState(true);
+
+  const handleSearch = () => {
+    if (inputValue !== "") {
+      // setIsValidInput(true);
+      onSearch(inputValue, "TITLE");
+    } else {
+      // setIsValidInput(false);
+    }
+  };
+
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
-      onSearch(inputValue, "TITLE");
+      handleSearch();
     }
   };
   const searchIconHandler = () => {
-    onSearch(inputValue, "TITLE");
+    handleSearch();
   };
 
-  const handleInputValue = (event) => {
+  const inputValueHandler = (event) => {
     setInputValue(event.target.value);
   };
 
@@ -32,7 +43,8 @@ const SearchBar = ({ onSearch }) => {
         onKeyDown={handleKeyDown}
         _hover={{ borderColor: "#FF9548" }}
         _focus={{ borderColor: "#FF9548" }}
-        onChange={handleInputValue}
+        borderColor="#CECECE"
+        onChange={inputValueHandler}
       />
       <InputRightElement height="33px" width="33px" cursor="pointer">
         <SearchIcon
