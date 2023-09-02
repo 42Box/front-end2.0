@@ -18,7 +18,7 @@ const theme = extendTheme({
   },
   Text: {
     baseStyle: {
-      margin: "0",
+      margin: 0,
     },
   },
 });

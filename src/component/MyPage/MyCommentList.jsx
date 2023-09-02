@@ -1,9 +1,10 @@
 import MyCommentPreview from "./MyCommentPreview";
 import { Link } from "react-router-dom";
+import { UnorderedList } from "@chakra-ui/react";
 
 const MyCommentList = (props) => {
   return (
-    <ul>
+    <UnorderedList alignSelf="center" paddingLeft={0} margin={0}>
       {props.comments.map((comment) => (
         <Link to={`${props.to}/${comment.id}`} key={comment.id}>
           <MyCommentPreview
@@ -14,7 +15,7 @@ const MyCommentList = (props) => {
           />
         </Link>
       ))}
-    </ul>
+    </UnorderedList>
   );
 };
 

@@ -11,15 +11,14 @@ const MyPagePostPreview = ({ title, comments, upvotes, date }) => {
       height="107px"
       width="704px"
       borderBottom="1px solid var(--line-02, #E8E8E8)"
-      paddingTop="24px"
-      margin="auto"
     >
-      <Text fontSize="20px" fontWeight="500">
+      <Box paddingTop="24px" />
+      <Text fontSize="20px" fontWeight="500" margin={0} height="24px">
         {title}
       </Text>
+      <Box paddingTop="16px" />
       <Flex
         height="19px"
-        marginTop="14px"
         fontSize="16px"
         color="var(--dg-03, #8E8E8E)"
         justifyContent="space-between"
