@@ -1,33 +1,26 @@
 const dummyComments = [
   {
     id: Math.random(),
-    author: "jincpark",
     date: new Date(2023, 11, 21),
-    content: "I am hungry so much!!!!!!!!!!!!!!!!!!!!!!!",
+    boardType: "스크립트",
+    title: "이거 이렇게 하는거 맞나요?",
+    content: "엥 이건 좀 아닌듯 다시 공부하십쇼",
   },
   {
     id: Math.random(),
-    author: "jincpark",
+    writerName: "jincpark",
     date: new Date(2023, 11, 21),
-    content: "I am hungry so much!!!!!!!!!!!!!!!!!!!!!!!",
+    boardType: "스크립트",
+    title: "이거 이렇게 하는거 맞나요?",
+    content: "엥 이건 좀 아닌듯 다시 공부하십쇼",
   },
   {
     id: Math.random(),
-    author: "jincpark",
+    writerName: "jincpark",
     date: new Date(2023, 11, 21),
-    content: "I am hungry so much!!!!!!!!!!!!!!!!!!!!!!!",
-  },
-  {
-    id: Math.random(),
-    author: "jincpark",
-    date: new Date(2023, 11, 21),
-    content: "I am hungry so much!!!!!!!!!!!!!!!!!!!!!!!",
-  },
-  {
-    id: Math.random(),
-    author: "jincpark",
-    date: new Date(2023, 11, 21),
-    content: "I am hungry so much!!!!!!!!!!!!!!!!!!!!!!!",
+    boardType: "스크립트",
+    title: "이거 이렇게 하는거 맞나요?",
+    content: "엥 이건 좀 아닌듯 다시 공부하십쇼",
   },
 ];
 
