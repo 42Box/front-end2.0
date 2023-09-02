@@ -16,6 +16,11 @@ const theme = extendTheme({
   lineHeights: {
     normal: "normal",
   },
+  Text: {
+    baseStyle: {
+      margin: "0",
+    },
+  },
 });
 
 export default theme;

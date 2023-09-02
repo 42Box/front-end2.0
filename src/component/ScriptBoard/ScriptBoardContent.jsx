@@ -1,63 +1,57 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { FaEllipsis } from "react-icons/fa6";
-import { Button, Text } from "@chakra-ui/react";
+import { useEffect, useRef, useState } from "react";
+import {
+  Image,
+  Button,
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Text,
+  Flex,
+  PopoverArrow,
+  PopoverCloseButton,
+  PopoverHeader,
+  PopoverBody,
+  PopoverContent,
+  Popover,
+  PopoverTrigger,
+} from "@chakra-ui/react";
+import { EditIcon, DeleteIcon, HamburgerIcon } from "@chakra-ui/icons";
+import { ReactComponent as LikeIcon } from "../../asset/like.svg";
+import { ReactComponent as MsgIcon } from "../../asset/message.svg";
+import { CommentPaging } from "./CommentPaging";
 import Header from "../Util/Header";
 import Container from "../Util/Container";
 import AlertModal from "../Util/AlertModal";
+import DateComponent from "../Util/DateComponent";
 import { useAlert } from "../../hook/useAlert";
-import "./ScriptBoardContent.css";
 import apiCall from "../../util/apiCall";
+import { errorHandling } from "../../util/errorHandling";
+import "./ScriptBoardContent.css";
+import IconAndCount from "../Util/IconAndCount";
+import axios from "axios";
 
 const ScriptBoardContent = () => {
   const navigate = useNavigate();
-  const [userScriptSavedId, setUserScriptSavedId] = useState(null);
   const postId = useParams().postId;
+  const [filePreview, setFilePreview] = useState("");
+  const [userScriptSavedId, setUserScriptSavedId] = useState(null);
+  const [isPreviewOn, setIsPreviewOn] = useState(false);
   const [postInfo, setPostInfo] = useState(null);
 
-  // const [commentList, setCommentList] = useState([]);
-  // const [commentCurPage, setCommentCurPage] = useState(1);
-
+  const dragLimitBox = useRef(null);
   const errorAlert = useAlert();
   const successAlert = useAlert();
 
   useEffect(() => {
     postInfoApiCall();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, []);
 
-  const errorHandling = (response) => {
-    console.log("after: ", response);
-    if (response.status === 400) {
-      errorAlert.openAlert({ title: "요청 실패", content: "400💥" });
-    } else if (response.status === 401) {
-      errorAlert.openAlert({
-        title: "다시 로그인해주세요",
-        content: "401💥",
-      });
-      window.localStorage.removeItem("loginState");
-      navigate("/");
-    } else if (response.status === 404) {
-      errorAlert.openAlert({
-        title: "파일을 먼저 저장해주세요",
-        content: "404💥",
-      });
-    } else if (response.status === 405) {
-      errorAlert.openAlert({
-        title: "존재하지 않는 게시물입니다",
-        content: "405💥",
-      });
-    } else if (response.status === 500 || response.status === 503) {
-      errorAlert.openAlert({
-        title: "서버 에러(신고 부탁드립니다🙏)",
-        content: "50X💥",
-      });
-    } else {
-      errorAlert.openAlert({
-        title: "알 수 없는 에러(신고 부탁드립니다🙏)",
-        content: "🥲",
-      });
-    }
+  const errorResponseHandler = (response) => {
+    errorHandling(response, navigate, errorAlert);
   };
 
   const postInfoApiCall = async () => {
@@ -67,24 +61,14 @@ const ScriptBoardContent = () => {
         `https://api.42box.kr/board-service/script-boards/${postId}`,
       );
       setPostInfo(response.data);
-      if (response?.data?.scriptSaved)
-        setUserScriptSavedId(response?.data?.savedId);
+      if (response.data.scriptSaved)
+        setUserScriptSavedId(response.data.savedId);
+      console.log("postInfo Api Call is successful");
     } catch (error) {
-      errorHandling(error.response);
+      console.log("postInfo Api Call is fail");
+      errorResponseHandler(error.response);
     }
   };
-
-  // const commentsApiCall = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       `https://api.42box.kr/board-service/script-boards/${postId}/comments`,
-  //       { params: { page: commentCurPage, size: 2 } },
-  //     );
-  //     setCommentList(response.data.commentList);
-  //   } catch (error) {
-  //     errorHandling(error.response);
-  //   }
-  // };
 
   const downloadFile = async () => {
     try {
@@ -92,9 +76,9 @@ const ScriptBoardContent = () => {
         "POST",
         "https://api.42box.kr/user-service/users/me/scripts",
         {
-          name: postInfo?.scriptName,
-          description: postInfo?.content,
-          path: postInfo?.scriptPath,
+          name: postInfo.scriptName,
+          description: postInfo.content,
+          path: postInfo.scriptPath,
         },
       );
       const { savedId, name, description, path, userUuid } = response.data;
@@ -113,8 +97,7 @@ const ScriptBoardContent = () => {
         content: "",
       });
     } catch (error) {
-      console.log(error);
-      errorHandling(error.response);
+      errorResponseHandler(error.response);
     }
   };
 
@@ -131,117 +114,192 @@ const ScriptBoardContent = () => {
       setUserScriptSavedId(null);
     } catch (error) {
       console.log("before: ", error.response);
-      errorHandling(error.response);
+      errorResponseHandler(error.response);
+    }
+  };
+
+  const readFileHandler = async () => {
+    try {
+      const response = await axios.get(
+        `https://42box.kr/${postInfo.scriptPath}`,
+      );
+      const file = response.data;
+      console.log(file);
+      setFilePreview(file);
+    } catch (error) {
+      errorResponseHandler(error.response);
     }
   };
 
   return (
-    <Container backgroundColor="#ffffff">
-      <Header
-        pageTitle="스크립트"
-        rightButton={<FaEllipsis className="see-options" />}
-      />
-      <div>
-        <div>
-          <div>{postInfo?.title}</div>
-          <div>
-            author: {postInfo?.writerNickname}
-            date: {postInfo?.regDate.substring(0, 10)}
-          </div>
-        </div>
-        {/*meat-ball menubar*/}
-      </div>
-      <div>
-        <a href={`https://42box.kr/${postInfo?.scriptPath}`}>
-          <Button
-            width="146px"
-            height="33px"
-            padding="6px 10px 6px 10px"
-            border="1.5px"
-            gap="2px"
-            disabled={true}
+    <div ref={dragLimitBox}>
+      <Container backgroundColor="#ffffff">
+        <Header pageTitle="스크립트" />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <Text fontSize="30px" fontWeight="500">
+            {postInfo?.title}
+          </Text>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
           >
-            스크립트 미리보기
-          </Button>
-        </a>
-      </div>
-      <div>{postInfo?.content}</div>
-      <div>
-        <div>
-          <div>
-            <Button
-              width="66px"
-              height="30px"
-              border="30px"
-              gap="6px"
-              onClick={() => {
-                window?.webkit?.messageHandlers?.executeScript?.postMessage(
-                  JSON.stringify({
-                    savedId: postInfo?.myScriptId,
-                    name: postInfo?.scriptName,
-                    description: postInfo?.content,
-                    path: postInfo?.scriptPath,
-                    userUuid: postInfo?.userUuid,
-                  }),
-                );
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
               }}
             >
-              실행
-            </Button>
-            {userScriptSavedId === null ? (
-              <Button
-                width="66px"
-                height="30px"
-                border="30px"
-                gap="6px"
-                onClick={downloadFile}
-              >
-                저장
-              </Button>
-            ) : (
-              <Button
-                width="66px"
-                height="30px"
-                border="30px"
-                gap="6px"
-                onClick={deleteFile}
-              >
-                삭제
-              </Button>
-            )}
-          </div>
-          <div>
-            <button>좋아요</button>
-            <button>안돼요</button>
+              <Image
+                src={`https://42box.kr/${postInfo?.writerProfileImagePath}`}
+                width="23px"
+                height="23px"
+              />
+              <Text marginLeft="8px">{postInfo?.writerNickname}</Text>
+              <Flex marginLeft="12px" />|<Flex marginLeft="12px" />
+              <DateComponent date={postInfo?.regDate} />
+            </div>
+            <div>
+              <Menu>
+                <MenuButton
+                  as={IconButton}
+                  aria-label="Options"
+                  icon={<HamburgerIcon />}
+                  variant="outline"
+                />
+                <MenuList>
+                  <MenuItem icon={<EditIcon />}>수정하기</MenuItem>
+                  <MenuItem icon={<DeleteIcon />}>삭제하기</MenuItem>
+                </MenuList>
+              </Menu>
+            </div>
           </div>
         </div>
-        <div>댓글창 구역</div>
-      </div>
-      {errorAlert.alertData.isOpen && (
-        <AlertModal
-          open={errorAlert.alertData.isOpen}
-          close={() => {
-            errorAlert.closeAlert();
-            navigate(`/script/content/${postId}`);
-          }}
-          header={errorAlert.alertData.title}
+        <Popover
+          placement="auto"
+          matchWidth={true}
+          onOpen={() => setIsPreviewOn(true)}
+          onClose={() => setIsPreviewOn(false)}
         >
-          <Text>{errorAlert.alertData.content}</Text>
-        </AlertModal>
-      )}
-      {successAlert.alertData.isOpen && (
-        <AlertModal
-          open={successAlert.alertData.isOpen}
-          close={() => {
-            successAlert.closeAlert();
-            navigate(`/script/content/${postId}`);
-          }}
-          header={successAlert.alertData.title}
-        >
-          <Text>{successAlert.alertData.content}</Text>
-        </AlertModal>
-      )}
-    </Container>
+          <PopoverTrigger>
+            <Button
+              width="146px"
+              height="33px"
+              padding="6px 10px 6px 10px"
+              border="1.5px"
+              gap="2px"
+              onClick={readFileHandler}
+              disabled={true}
+            >
+              {isPreviewOn ? "스크립트 닫기" : "스크립트 미리보기"}
+            </Button>
+          </PopoverTrigger>
+          {filePreview && (
+            <PopoverContent
+              width="70vw"
+              height="auto"
+              drag={true}
+              dragConstraints={dragLimitBox}
+            >
+              <PopoverArrow />
+              <PopoverCloseButton />
+              <PopoverHeader>{postInfo?.scriptName}</PopoverHeader>
+              <PopoverBody
+                dangerouslySetInnerHTML={{
+                  __html: filePreview.replace(/\n/g, "<br>"),
+                }}
+              />
+            </PopoverContent>
+          )}
+        </Popover>
+        <div>{postInfo?.content}</div>
+        <div>
+          <div>
+            <div>
+              <Button
+                width="66px"
+                height="30px"
+                border="30px"
+                gap="6px"
+                onClick={() => {
+                  window?.webkit?.messageHandlers?.executeScript?.postMessage(
+                    JSON.stringify({
+                      savedId: postInfo?.myScriptId,
+                      name: postInfo?.scriptName,
+                      title: postInfo?.title,
+                      path: postInfo?.scriptPath,
+                      userUuid: postInfo?.userUuid,
+                    }),
+                  );
+                }}
+              >
+                실행
+              </Button>
+              {userScriptSavedId === null ? (
+                <Button
+                  width="66px"
+                  height="30px"
+                  border="30px"
+                  gap="6px"
+                  onClick={downloadFile}
+                >
+                  저장
+                </Button>
+              ) : (
+                <Button
+                  width="66px"
+                  height="30px"
+                  border="30px"
+                  gap="6px"
+                  onClick={deleteFile}
+                >
+                  삭제
+                </Button>
+              )}
+            </div>
+            <Flex height="100%">
+              <IconAndCount icon={<LikeIcon />} count={postInfo?.likeCount} />
+              <IconAndCount icon={<MsgIcon />} count={postInfo?.commentCount} />
+            </Flex>
+          </div>
+          <CommentPaging
+            postId={postId}
+            errorHandler={(response) => errorResponseHandler(response)}
+          ></CommentPaging>
+        </div>
+        {errorAlert.alertData.isOpen && (
+          <AlertModal
+            open={errorAlert.alertData.isOpen}
+            close={() => {
+              errorAlert.closeAlert();
+              navigate(`/script/content/${postId}`);
+            }}
+            header={errorAlert.alertData.title}
+          >
+            <Text>{errorAlert.alertData.content}</Text>
+          </AlertModal>
+        )}
+        {successAlert.alertData.isOpen && (
+          <AlertModal
+            open={successAlert.alertData.isOpen}
+            close={() => {
+              successAlert.closeAlert();
+              navigate(`/script/content/${postId}`);
+            }}
+            header={successAlert.alertData.title}
+          >
+            <Text>{successAlert.alertData.content}</Text>
+          </AlertModal>
+        )}
+      </Container>
+    </div>
   );
 };
 

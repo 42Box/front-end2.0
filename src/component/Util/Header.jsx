@@ -9,7 +9,7 @@ const Header = (props) => {
       borderBottom="1px solid #C7C7C7"
       justifyContent="space-between"
     >
-      <Text fontSize="30px" fontWeight="700" marginLeft="32px" marginTop="45px">
+      <Text fontSize="35px" fontWeight="700" marginLeft="32px" marginTop="45px">
         {props.pageTitle}
       </Text>
       {props.rightButton}
