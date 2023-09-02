@@ -19,6 +19,7 @@ const useOAuth = () => {
       statusMessage: data.statusMessage,
       profileImageUrl: data.profileImageUrl,
       profileImagePath: data.profileImagePath,
+      quickSlotList: data.quickSlotList,
     };
     console.log("login success!!!");
     console.log(newUser);
