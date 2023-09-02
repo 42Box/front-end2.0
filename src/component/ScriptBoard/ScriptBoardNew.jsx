@@ -1,7 +1,7 @@
 import Header from "../Util/Header";
 import useScriptBoardNew from "../../hook/useScriptBoardNew";
 import BackGround from "../Util/BackGround";
-import { Input, Textarea, Box, Button } from "@chakra-ui/react";
+import { Input, Text, Textarea, Box, Button, Flex } from "@chakra-ui/react";
 import FileSelectButton from "../Util/Button/FileSelectButton";
 
 const ScriptBoardNew = () => {
@@ -32,6 +32,7 @@ const ScriptBoardNew = () => {
     const fileInput = document.getElementById("fileInput");
     if (fileInput) {
       fileInput.click();
+      fileInput.value = "";
     }
   };
 
@@ -75,7 +76,7 @@ const ScriptBoardNew = () => {
               variant="unstyled"
             />
             <Box paddingTop="36px" />
-            <Box
+            <Flex
               height="48px"
               borderRadius="12px"
               border="1px solid #C7C7C7"
@@ -88,7 +89,16 @@ const ScriptBoardNew = () => {
                 onFileChange={fileChangeHandler}
                 selectedFile={selectedFile}
               />
-            </Box>
+              <Flex paddingLeft="15px" />
+              <Text
+                fontSize="18px"
+                color="gray"
+                _hover={selectedFile ? { color: "#FF7070" } : {}}
+                onClick={() => setSelectedFile(null)}
+              >
+                {selectedFile ? selectedFile.name : "선택된 파일이 없습니다."}
+              </Text>
+            </Flex>
             <Box paddingTop="40px" />
             <Textarea
               height="700px"
