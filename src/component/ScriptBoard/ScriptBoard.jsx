@@ -41,7 +41,12 @@ const ScriptBoard = () => {
   };
 
   const searchHandler = (word, condition) => {
-    setViewOption({ ...viewOption, search: word, searchCondition: condition });
+    setViewOption({
+      ...viewOption,
+      page: 0,
+      search: word,
+      searchCondition: condition,
+    });
   };
 
   return (
