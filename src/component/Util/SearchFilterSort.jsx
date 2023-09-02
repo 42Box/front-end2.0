@@ -6,9 +6,9 @@ import FilterOptions from "./FilterOptions";
 import SortNewestButton from "./Button/SortNewestButton";
 import SortPopularButton from "./Button/SortPopularButton";
 
-const SearchFilterSort = () => {
+const SearchFilterSort = ({ onSearch }) => {
   const [filterClicked, setFilterClicked] = useState(false);
-  const [newestClicked, setNewestClicked] = useState(false);
+  const [newestClicked, setNewestClicked] = useState(true);
   const [popularClicked, setPopularClicked] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -41,7 +41,7 @@ const SearchFilterSort = () => {
 
   return (
     <Flex height="33px" marginTop="30px" position="relative">
-      <SearchBar />
+      <SearchBar onSearch={onSearch} />
       <FilterButton
         ref={filterButtonRef}
         onClick={toggleFilter}

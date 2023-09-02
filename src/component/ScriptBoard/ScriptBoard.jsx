@@ -40,13 +40,17 @@ const ScriptBoard = () => {
     setViewOption({ ...viewOption, page: pageIndex });
   };
 
+  const searchHandler = (word, condition) => {
+    setViewOption({ ...viewOption, search: word, searchCondition: condition });
+  };
+
   return (
     <BackGround>
       <Header
         pageTitle="스크립트"
         rightButton={loginStateValue && <WriteButton path="/script/new" />}
       />
-      <SearchFilterSort />
+      <SearchFilterSort onSearch={searchHandler} />
       <TextPreviewList to="/script/content" posts={boardInfo.content} />
       <Pagenation
         onPagenation={pageNationHandler}
