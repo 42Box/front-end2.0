@@ -1,4 +1,11 @@
 export const errorHandling = (response, navigate, errorAlert) => {
+  if (!response) {
+    errorAlert.openAlert({
+      title: "잠시 흐린눈 부탁",
+      content: "💥💥",
+    });
+    return;
+  }
   if (response.status === 400) {
     errorAlert.openAlert({
       title: "요청이 잘못되었습니다😣",

@@ -18,6 +18,7 @@ export const SetUserState = async ({
     statusMessage: data.statusMessage,
     profileImageUrl: data.profileImageUrl,
     profileImagePath: data.profileImagePath,
+    quickSlotList: data.quickSlotList,
   };
   setLoginStateValue(true);
   setUserStateValue(newUser);

@@ -32,6 +32,7 @@ import { errorHandling } from "../../util/errorHandling";
 import "./ScriptBoardContent.css";
 import IconAndCount from "../Util/IconAndCount";
 import axios from "axios";
+import { Like } from "./Like";
 
 const ScriptBoardContent = () => {
   const navigate = useNavigate();
@@ -40,6 +41,13 @@ const ScriptBoardContent = () => {
   const [userScriptSavedId, setUserScriptSavedId] = useState(null);
   const [isPreviewOn, setIsPreviewOn] = useState(false);
   const [postInfo, setPostInfo] = useState(null);
+  const [dataSendToMac, setDataSendToMac] = useState({
+    savedId: null,
+    name: null, // script name
+    title: null, // script 게시물 title
+    path: null,
+    userUuid: null,
+  });
 
   const dragLimitBox = useRef(null);
   const errorAlert = useAlert();
@@ -61,11 +69,15 @@ const ScriptBoardContent = () => {
         `https://api.42box.kr/board-service/script-boards/${postId}`,
       );
       setPostInfo(response.data);
+      setDataSendToMac({
+        ...dataSendToMac,
+        name: postInfo.scriptName,
+        title: postInfo.title,
+        path: postInfo.scriptPath,
+      });
       if (response.data.scriptSaved)
         setUserScriptSavedId(response.data.savedId);
-      console.log("postInfo Api Call is successful");
     } catch (error) {
-      console.log("postInfo Api Call is fail");
       errorResponseHandler(error.response);
     }
   };
@@ -81,17 +93,18 @@ const ScriptBoardContent = () => {
           path: postInfo.scriptPath,
         },
       );
-      const { savedId, name, description, path, userUuid } = response.data;
+      const { savedId, name, path, userUuid } = response.data;
+      setDataSendToMac({
+        savedId: savedId,
+        name: name,
+        title: postInfo.title,
+        path: path,
+        userUuid: userUuid,
+      });
       window?.webkit?.messageHandlers?.downloadScript?.postMessage(
-        JSON.stringify({
-          savedId: savedId,
-          name: name,
-          description: description,
-          path: path,
-          userUuid: userUuid,
-        }),
+        JSON.stringify(dataSendToMac),
       );
-      setUserScriptSavedId(savedId);
+      setUserScriptSavedId(dataSendToMac.savedId);
       successAlert.openAlert({
         title: "파일을 저장했습니다!",
         content: "",
@@ -111,6 +124,9 @@ const ScriptBoardContent = () => {
         title: "파일을 삭제했습니다!",
         content: "",
       });
+      window?.webkit?.messageHandlers?.deleteScript?.postMessage(
+        JSON.stringify(dataSendToMac),
+      );
       setUserScriptSavedId(null);
     } catch (error) {
       console.log("before: ", error.response);
@@ -230,13 +246,7 @@ const ScriptBoardContent = () => {
                 gap="6px"
                 onClick={() => {
                   window?.webkit?.messageHandlers?.executeScript?.postMessage(
-                    JSON.stringify({
-                      savedId: postInfo?.myScriptId,
-                      name: postInfo?.scriptName,
-                      title: postInfo?.title,
-                      path: postInfo?.scriptPath,
-                      userUuid: postInfo?.userUuid,
-                    }),
+                    JSON.stringify(dataSendToMac),
                   );
                 }}
               >
@@ -265,7 +275,9 @@ const ScriptBoardContent = () => {
               )}
             </div>
             <Flex height="100%">
-              <IconAndCount icon={<LikeIcon />} count={postInfo?.likeCount} />
+              <Like postId={postId} likeState={postInfo?.boardLiked}>
+                <IconAndCount icon={<LikeIcon />} count={postInfo?.likeCount} />
+              </Like>
               <IconAndCount icon={<MsgIcon />} count={postInfo?.commentCount} />
             </Flex>
           </div>
