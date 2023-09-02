@@ -9,7 +9,7 @@ const SortPopularButton = ({ onClick, isClicked }) => {
           isClicked ? "var(--main-orange, #FF9548) " : "var(--dg-03, #8E8E8E)"
         }
         fontWeight="700"
-        marginTop="2px"
+        margin={0}
       >
         추천순
       </Text>
