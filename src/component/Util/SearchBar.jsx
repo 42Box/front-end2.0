@@ -1,9 +1,10 @@
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
-import { useState } from "react";
+import { useRecoilState } from "recoil";
+import { searchBarState } from "../../recoil/searchBarState";
 
 const SearchBar = ({ onSearch }) => {
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useRecoilState(searchBarState);
   // const [isValidInput, setIsValidInput] = useState(true);
 
   const handleSearch = () => {
