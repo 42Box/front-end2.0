@@ -18,8 +18,6 @@ const FilterOptions = ({ isOpen, onSelect, filterButtonRef }) => {
           filterButtonRef.current.getBoundingClientRect();
         const top = filterButtonRect.bottom + 8;
         const left = filterButtonRect.left;
-        console.log(top);
-        console.log(left);
         setPosition({ top, left });
       }
     };
