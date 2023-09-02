@@ -6,27 +6,28 @@ import FilterOptions from "./FilterOptions";
 import SortNewestButton from "./Button/SortNewestButton";
 import SortPopularButton from "./Button/SortPopularButton";
 
-const SearchFilterSort = ({ onSearch }) => {
+const SearchFilterSort = ({ onSearch, onSort }) => {
   const [filterClicked, setFilterClicked] = useState(false);
   const [newestClicked, setNewestClicked] = useState(true);
   const [popularClicked, setPopularClicked] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
 
   const toggleFilter = () => {
-    setFilterClicked(!filterClicked);
+    setFilterClicked(true);
     setNewestClicked(false);
     setPopularClicked(false);
   };
 
   const handleNewestClick = () => {
-    setNewestClicked(!newestClicked);
+    setNewestClicked(true);
     setFilterClicked(false);
     setPopularClicked(false);
     setSelectedOption(null);
+    onSort("regDate,DESC");
   };
 
   const handlePopularClick = () => {
-    setPopularClicked(!popularClicked);
+    setPopularClicked(true);
     setFilterClicked(false);
     setNewestClicked(false);
     setSelectedOption(null);

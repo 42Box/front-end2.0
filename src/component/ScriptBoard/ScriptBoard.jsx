@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { loginState } from "../../recoil/states";
+import { searchBarState } from "../../recoil/searchBarState";
 import { useRecoilValue } from "recoil";
 import Header from "../Util/Header";
 import WriteButton from "../Util/Button/WriteButton";
@@ -11,28 +12,14 @@ import SearchFilterSort from "../Util/SearchFilterSort";
 
 const ScriptBoard = () => {
   const loginStateValue = useRecoilValue(loginState);
-  const [viewOption, setViewOption] = useState(() => {
-    const storedViewOption = localStorage.getItem("scriptViewOption");
-    return storedViewOption
-      ? JSON.parse(storedViewOption)
-      : {
-          page: 0,
-          size: 5,
-          sort: "regDate,DESC",
-          search: "",
-          searchCondition: "NONE",
-        };
+  const searchBarStateValue = useRecoilValue(searchBarState);
+  const [viewOption, setViewOption] = useState({
+    page: 0,
+    size: 5,
+    sort: "regDate,DESC",
+    search: "",
+    searchCondition: "NONE",
   });
-
-  // localStorage에 viewOption 저장
-  useEffect(() => {
-    localStorage.setItem("scriptViewOption", JSON.stringify(viewOption));
-  }, [viewOption]);
-
-  // 5분마다 localStorage에 저장된 viewOption 삭제
-  useEffect(() => {
-    setInterval(() => localStorage.removeItem("scriptViewOption"), 300000);
-  }, []);
 
   const boardInfo = useGetBoardInfo("script-boards", viewOption);
 
@@ -49,13 +36,24 @@ const ScriptBoard = () => {
     });
   };
 
+  const sortHandler = (sortOption) => {
+    setViewOption({
+      page: 0,
+      size: 5,
+      sort: sortOption,
+      search: searchBarStateValue === "" ? "" : viewOption.search,
+      searchCondition:
+        searchBarStateValue === "" ? "NONE" : viewOption.searchCondition,
+    });
+  };
+
   return (
     <BackGround>
       <Header
         pageTitle="스크립트"
         rightButton={loginStateValue && <WriteButton path="/script/new" />}
       />
-      <SearchFilterSort onSearch={searchHandler} />
+      <SearchFilterSort onSearch={searchHandler} onSort={sortHandler} />
       <TextPreviewList to="/script/content" posts={boardInfo.content} />
       <Pagenation
         onPagenation={pageNationHandler}
