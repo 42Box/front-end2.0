@@ -1,20 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+// import { useNavigate } from "react-router-dom";
 
+// import apiCall from "../../util/apiCall";
+import { Button } from "@chakra-ui/react";
 import "./CommentNew.css";
 
-const CommentNew = () => {
+const CommentNew = (postId) => {
+  // const navigate = useNavigate();
   const [isInputValid, setIsInputValid] = useState(true);
+  const [commentDescription, setCommentDescription] = useState("");
+
+  useEffect(() => {}, [commentDescription]);
+
   const inputChangeHandler = (event) => {
-    setIsInputValid(event.target.value.trim().length === 0 ? false : true);
+    const description = event.target.value;
+    setIsInputValid(description.trim().length === 0);
+    setCommentDescription(description);
   };
 
-  const submitHandler = (event) => {
-    event.preventDefault();
-    if (!isInputValid) {
-      return;
-    }
+  const submitHandler = async (event) => {
     // POST request
     // move to ScriptBoard
+    event.preventDefault();
+    try {
+      if (!isInputValid) return;
+      // await apiCall(
+      //   "POST",
+      //   `boards/script-boards/${postId}/comments`,
+      //   commentDescription,
+      // );
+      // event.target.value = "";
+      // navigate(-1);
+    } catch (error) {}
   };
 
   return (
@@ -24,7 +41,11 @@ const CommentNew = () => {
           onChange={inputChangeHandler}
           placeholder="댓글을 입력하세요."
         ></textarea>
-        <button type="submit">등록</button>
+        <div className="button-wrap">
+          <Button className="comment-form-button" type="submit">
+            등록
+          </Button>
+        </div>
       </div>
     </form>
   );

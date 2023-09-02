@@ -1,11 +1,27 @@
 .comment-form {
-  height: 60px;
-  width: 80%;
+  height: 200px;
+  width: 100%;
   display: flex;
   justify-content: center;
+  position: relative;
 }
 
 .comment-form textarea {
-  max-width: 700px;
-  width: 90%;
+  /*max-width: 700px;*/
+  width: 100%;
+}
+
+textarea::placeholder {
+  color: #C7C7C7;
+  opacity: 1;
+  font-size: 20px;
+  position: absolute;
+  top: 10%;
+  left: 20px;
+}
+
+.button-wrap {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
 }
