@@ -23,30 +23,31 @@ const TextPreview = ({
       height="175px"
       width="704px"
       borderBottom="1px solid var(--line-02, #E8E8E8)"
-      paddingTop="32px"
       margin="auto"
     >
-      <Text fontSize="20px" fontWeight="500">
+      <Box paddingTop="32px" />
+      <Text fontSize="20px" fontWeight="500" margin={0}>
         {title}
       </Text>
-      <Text fontSize="16px" color="var(--dg-04, #5B5B5B)" marginTop="16px">
+      <Box paddingTop="16px" />
+      <Text fontSize="16px" color="var(--dg-04, #5B5B5B)" margin={0}>
         {content}
       </Text>
+      <Box paddingTop="18px" />
       <Flex
-        alignItems="center"
         height="23px"
-        marginTop="16px"
-        fontSize="16px"
         color="var(--dg-03, #8E8E8E)"
         justifyContent="space-between"
       >
-        <Flex height="100%">
+        <Flex height="100%" alignItems="center">
           <Image
             src={`https://42box.kr/${profileImagePath}`}
             width="23px"
             height="23px"
           />
-          <Text marginLeft="8px">{author}</Text>
+          <Text fontSize="16px" marginLeft="8px">
+            {author}
+          </Text>
           <Flex marginLeft="12px" />|<Flex marginLeft="12px" />
           <DateComponent date={date} />
         </Flex>

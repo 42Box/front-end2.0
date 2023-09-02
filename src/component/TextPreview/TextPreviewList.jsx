@@ -2,10 +2,11 @@ import "./TextPreviewList.css";
 
 import TextPreview from "./TextPreview";
 import { Link } from "react-router-dom";
+import { UnorderedList } from "@chakra-ui/react";
 
 const TextPreviewList = (props) => {
   return (
-    <ul>
+    <UnorderedList alignSelf="center" paddingLeft={0} margin={0}>
       {props.posts.map((post) => (
         <Link to={`${props.to}/${post.boardId}`} key={post.boardId}>
           <TextPreview
@@ -19,7 +20,7 @@ const TextPreviewList = (props) => {
           />
         </Link>
       ))}
-    </ul>
+    </UnorderedList>
   );
 };
 
