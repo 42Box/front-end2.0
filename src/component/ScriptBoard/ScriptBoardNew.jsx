@@ -1,10 +1,14 @@
 import Header from "../Util/Header";
 import useScriptBoardNew from "../../hook/useScriptBoardNew";
 import BackGround from "../Util/BackGround";
-import { Input, Text, Textarea, Box, Button, Flex } from "@chakra-ui/react";
+import { Input, Text, Textarea, Box, Flex } from "@chakra-ui/react";
 import FileSelectButton from "../Util/Button/FileSelectButton";
+import { useNavigate } from "react-router-dom";
+import ConfirmCancle from "../Util/Modal/confirmCancle";
+import BasicButton from "../Util/Button/BasicButton";
 
 const ScriptBoardNew = () => {
+  const navigate = useNavigate();
   const {
     inputTitle,
     setInputTitle,
@@ -60,9 +64,13 @@ const ScriptBoardNew = () => {
     }
   };
 
+  const cancleWriteHandler = () => {
+    navigate("/script/board");
+  };
+
   return (
     <BackGround>
-      <Header pageTitle="스크립트"></Header>
+      <Header pageTitle="스크립트" allowNavigate={false}></Header>
       <Box width="704px" alignSelf="center">
         <form onSubmit={submitHandler}>
           <Box paddingTop="36px" />
@@ -116,8 +124,9 @@ const ScriptBoardNew = () => {
           </Box>
           <Box paddingTop="15px" />
           <Box display="flex" justifyContent="flex-end">
-            <Button
-              type="submit"
+            <ConfirmCancle onCancle={cancleWriteHandler} />
+            {/* <Button
+              onClick={cancleWriteHandler}
               borderRadius="20px"
               border="1px solid #8E8E8E"
               backgroundColor="transparent"
@@ -128,8 +137,10 @@ const ScriptBoardNew = () => {
                 color: "#FF9548",
               }}
             >
-              등록
-            </Button>
+              취소
+            </Button> */}
+            <Flex paddingLeft="10px" />
+            <BasicButton type="submit">등록</BasicButton>
           </Box>
         </form>
       </Box>
