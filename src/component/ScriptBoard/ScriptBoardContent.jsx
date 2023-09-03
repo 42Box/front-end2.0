@@ -178,7 +178,12 @@ const ScriptBoardContent = () => {
   return (
     <div ref={dragLimitBox}>
       <Container backgroundColor="#ffffff">
-        <Header pageTitle="스크립트" />
+        <Header
+          pageTitle="스크립트"
+          allowHomeNavigate={true}
+          allowBoardNavigate={true}
+          boardRoute="/script/board"
+        />
         <div
           style={{
             display: "flex",

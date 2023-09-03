@@ -59,6 +59,8 @@ const ScriptBoard = () => {
       <Header
         pageTitle="스크립트"
         rightButton={loginStateValue && <WriteButton path="/script/new" />}
+        allowHomeNavigate={true}
+        allowBoardNavigate={false}
       />
       <SearchFilterSort onSearch={searchHandler} onSort={sortHandler} />
       <TextPreviewList to="/script/content" posts={boardInfo.content} />
