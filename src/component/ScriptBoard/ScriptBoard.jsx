@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { loginState } from "../../recoil/states";
 import { searchBarState } from "../../recoil/searchBarState";
 import { useRecoilValue } from "recoil";
@@ -13,13 +14,20 @@ import SearchFilterSort from "../Util/SearchFilterSort";
 const ScriptBoard = () => {
   const loginStateValue = useRecoilValue(loginState);
   const searchBarStateValue = useRecoilValue(searchBarState);
-  const [viewOption, setViewOption] = useState({
-    page: 0,
-    size: 5,
-    sort: "regDate,DESC",
-    search: "",
-    searchCondition: "NONE",
-  });
+
+  const [queryParams] = useSearchParams();
+
+  const [viewOption, setViewOption] = useState(
+    queryParams.size === 0
+      ? {
+          page: 0,
+          size: 5,
+          sort: "regDate,DESC",
+          search: "",
+          searchCondition: "NONE",
+        }
+      : Object.fromEntries(queryParams)
+  );
 
   const boardInfo = useGetBoardInfo("script-boards", viewOption);
 
@@ -58,7 +66,7 @@ const ScriptBoard = () => {
       <Pagenation
         onPagenation={pageNationHandler}
         current={viewOption.page}
-        last={boardInfo.totalPages - 1}
+        totalPages={boardInfo.totalPages}
       ></Pagenation>
     </BackGround>
   );
