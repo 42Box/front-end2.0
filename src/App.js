@@ -13,14 +13,20 @@ import ServiceRegisterBoardContent from "./component/ServiceRegisterBoard/Servic
 import NotFound from "./component/Util/NotFound";
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
-import { loginState } from "./recoil/states";
+import { loginState, userState } from "./recoil/states";
 
 const App = () => {
-  const setLoginValue = useSetRecoilState(loginState);
+  const setLoginState = useSetRecoilState(loginState);
+  const setUserState = useSetRecoilState(userState);
 
   useEffect(() => {
-    if (localStorage.getItem("loginState")) setLoginValue(true);
-  }, [setLoginValue]);
+    if (localStorage.getItem("loginState")) {
+      setLoginState(true);
+    }
+    if (localStorage.getItem("userState")) {
+      setUserState(JSON.parse(localStorage.getItem("userState")));
+    }
+  }, [setLoginState, setUserState]);
 
   return (
     <Routes>
