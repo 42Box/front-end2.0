@@ -1,36 +1,40 @@
-import { useState } from "react";
-import { Button, Text } from "@chakra-ui/react";
-import { ReactComponent as LikeIcon } from "../../asset/like.svg";
+import { Button, Text, Flex } from "@chakra-ui/react";
+import { ReactComponent as LikeIcon } from "../../asset/content-view-like.svg";
+import { ReactComponent as LikeClickedIcon } from "../../asset/content-view-like-clicked.svg";
 import apiCall from "../../util/apiCall";
 
-export const Like = ({ postId, likeState, count }) => {
-  const [isLiked, setIsLiked] = useState(likeState);
-
+export const Like = ({ postId, likeState, count, onRender }) => {
   const likeHandler = async () => {
     try {
       await apiCall("POST", "board-service/script-boards/likes", {
         boardId: postId,
-        likeDislikeStatus: true,
+        likeDislikeStatus: likeState ? true : false,
       });
-      setIsLiked(!isLiked);
+      onRender();
     } catch (error) {}
   };
 
   return (
     <Button
       onClick={likeHandler}
-      minWidth="55px"
+      paddingLeft="10px"
+      paddingRight="10px"
       height="30px"
-      padding="0px 1px"
-      rounded="15px"
+      borderRadius="25px"
       bg="transparent"
-      gap="3px"
-      _hover={{
-        background: isLiked ? "#FF9548" : "#E8E8E8",
-      }}
+      border="none"
+      _hover={{ background: "#E8E8E8" }}
+      background={likeState ? "#FF9548" : ""}
+      alignItems="center"
     >
-      <LikeIcon height="80%" />
-      <Text marginLeft="2px" color="var(--dg-01, #9E9E9E)">
+      {likeState ? <LikeClickedIcon /> : <LikeIcon />}
+      <Flex paddingRight="3px" />
+      <Text
+        fontSize="22px"
+        height="27px"
+        margin={0}
+        color={likeState ? "#FFF0E5" : "#5B5B5B"}
+      >
         {count}
       </Text>
     </Button>
