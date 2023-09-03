@@ -40,6 +40,7 @@ const ScriptBoardContent = () => {
   const [isPreviewOn, setIsPreviewOn] = useState(false);
   const [filePreview, setFilePreview] = useState("");
   const [postInfo, setPostInfo] = useState(null);
+  const [recallPostInfo, setRecallPostInfo] = useState(false);
 
   const [dataSendToMac, setDataSendToMac] = useState({
     scriptUuid: null,
@@ -57,7 +58,7 @@ const ScriptBoardContent = () => {
   useEffect(() => {
     postInfoApiCall();
     // eslint-disable-next-line
-  }, []);
+  }, [recallPostInfo]);
 
   useEffect(() => {
     console.log("every change: ", dataSendToMac);
@@ -71,7 +72,7 @@ const ScriptBoardContent = () => {
     try {
       const response = await apiCall(
         "GET",
-        `https://api.42box.kr/board-service/script-boards/${postId}`,
+        `https://api.42box.kr/board-service/script-boards/${postId}`
       );
 
       setPostInfo(response.data);
@@ -109,7 +110,7 @@ const ScriptBoardContent = () => {
           name: postInfo.scriptName,
           description: postInfo.content,
           path: postInfo.scriptPath,
-        },
+        }
       );
       console.log("file download response: ", response.data);
       await setDataSendToMac({
@@ -121,7 +122,7 @@ const ScriptBoardContent = () => {
         scriptUuid: response.data.scriptUuid,
       });
       window?.webkit?.messageHandlers.downloadScript.postMessage(
-        JSON.stringify(dataSendToMac),
+        JSON.stringify(dataSendToMac)
       );
       setUserScriptSavedId(response.data.savedId);
       successAlert.openAlert({
@@ -137,7 +138,7 @@ const ScriptBoardContent = () => {
     try {
       const response = await apiCall(
         "DELETE",
-        `https://api.42box.kr/user-service/users/me/scripts/${userScriptSavedId}`,
+        `https://api.42box.kr/user-service/users/me/scripts/${userScriptSavedId}`
       );
       successAlert.openAlert({
         title: "파일을 삭제했습니다!",
@@ -150,7 +151,7 @@ const ScriptBoardContent = () => {
         userUuid: response.data.userUuid,
       }));
       window?.webkit?.messageHandlers.deleteScript.postMessage(
-        JSON.stringify(dataSendToMac),
+        JSON.stringify(dataSendToMac)
       );
       setUserScriptSavedId(null);
     } catch (error) {
@@ -161,7 +162,7 @@ const ScriptBoardContent = () => {
   const readFileHandler = async () => {
     try {
       const response = await axios.get(
-        `https://42box.kr/${postInfo.scriptPath}`,
+        `https://42box.kr/${postInfo.scriptPath}`
       );
       const file = response.data;
       console.log(file);
@@ -169,6 +170,10 @@ const ScriptBoardContent = () => {
     } catch (error) {
       errorResponseHandler(error.response);
     }
+  };
+
+  const renderHandler = () => {
+    setRecallPostInfo(!recallPostInfo);
   };
 
   return (
@@ -271,7 +276,7 @@ const ScriptBoardContent = () => {
                 console.log("on execute:", dataSendToMac);
                 if (dataSendToMac.path) {
                   window?.webkit?.messageHandlers.executeScript.postMessage(
-                    JSON.stringify(dataSendToMac),
+                    JSON.stringify(dataSendToMac)
                   );
                 }
               }}
@@ -305,6 +310,7 @@ const ScriptBoardContent = () => {
               postId={postInfo?.boardId}
               likeState={postInfo?.boardLiked}
               count={postInfo?.likeCount}
+              onRender={renderHandler}
             />
             <Box
               display="flex"
