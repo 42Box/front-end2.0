@@ -1,6 +1,9 @@
 import { Flex, Text, Button } from "@chakra-ui/react";
 
-const Pagenation = ({ onPagenation, current, last }) => {
+const Pagenation = ({ onPagenation, current, totalPages }) => {
+  current = parseInt(current);
+  let last = parseInt(totalPages) - 1;
+
   const nextHandler = () => {
     if (current < last) {
       onPagenation(current + 1);

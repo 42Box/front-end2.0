@@ -16,9 +16,14 @@ const useGetBoardInfo = (requestPath, viewOption) => {
     empty: true,
   });
 
-  const getBoardInfo = useApi("GET", `board-service/${requestPath}`, {
-    params: viewOption,
-  });
+  const queryString = new URLSearchParams(viewOption).toString();
+  window.history.replaceState({}, "", `?${queryString}`);
+
+  const getBoardInfo = useApi(
+    "GET",
+    `board-service/${requestPath}?${queryString}`,
+    ""
+  );
 
   const onSuccess = (response) => {
     setBoardInfo(response.data);
