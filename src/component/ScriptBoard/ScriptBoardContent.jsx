@@ -123,7 +123,7 @@ const ScriptBoardContent = () => {
         scriptUuid: response.data.scriptUuid,
       });
       window?.webkit?.messageHandlers.downloadScript.postMessage(
-        JSON.stringify(dataSendToMac),
+        JSON.stringify(dataSendToMac)
       );
       setUserScriptSavedId(response.data.savedId);
       successAlert.openAlert({
@@ -152,7 +152,7 @@ const ScriptBoardContent = () => {
         userUuid: response.data.userUuid,
       }));
       window?.webkit?.messageHandlers.deleteScript.postMessage(
-        JSON.stringify(dataSendToMac),
+        JSON.stringify(dataSendToMac)
       );
       setUserScriptSavedId(null);
     } catch (error) {
