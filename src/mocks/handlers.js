@@ -166,7 +166,7 @@ export const handlers = [
     (req, res, ctx) => {
       const page = req.url.searchParams.get("page");
       console.log("data responding....");
-      if (page === "1") {
+      if (page === "0") {
         return res(
           ctx.json({
             content: [
@@ -220,7 +220,7 @@ export const handlers = [
             empty: false,
           }),
         );
-      } else if (page === "2") {
+      } else if (page === "1") {
         return res(
           ctx.json({
             content: [
