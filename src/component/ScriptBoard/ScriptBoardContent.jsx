@@ -73,7 +73,7 @@ const ScriptBoardContent = () => {
     try {
       const response = await apiCall(
         "GET",
-        `https://api.42box.kr/board-service/script-boards/${postId}`,
+        `https://api.42box.kr/board-service/script-boards/${postId}`
       );
 
       setPostInfo(response.data);
@@ -111,7 +111,7 @@ const ScriptBoardContent = () => {
           name: postInfo.scriptName,
           description: postInfo.content,
           path: postInfo.scriptPath,
-        },
+        }
       );
       console.log("file download response: ", response.data);
       await setDataSendToMac({
@@ -139,7 +139,7 @@ const ScriptBoardContent = () => {
     try {
       const response = await apiCall(
         "DELETE",
-        `https://api.42box.kr/user-service/users/me/scripts/${userScriptSavedId}`,
+        `https://api.42box.kr/user-service/users/me/scripts/${userScriptSavedId}`
       );
       successAlert.openAlert({
         title: "파일을 삭제했습니다!",
@@ -163,7 +163,7 @@ const ScriptBoardContent = () => {
   const readFileHandler = async () => {
     try {
       const response = await axios.get(
-        `https://42box.kr/${postInfo.scriptPath}`,
+        `https://42box.kr/${postInfo.scriptPath}`
       );
       const file = response.data;
       console.log(file);
