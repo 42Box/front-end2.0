@@ -23,5 +23,5 @@ root.render(
         </ChakraProvider>
       </RecoilRoot>
     </BrowserRouter>
-  </React.StrictMode>,
+  </React.StrictMode>
 );
