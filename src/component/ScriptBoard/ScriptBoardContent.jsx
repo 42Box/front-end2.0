@@ -37,10 +37,11 @@ import { Like } from "./Like";
 const ScriptBoardContent = () => {
   const navigate = useNavigate();
   const postId = useParams().postId;
-  const [filePreview, setFilePreview] = useState("");
   const [userScriptSavedId, setUserScriptSavedId] = useState(null);
   const [isPreviewOn, setIsPreviewOn] = useState(false);
+  const [filePreview, setFilePreview] = useState("");
   const [postInfo, setPostInfo] = useState(null);
+
   const [dataSendToMac, setDataSendToMac] = useState({
     savedId: null,
     name: null, // script name
@@ -58,6 +59,10 @@ const ScriptBoardContent = () => {
     // eslint-disable-next-line
   }, []);
 
+  // useEffect(() => {
+  //   console.log(dataSendToMac);
+  // }, [dataSendToMac]);
+
   const errorResponseHandler = (response) => {
     errorHandling(response, navigate, errorAlert);
   };
@@ -68,16 +73,29 @@ const ScriptBoardContent = () => {
         "GET",
         `https://api.42box.kr/board-service/script-boards/${postId}`,
       );
+
       setPostInfo(response.data);
-      setDataSendToMac({
-        ...dataSendToMac,
-        name: postInfo.scriptName,
-        title: postInfo.title,
-        path: postInfo.scriptPath,
-      });
-      if (response.data.scriptSaved)
+
+      if (response.data.scriptSaved) {
         setUserScriptSavedId(response.data.savedId);
+        setDataSendToMac({
+          savedId: response.data.savedId,
+          name: response.data.scriptName,
+          title: response.data.title,
+          path: response.data.scriptPath,
+          userUuid: null,
+        });
+      } else {
+        setDataSendToMac((prev) => ({
+          ...prev,
+          name: response.data.scriptName,
+          title: response.data.title,
+          path: response.data.scriptPath,
+        }));
+      }
+      console.log("postInfo Api Call is successful");
     } catch (error) {
+      console.log("postInfo Api Call is fail");
       errorResponseHandler(error.response);
     }
   };
@@ -104,7 +122,7 @@ const ScriptBoardContent = () => {
       window?.webkit?.messageHandlers?.downloadScript?.postMessage(
         JSON.stringify(dataSendToMac),
       );
-      setUserScriptSavedId(dataSendToMac.savedId);
+      setUserScriptSavedId(savedId);
       successAlert.openAlert({
         title: "파일을 저장했습니다!",
         content: "",

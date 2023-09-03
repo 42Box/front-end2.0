@@ -9,10 +9,10 @@ const CommentList = (props) => {
     <div className="comment-list">
       {props.comments.map((comment) => (
         <Comment
-          key={comment.id}
-          author={comment.author}
-          date={<DateComponent date={comment.date} />}
-          content={comment.content}
+          key={comment.commentId}
+          author={comment.commentWriterNickname}
+          date={<DateComponent date={comment.commentRegDate} />}
+          content={comment.commentContent}
         />
       ))}
     </div>
