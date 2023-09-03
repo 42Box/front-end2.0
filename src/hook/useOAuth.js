@@ -29,7 +29,7 @@ const useOAuth = () => {
     window.localStorage.setItem("user", JSON.stringify(newUser));
 
     const send = new Promise((resolve, reject) =>
-      window.webkit.messageHandlers.userProfile.postMessage(
+      window?.webkit?.messageHandlers?.userProfile.postMessage(
         JSON.stringify(newUser),
       ),
     );
