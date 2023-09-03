@@ -58,9 +58,9 @@ const ScriptBoardContent = () => {
     // eslint-disable-next-line
   }, []);
 
-  useEffect(() => {
-    console.log("every change: ", dataSendToMac);
-  }, [dataSendToMac]);
+  // useEffect(() => {
+  //   console.log("every change: ", dataSendToMac);
+  // }, [dataSendToMac]);
 
   const errorResponseHandler = (response) => {
     errorHandling(response, navigate, errorAlert);
