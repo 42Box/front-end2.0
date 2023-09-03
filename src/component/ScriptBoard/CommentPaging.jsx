@@ -21,6 +21,7 @@ export const CommentPaging = ({ postId, errorHandler }) => {
         { params: { page: commentCurPage, size: 5 } },
       );
       setCommentInfo(response.data);
+      console.log("comment get api response: ", response.data);
       console.log("commentInfo Api Call is successful");
     } catch (error) {
       console.log("commentInfo Api Call is fail");
