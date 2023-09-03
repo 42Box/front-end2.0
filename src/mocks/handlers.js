@@ -110,11 +110,12 @@ export const handlers = [
     (req, res, ctx) => {
       return res(
         ctx.json({
-          savedId: 1,
+          savedId: 17,
           name: "hello",
           description: "좋은 스크립트",
           path: "/src",
           userUuid: "user-uuid",
+          scriptUuid: "37a56076-e72c-4efe-ba7f-de0effe7f4c3",
         }),
       ); //statusCode 다르게 해서 테스트 해보기
     },
@@ -122,7 +123,15 @@ export const handlers = [
   rest.delete(
     "https://api.42box.kr/user-service/users/me/scripts/:savedId",
     (req, res, ctx) => {
-      return res(ctx.status(200)); //statusCode 다르게 해서 테스트 해보기
+      return res(
+        ctx.json({
+          savedId: 1,
+          name: "hello",
+          description: "좋은 스크립트",
+          path: "/src",
+          userUuid: "1",
+        }),
+      ); //statusCode 다르게 해서 테스트 해보기
     },
   ),
   rest.get(

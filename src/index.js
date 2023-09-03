@@ -7,10 +7,10 @@ import { ChakraProvider } from "@chakra-ui/react";
 import theme from "./theme";
 import "./index.css";
 
-if (process.env.NODE_ENV === "development") {
-  const { worker } = require("./mocks/browser");
-  worker.start().catch((Error) => console.log(Error));
-}
+// if (process.env.NODE_ENV === "development") {
+//   const { worker } = require("./mocks/browser");
+//   worker.start().catch((Error) => console.log(Error));
+// }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
