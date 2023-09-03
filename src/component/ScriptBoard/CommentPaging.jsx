@@ -40,10 +40,10 @@ export const CommentPaging = ({ postId, errorHandler }) => {
   return (
     <div>
       <CommentNew postId={postId} />
-      {commentInfo && (
+      {commentInfo && commentInfo.totalElements > 0 && (
         <CommentList comments={commentInfo.content}></CommentList>
       )}
-      {commentInfo?.first && (
+      {commentInfo && commentInfo.totalElements > 0 && commentInfo?.first && (
         <Button
           width="66px"
           height="30px"
@@ -54,29 +54,32 @@ export const CommentPaging = ({ postId, errorHandler }) => {
           다음
         </Button>
       )}
-      {!commentInfo?.first && !commentInfo?.last && (
-        <>
-          <Button
-            width="66px"
-            height="30px"
-            border="30px"
-            gap="6px"
-            onClick={prevPageHandler}
-          >
-            이전
-          </Button>
-          <Button
-            width="66px"
-            height="30px"
-            border="30px"
-            gap="6px"
-            onClick={nextPageHandler}
-          >
-            다음
-          </Button>
-        </>
-      )}
-      {commentInfo?.last && (
+      {commentInfo &&
+        commentInfo.totalElements > 0 &&
+        !commentInfo?.first &&
+        !commentInfo?.last && (
+          <>
+            <Button
+              width="66px"
+              height="30px"
+              border="30px"
+              gap="6px"
+              onClick={prevPageHandler}
+            >
+              이전
+            </Button>
+            <Button
+              width="66px"
+              height="30px"
+              border="30px"
+              gap="6px"
+              onClick={nextPageHandler}
+            >
+              다음
+            </Button>
+          </>
+        )}
+      {commentInfo && commentInfo.totalElements > 0 && commentInfo?.last && (
         <Button
           width="66px"
           height="30px"

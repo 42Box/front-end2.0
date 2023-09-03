@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Box } from "@chakra-ui/react";
+import { Button, Text } from "@chakra-ui/react";
+import { ReactComponent as LikeIcon } from "../../asset/like.svg";
 import apiCall from "../../util/apiCall";
 
-export const Like = ({ postId, likeState, children }) => {
+export const Like = ({ postId, likeState, count }) => {
   const [isLiked, setIsLiked] = useState(likeState);
-  const [isHovering, setIsHovering] = useState(false);
 
   const likeHandler = async () => {
     try {
@@ -16,24 +16,23 @@ export const Like = ({ postId, likeState, children }) => {
     } catch (error) {}
   };
 
-  const getClassName = () => {
-    if (isLiked) {
-      return "liked";
-    } else if (isHovering) {
-      return "hovered";
-    } else {
-      return "default";
-    }
-  };
-
   return (
-    <Box
+    <Button
       onClick={likeHandler}
-      className={`like-box-${getClassName()}`}
-      onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => setIsHovering(false)}
+      minWidth="55px"
+      height="30px"
+      padding="0px 1px"
+      rounded="15px"
+      bg="transparent"
+      gap="3px"
+      _hover={{
+        background: isLiked ? "#FF9548" : "#E8E8E8",
+      }}
     >
-      {children}
-    </Box>
+      <LikeIcon height="80%" />
+      <Text marginLeft="2px" color="var(--dg-01, #9E9E9E)">
+        {count}
+      </Text>
+    </Button>
   );
 };
