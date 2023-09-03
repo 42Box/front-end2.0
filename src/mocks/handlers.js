@@ -310,6 +310,30 @@ export const handlers = [
       );
     },
   ),
+  rest.post(
+    "https://api.42box.kr/comment-service/script-boards/:postId/comments",
+    (req, res, ctx) => {
+      return res(
+        ctx.json({
+          commentId: 1,
+          commentBoardId: 1,
+          commentWriterUuid: "user-uuid1",
+          commentWriterNickname: "sechung",
+          commentWriterProfileImagePath: "ddd",
+          commentContent: "ddddd",
+          commentRegDate: "2023-09-02T22:19:01.880577",
+          commentModDate: "2023-09-02T22:22:14.209123",
+          commentType: "SCRIPT_BOARDS",
+        }),
+      ); //statusCode 다르게 해서 테스트 해보기
+    },
+  ),
+  // rest.post(
+  //   "https://api.42box.kr/comment-service/script-boards/:postId/comments",
+  //   (req, res, ctx) => {
+  //     return res(ctx.status(400)); //statusCode 다르게 해서 테스트 해보기
+  //   },
+  // ),
   //icon 서비스
   rest.put(
     "https://api.42box.kr/user-service/users/me/icon",
