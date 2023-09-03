@@ -14,11 +14,10 @@ import SearchFilterSort from "../Util/SearchFilterSort";
 const ScriptBoard = () => {
   const loginStateValue = useRecoilValue(loginState);
   const searchBarStateValue = useRecoilValue(searchBarState);
-
   const [queryParams] = useSearchParams();
 
   const [viewOption, setViewOption] = useState(
-    queryParams.size === 0
+    queryParams.toString() === ""
       ? {
           page: 0,
           size: 5,
