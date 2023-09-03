@@ -16,7 +16,7 @@ export const CommentPaging = ({ postId, errorHandler }) => {
     try {
       const response = await apiCall(
         "GET",
-        `https://api.42box.kr/board-service/script-boards/${postId}/comments`,
+        `https://api.42box.kr/comment-service/script-boards/${postId}/comments`,
         { params: { page: commentCurPage, size: 2 } },
       );
       setCommentInfo(response.data);
@@ -41,7 +41,7 @@ export const CommentPaging = ({ postId, errorHandler }) => {
     <div>
       <CommentNew postId={postId} />
       {commentInfo && (
-        <CommentList comments={commentInfo.comments}></CommentList>
+        <CommentList comments={commentInfo.content}></CommentList>
       )}
       {commentInfo?.first && (
         <Button
