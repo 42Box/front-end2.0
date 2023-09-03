@@ -20,6 +20,7 @@ export const handlers = [
       );
     },
   ),
+
   //script 서비스
   rest.get(
     "https://api.42box.kr/board-service/script-boards",
@@ -124,8 +125,33 @@ export const handlers = [
       return res(ctx.status(200)); //statusCode 다르게 해서 테스트 해보기
     },
   ),
+  rest.get(
+    "https://s3.ap-northeast-2.amazonaws.com/42box.kr/script_file/2b5dbc9a-0257-4255-9b83-06b044bca7b5.sh",
+    (req, res, ctx) => {
+      return res(
+        ctx.body(
+          "#!/bin/zsh\n" +
+            "\n" +
+            "# install brew\n" +
+            "git clone --depth=1 https://github.com/Homebrew/brew /goinfre/$USER/.brew\n" +
+            "echo 'export PATH=/goinfre/$USER/.brew/bin:$PATH' >> $HOME/.zshrc\n" +
+            "source $HOME/.zshrc\n" +
+            "brew doctor && brew update\n" +
+            "\n" +
+            "#ln -s ~/goinfre/.brew ~/.brew\n" +
+            "\n" +
+            "# install node\n" +
+            "brew install node@18\n" +
+            "echo 'export PATH=/goinfre/$USER/.brew/opt/node@18/bin:$PATH' >> $HOME/.zshrc\n" +
+            "node --version && npm --version\n" +
+            "npm install -g npm@9.8.1\n" +
+            "npm install -g create-react-app",
+        ),
+      );
+    },
+  ),
 
-  // comment
+  // comment 서비스
   rest.get(
     `https://api.42box.kr/comment-service/script-boards/:postId/comments`,
     (req, res, ctx) => {
@@ -285,31 +311,6 @@ export const handlers = [
       }
     },
   ),
-  rest.get(
-    "https://s3.ap-northeast-2.amazonaws.com/42box.kr/script_file/2b5dbc9a-0257-4255-9b83-06b044bca7b5.sh",
-    (req, res, ctx) => {
-      return res(
-        ctx.body(
-          "#!/bin/zsh\n" +
-            "\n" +
-            "# install brew\n" +
-            "git clone --depth=1 https://github.com/Homebrew/brew /goinfre/$USER/.brew\n" +
-            "echo 'export PATH=/goinfre/$USER/.brew/bin:$PATH' >> $HOME/.zshrc\n" +
-            "source $HOME/.zshrc\n" +
-            "brew doctor && brew update\n" +
-            "\n" +
-            "#ln -s ~/goinfre/.brew ~/.brew\n" +
-            "\n" +
-            "# install node\n" +
-            "brew install node@18\n" +
-            "echo 'export PATH=/goinfre/$USER/.brew/opt/node@18/bin:$PATH' >> $HOME/.zshrc\n" +
-            "node --version && npm --version\n" +
-            "npm install -g npm@9.8.1\n" +
-            "npm install -g create-react-app",
-        ),
-      );
-    },
-  ),
   rest.post(
     "https://api.42box.kr/comment-service/script-boards/:postId/comments",
     (req, res, ctx) => {
@@ -334,7 +335,16 @@ export const handlers = [
   //     return res(ctx.status(400)); //statusCode 다르게 해서 테스트 해보기
   //   },
   // ),
-  //icon 서비스
+
+  // liked 서비스
+  rest.post(
+    "https://api.42box.kr/board-service/script-boards/likes",
+    (req, res, ctx) => {
+      return res(ctx.status(201));
+    },
+  ),
+
+  // icon 서비스
   rest.put(
     "https://api.42box.kr/user-service/users/me/icon",
     (req, res, ctx) => {

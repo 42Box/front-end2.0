@@ -8,6 +8,7 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  Box,
   Text,
   Flex,
   PopoverArrow,
@@ -19,7 +20,6 @@ import {
   PopoverTrigger,
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon, HamburgerIcon } from "@chakra-ui/icons";
-import { ReactComponent as LikeIcon } from "../../asset/like.svg";
 import { ReactComponent as MsgIcon } from "../../asset/message.svg";
 import { CommentPaging } from "./CommentPaging";
 import Header from "../Util/Header";
@@ -30,7 +30,6 @@ import { useAlert } from "../../hook/useAlert";
 import apiCall from "../../util/apiCall";
 import { errorHandling } from "../../util/errorHandling";
 import "./ScriptBoardContent.css";
-import IconAndCount from "../Util/IconAndCount";
 import axios from "axios";
 import { Like } from "./Like";
 
@@ -60,7 +59,7 @@ const ScriptBoardContent = () => {
   }, []);
 
   // useEffect(() => {
-  //   console.log(dataSendToMac);
+  //   console.log("every change: ", dataSendToMac);
   // }, [dataSendToMac]);
 
   const errorResponseHandler = (response) => {
@@ -119,7 +118,7 @@ const ScriptBoardContent = () => {
         path: path,
         userUuid: userUuid,
       });
-      window?.webkit?.messageHandlers?.downloadScript?.postMessage(
+      window?.webkit?.messageHandlers.downloadScript.postMessage(
         JSON.stringify(dataSendToMac),
       );
       setUserScriptSavedId(savedId);
@@ -142,7 +141,7 @@ const ScriptBoardContent = () => {
         title: "파일을 삭제했습니다!",
         content: "",
       });
-      window?.webkit?.messageHandlers?.deleteScript?.postMessage(
+      window?.webkit?.messageHandlers.deleteScript.postMessage(
         JSON.stringify(dataSendToMac),
       );
       setUserScriptSavedId(null);
@@ -256,49 +255,66 @@ const ScriptBoardContent = () => {
         <div>{postInfo?.content}</div>
         <div>
           <div>
-            <div>
+            <Button
+              width="66px"
+              height="30px"
+              border="30px"
+              gap="6px"
+              onClick={() => {
+                console.log("on execute:", dataSendToMac);
+                if (dataSendToMac.path) {
+                  window?.webkit?.messageHandlers.executeScript.postMessage(
+                    JSON.stringify(dataSendToMac),
+                  );
+                }
+              }}
+            >
+              실행
+            </Button>
+            {userScriptSavedId === null ? (
               <Button
                 width="66px"
                 height="30px"
                 border="30px"
                 gap="6px"
-                onClick={() => {
-                  window?.webkit?.messageHandlers?.executeScript?.postMessage(
-                    JSON.stringify(dataSendToMac),
-                  );
-                }}
+                onClick={downloadFile}
               >
-                실행
+                저장
               </Button>
-              {userScriptSavedId === null ? (
-                <Button
-                  width="66px"
-                  height="30px"
-                  border="30px"
-                  gap="6px"
-                  onClick={downloadFile}
-                >
-                  저장
-                </Button>
-              ) : (
-                <Button
-                  width="66px"
-                  height="30px"
-                  border="30px"
-                  gap="6px"
-                  onClick={deleteFile}
-                >
-                  삭제
-                </Button>
-              )}
-            </div>
-            <Flex height="100%">
-              <Like postId={postId} likeState={postInfo?.boardLiked}>
-                <IconAndCount icon={<LikeIcon />} count={postInfo?.likeCount} />
-              </Like>
-              <IconAndCount icon={<MsgIcon />} count={postInfo?.commentCount} />
-            </Flex>
+            ) : (
+              <Button
+                width="66px"
+                height="30px"
+                border="30px"
+                gap="6px"
+                onClick={deleteFile}
+              >
+                삭제
+              </Button>
+            )}
           </div>
+          <Flex justifyContent="center" alignItems="center">
+            <Like
+              postId={postInfo?.boardId}
+              likeState={postInfo?.boardLiked}
+              count={postInfo?.likeCount}
+            />
+            <Box
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              minWidth="55px"
+              height="30px"
+              rounded="15px"
+              bg="transparent"
+              gap="3px"
+            >
+              <MsgIcon height="80%" />
+              <Text marginLeft="4px" color="var(--dg-01, #9E9E9E)">
+                {postInfo?.commentCount}
+              </Text>
+            </Box>
+          </Flex>
           <CommentPaging
             postId={postId}
             errorHandler={(response) => errorResponseHandler(response)}
