@@ -18,6 +18,7 @@ import {
   PopoverContent,
   Popover,
   PopoverTrigger,
+  Divider,
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { ReactComponent as MsgIcon } from "../../asset/message.svg";
@@ -31,6 +32,7 @@ import { errorHandling } from "../../util/errorHandling";
 import "./ScriptBoardContent.css";
 import axios from "axios";
 import { Like } from "./Like";
+import BasicButton from "../Util/Button/BasicButton";
 
 const ScriptBoardContent = () => {
   const navigate = useNavigate();
@@ -71,7 +73,7 @@ const ScriptBoardContent = () => {
     try {
       const response = await apiCall(
         "GET",
-        `https://api.42box.kr/board-service/script-boards/${postId}`
+        `https://api.42box.kr/board-service/script-boards/${postId}`,
       );
 
       setPostInfo(response.data);
@@ -109,7 +111,7 @@ const ScriptBoardContent = () => {
           name: postInfo.scriptName,
           description: postInfo.content,
           path: postInfo.scriptPath,
-        }
+        },
       );
       console.log("file download response: ", response.data);
       await setDataSendToMac({
@@ -121,7 +123,7 @@ const ScriptBoardContent = () => {
         scriptUuid: response.data.scriptUuid,
       });
       window?.webkit?.messageHandlers.downloadScript.postMessage(
-        JSON.stringify(dataSendToMac)
+        JSON.stringify(dataSendToMac),
       );
       setUserScriptSavedId(response.data.savedId);
       successAlert.openAlert({
@@ -137,7 +139,7 @@ const ScriptBoardContent = () => {
     try {
       const response = await apiCall(
         "DELETE",
-        `https://api.42box.kr/user-service/users/me/scripts/${userScriptSavedId}`
+        `https://api.42box.kr/user-service/users/me/scripts/${userScriptSavedId}`,
       );
       successAlert.openAlert({
         title: "파일을 삭제했습니다!",
@@ -150,7 +152,7 @@ const ScriptBoardContent = () => {
         userUuid: response.data.userUuid,
       }));
       window?.webkit?.messageHandlers.deleteScript.postMessage(
-        JSON.stringify(dataSendToMac)
+        JSON.stringify(dataSendToMac),
       );
       setUserScriptSavedId(null);
     } catch (error) {
@@ -161,7 +163,7 @@ const ScriptBoardContent = () => {
   const readFileHandler = async () => {
     try {
       const response = await axios.get(
-        `https://42box.kr/${postInfo.scriptPath}`
+        `https://42box.kr/${postInfo.scriptPath}`,
       );
       const file = response.data;
       console.log(file);
@@ -178,84 +180,107 @@ const ScriptBoardContent = () => {
   return (
     <Box
       width="768px" // 최대 너비 제한
-      padding="1" // 패딩
+      height="1024px"
+      padding="4" // 패딩
       borderWidth="1px" // 테두리
       borderRadius="md" // 테두리 모서리 반경
       boxShadow="lg" // 그림자>
       ref={dragLimitBox}
     >
       <Header pageTitle="스크립트" />
-      <Text fontSize="30px" fontWeight="500">
-        {postInfo?.title}
-      </Text>
-      <Flex justifyContent="space-between" alignItems="center">
-        <Flex alignItems="center">
-          <Image
-            src={`https://42box.kr/${postInfo?.writerProfileImagePath}`}
-            width="23px"
-            height="23px"
-          />
-          <Text marginLeft="8px">{postInfo?.writerNickname}</Text>
-          <Flex marginLeft="12px" />|<Flex marginLeft="12px" />
-          <DateComponent date={postInfo?.regDate} />
-        </Flex>
-        <Menu>
-          <MenuButton
-            as={IconButton}
-            aria-label="Options"
-            icon={<HamburgerIcon />}
-            variant="outline"
-          />
-          <MenuList>
-            <MenuItem icon={<EditIcon />}>수정하기</MenuItem>
-            <MenuItem icon={<DeleteIcon />}>삭제하기</MenuItem>
-          </MenuList>
-        </Menu>
-      </Flex>
-      <Popover
-        placement="auto"
-        matchWidth={true}
-        onOpen={() => setIsPreviewOn(true)}
-        onClose={() => setIsPreviewOn(false)}
+      <Flex
+        flexDirection="column"
+        justifyContent="space-evenly"
+        height="20%"
+        margin={4}
       >
-        <PopoverTrigger>
-          <Button
-            width="146px"
-            height="33px"
-            padding="6px 10px 6px 10px"
-            border="1.5px"
-            gap="2px"
-            onClick={readFileHandler}
-            disabled={true}
-          >
-            {isPreviewOn ? "스크립트 닫기" : "스크립트 미리보기"}
-          </Button>
-        </PopoverTrigger>
-        {filePreview && (
-          <PopoverContent
-            width="70vw"
-            height="auto"
-            drag={true}
-            dragConstraints={dragLimitBox}
-          >
-            <PopoverArrow />
-            <PopoverCloseButton />
-            <PopoverHeader>{postInfo?.scriptName}</PopoverHeader>
-            <PopoverBody
-              dangerouslySetInnerHTML={{
-                __html: filePreview.replace(/\n/g, "<br>"),
-              }}
+        <Text fontSize="35px" fontWeight="500">
+          {postInfo?.title}
+        </Text>
+        <Flex justifyContent="space-between" alignItems="center">
+          <Flex alignItems="center">
+            <Image
+              src={`https://42box.kr/${postInfo?.writerProfileImagePath}`}
+              width="23px"
+              height="23px"
             />
-          </PopoverContent>
-        )}
-      </Popover>
-      <Text>{postInfo?.content}</Text>
-      <Flex justifyContent="center" alignItems="center">
-        <Button
-          width="66px"
-          height="30px"
-          border="30px"
-          gap="6px"
+            <Text
+              fontSize="20px"
+              marginLeft="8px"
+              marginRight="0px"
+              textColor="#8E8E8E"
+            >
+              {postInfo?.writerNickname}
+            </Text>
+            <Text marginLeft="5px" marginRight="5px" textColor="#8E8E8E">
+              │
+            </Text>
+            <DateComponent date={postInfo?.regDate} />
+          </Flex>
+          <Menu>
+            <MenuButton
+              as={IconButton}
+              aria-label="Options"
+              icon={<HamburgerIcon />}
+              variant="outline"
+            />
+            <MenuList>
+              <MenuItem icon={<EditIcon />}>수정하기</MenuItem>
+              <MenuItem icon={<DeleteIcon />}>삭제하기</MenuItem>
+            </MenuList>
+          </Menu>
+        </Flex>
+        <Divider size="20px" />
+        <Popover
+          placement="auto"
+          matchWidth={true}
+          onOpen={() => setIsPreviewOn(true)}
+          onClose={() => setIsPreviewOn(false)}
+        >
+          <PopoverTrigger>
+            <Button
+              width="146px"
+              height="33px"
+              padding="6px 10px 6px 10px"
+              margin="16px 0 0 40px"
+              border="1.5px solid #000"
+              rounded="full"
+              gap="2px"
+              background="transparent"
+              onClick={readFileHandler}
+              disabled={true}
+            >
+              {isPreviewOn ? "스크립트 닫기 " : "스크립트 미리보기"}
+            </Button>
+          </PopoverTrigger>
+          {filePreview && (
+            <PopoverContent
+              width="70vw"
+              height="auto"
+              drag={true}
+              dragConstraints={dragLimitBox}
+            >
+              <PopoverArrow />
+              <PopoverCloseButton />
+              <PopoverHeader fontSize="17px">
+                {postInfo?.scriptName}
+              </PopoverHeader>
+              <PopoverBody
+                fontSize="17px"
+                dangerouslySetInnerHTML={{
+                  __html: filePreview.replace(/\n/g, "<br>"),
+                }}
+              />
+            </PopoverContent>
+          )}
+        </Popover>
+        <Text fontSize="22px" margin="10px 0 0 ">
+          {postInfo?.content}
+        </Text>
+      </Flex>
+      <Flex justifyContent="center" alignItems="center" marginBottom="10px">
+        <BasicButton
+          type="button"
           onClick={() => {
             console.log("on execute:", dataSendToMac);
             if (dataSendToMac.path) {
@@ -266,30 +291,63 @@ const ScriptBoardContent = () => {
           }}
         >
           실행
-        </Button>
+        </BasicButton>
+        {/*<Button*/}
+        {/*  width="66px"*/}
+        {/*  height="30px"*/}
+        {/*  border="1.5px solid gray"*/}
+        {/*  rounded="full"*/}
+        {/*  background="transparent"*/}
+        {/*  gap="6px"*/}
+        {/*  onClick={() => {*/}
+        {/*    console.log("on execute:", dataSendToMac);*/}
+        {/*    if (dataSendToMac.path) {*/}
+        {/*      window?.webkit?.messageHandlers.executeScript.postMessage(*/}
+        {/*        JSON.stringify(dataSendToMac),*/}
+        {/*      );*/}
+        {/*    }*/}
+        {/*  }}*/}
+        {/*>*/}
+        {/*  실행*/}
+        {/*</Button>*/}
         {userScriptSavedId === null ? (
-          <Button
-            width="66px"
-            height="30px"
-            border="30px"
-            gap="6px"
-            onClick={downloadFile}
-          >
+          <BasicButton type="button" onClick={downloadFile}>
             저장
-          </Button>
+          </BasicButton>
         ) : (
-          <Button
-            width="66px"
-            height="30px"
-            border="30px"
-            gap="6px"
-            onClick={deleteFile}
-          >
+          // <Button
+          //   width="66px"
+          //   height="30px"
+          //   border="1.5px solid gray"
+          //   rounded="full"
+          //   background="transparent"
+          //   gap="6px"
+          //   onClick={downloadFile}
+          // >
+          //   저장
+          // </Button>
+          <BasicButton type="button" onClick={deleteFile}>
             삭제
-          </Button>
+          </BasicButton>
+          // <Button
+          //   width="66px"
+          //   height="30px"
+          //   border="1.5px solid gray"
+          //   rounded="full"
+          //   background="transparent"
+          //   gap="6px"
+          //   onClick={deleteFile}
+          // >
+          //   삭제
+          // </Button>
         )}
       </Flex>
-      <Flex justifyContent="center" alignItems="center">
+      <Flex
+        justifyContent="flex-start"
+        alignItems="center"
+        marginLeft="14px"
+        marginBottom="10px"
+      >
         <Like
           postId={postInfo?.boardId}
           likeState={postInfo?.boardLiked}
@@ -314,6 +372,7 @@ const ScriptBoardContent = () => {
       </Flex>
       <CommentPaging
         postId={postId}
+        onRender={renderHandler}
         errorHandler={(response) => errorResponseHandler(response)}
       ></CommentPaging>
       {errorAlert.alertData.isOpen && (

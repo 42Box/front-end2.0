@@ -46,17 +46,36 @@ const CommentNew = ({ postId, onCommentSubmit }) => {
     }
   };
 
+  const handleKeyPress = (event) => {
+    if (event.shiftKey && event.key === "Enter") {
+      return;
+    }
+    if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
+      submitHandler(event);
+      return;
+    }
+    if (event.key === "Enter") {
+      submitHandler(event);
+      return;
+    }
+  };
+
   return (
-    <Flex width="100%" position="relative" justify-content="center">
+    <Flex
+      width="100%"
+      position="relative"
+      justify-content="center"
+      marginBottom="40px"
+    >
       <Textarea
         height="130px"
         width="100%"
-        display="flex"
         placeholder="댓글을 입력하세요."
         value={commentContent}
         onChange={(event) => {
           setCommentContent(event.target.value);
         }}
+        onKeyDown={handleKeyPress}
       />
       <Box ml="auto">
         <Button
@@ -64,6 +83,7 @@ const CommentNew = ({ postId, onCommentSubmit }) => {
           bottom="5px"
           right="5px"
           type="submit"
+          zIndex="1"
           onClick={submitHandler}
         >
           등록

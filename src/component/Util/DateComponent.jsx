@@ -6,22 +6,22 @@ const DateComponent = (props) => {
   const dateObj = DateTime.fromISO(props.date).plus({ hours: 9 });
 
   const timeDifference = Math.floor(
-    currentDate.diff(dateObj, "minutes").minutes
+    currentDate.diff(dateObj, "minutes").minutes,
   );
 
   if (timeDifference < 1) {
-    return <Text>방금 전</Text>;
+    return <Text textColor="#8E8E8E">방금 전</Text>;
   }
   if (timeDifference < 60) {
-    return <Text>{timeDifference}분 전</Text>;
+    return <Text textColor="#8E8E8E">{timeDifference}분 전</Text>;
   }
   if (currentDate.hasSame(dateObj, "day")) {
-    return <Text>{dateObj.toFormat("HH:mm")}</Text>;
+    return <Text textColor="#8E8E8E">{dateObj.toFormat("HH:mm")}</Text>;
   }
   if (currentDate.hasSame(dateObj.plus({ days: 1 }), "day")) {
-    return <Text>어제</Text>;
+    return <Text textColor="#8E8E8E">어제</Text>;
   }
-  return <Text>{dateObj.toFormat("yyyy. MM. dd")}</Text>;
+  return <Text textColor="#8E8E8E">{dateObj.toFormat("yyyy. MM. dd")}</Text>;
 };
 
 export default DateComponent;
