@@ -21,12 +21,15 @@ export const LoginHeader = () => {
       statusMessage: null,
       profileImageUrl: null,
       profileImagePath: null,
+      bigProfileImagePath: null,
+      quickSlotList: null,
     });
 
     document.cookie =
       "box-auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
     window.localStorage.removeItem("loginState");
+    window.localStorage.removeItem("userState");
     console.log("logged out!");
   };
 
