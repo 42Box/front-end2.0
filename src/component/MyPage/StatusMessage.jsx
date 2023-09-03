@@ -53,7 +53,7 @@ const StatusMessage = ({ userState, setUserState }) => {
         <InputGroup width="265px" alignSelf="center">
           <Input
             {...commonStyles}
-            value={userState.statusMessage}
+            value={inputValue}
             backgroundColor="#FFFFFF"
             borderColor="#FF9548"
             onChange={handleInputChange}
