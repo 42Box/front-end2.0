@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import apiCall from "../../util/apiCall";
-import { Button } from "@chakra-ui/react";
+import { Box, Button, Flex } from "@chakra-ui/react";
 import CommentList from "../Comment/CommentList";
 import CommentNew from "../Comment/CommentNew";
 
-export const CommentPaging = ({ postId, errorHandler }) => {
+export const CommentPaging = ({ postId, onRender, errorHandler }) => {
   const [commentInfo, setCommentInfo] = useState(null);
-  const [commentCurPage, setCommentCurPage] = useState(1);
+  const [commentCurPage, setCommentCurPage] = useState(0);
 
   useEffect(() => {
     commentsApiCall();
@@ -21,6 +21,7 @@ export const CommentPaging = ({ postId, errorHandler }) => {
         { params: { page: commentCurPage, size: 5 } },
       );
       setCommentInfo(response.data);
+      onRender();
       console.log("commentInfo Api Call is successful");
     } catch (error) {
       console.log("commentInfo Api Call is fail");
@@ -39,7 +40,7 @@ export const CommentPaging = ({ postId, errorHandler }) => {
   };
 
   return (
-    <div>
+    <Box>
       <CommentNew
         postId={postId}
         onCommentSubmit={() => {
@@ -50,53 +51,66 @@ export const CommentPaging = ({ postId, errorHandler }) => {
       {commentInfo && commentInfo.totalElements > 0 && (
         <CommentList comments={commentInfo.content}></CommentList>
       )}
-      {commentInfo && commentInfo.totalElements > 0 && commentInfo?.first && (
-        <Button
-          width="66px"
-          height="30px"
-          border="30px"
-          gap="6px"
-          onClick={nextPageHandler}
-        >
-          다음
-        </Button>
-      )}
-      {commentInfo &&
-        commentInfo.totalElements > 0 &&
-        !commentInfo?.first &&
-        !commentInfo?.last && (
-          <>
-            <Button
-              width="66px"
-              height="30px"
-              border="30px"
-              gap="6px"
-              onClick={prevPageHandler}
-            >
-              이전
-            </Button>
-            <Button
-              width="66px"
-              height="30px"
-              border="30px"
-              gap="6px"
-              onClick={nextPageHandler}
-            >
-              다음
-            </Button>
-          </>
+      <Flex
+        justifyContent="center"
+        alignItems="center"
+        bottom="0"
+        background="white" // 필요에 따라 배경색을 조정할 수 있습니다.
+        padding="10px"
+        zIndex="1"
+      >
+        {commentInfo && commentInfo.totalElements > 0 && commentInfo.first && (
+          <Button
+            width="66px"
+            height="30px"
+            rounded="full"
+            background="transparent"
+            gap="6px"
+            onClick={nextPageHandler}
+          >
+            다음️ ▶
+          </Button>
         )}
-      {commentInfo && commentInfo.totalElements > 0 && commentInfo?.last && (
-        <Button
-          width="66px"
-          height="30px"
-          border="30px"
-          gap="6px"
-          onClick={prevPageHandler}
-        >
-          이전
-        </Button>
-      )}
-    </div>
+        {commentInfo &&
+          commentInfo.totalElements > 0 &&
+          !commentInfo.first &&
+          !commentInfo.last && (
+            <>
+              <Button
+                width="66px"
+                height="30px"
+                rounded="full"
+                background="transparent"
+                gap="6px"
+                onClick={prevPageHandler}
+              >
+                ◀ 이전
+              </Button>
+              <Button
+                width="66px"
+                height="30px"
+                rounded="full"
+                background="transparent"
+                gap="6px"
+                onClick={nextPageHandler}
+              >
+                다음 ▶
+              </Button>
+            </>
+          )}
+        {commentInfo && commentInfo.totalElements > 0 && commentInfo.last && (
+          <Button
+            width="66px"
+            height="30px"
+            rounded="full"
+            background="transparent"
+            gap="6px"
+            onClick={prevPageHandler}
+          >
+            ◀ 이전
+          </Button>
+        )}
+      </Flex>
+    </Box>
   );
 };
