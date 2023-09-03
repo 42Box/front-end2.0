@@ -253,7 +253,7 @@ export const handlers = [
                 sorted: true,
                 unsorted: false,
               },
-              offset: 2,
+              offset: 0,
               pageNumber: 1,
               pageSize: 2,
               paged: true,
