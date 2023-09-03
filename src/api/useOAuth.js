@@ -1,5 +1,5 @@
 import { useSetRecoilState } from "recoil";
-import useApi from "./useApi";
+import useApi from "../hook/useApi";
 import { userState, loginState } from "../recoil/states";
 
 const useOAuth = () => {
@@ -19,6 +19,7 @@ const useOAuth = () => {
       statusMessage: data.statusMessage,
       profileImageUrl: data.profileImageUrl,
       profileImagePath: data.profileImagePath,
+      bigProfileImagePath: data.bigProfileImagePath,
       quickSlotList: data.quickSlotList,
     };
     console.log("login success!!!");
@@ -30,8 +31,8 @@ const useOAuth = () => {
 
     const send = new Promise((resolve, reject) =>
       window?.webkit?.messageHandlers?.userProfile.postMessage(
-        JSON.stringify(newUser),
-      ),
+        JSON.stringify(newUser)
+      )
     );
     send.then((resolve) => console.log("send success:", resolve));
     send.catch((reject) => console.error("Error downloading file:", reject));
@@ -43,7 +44,7 @@ const useOAuth = () => {
     const [title, message] = ["dummy error", "dummy error message"];
     window.localStorage.setItem(
       "error",
-      JSON.stringify({ title, message: errorCode ? message : error.message }),
+      JSON.stringify({ title, message: errorCode ? message : error.message })
     );
   };
 
