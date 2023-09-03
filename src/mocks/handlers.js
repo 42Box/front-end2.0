@@ -99,8 +99,8 @@ export const handlers = [
           reportCount: 0,
           commentCount: 0,
           boardLiked: false,
-          scriptSaved: true,
-          savedId: 5,
+          scriptSaved: false,
+          savedId: 0,
         }),
       );
     },

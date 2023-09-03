@@ -58,9 +58,9 @@ const ScriptBoardContent = () => {
     // eslint-disable-next-line
   }, []);
 
-  // useEffect(() => {
-  //   console.log("every change: ", dataSendToMac);
-  // }, [dataSendToMac]);
+  useEffect(() => {
+    console.log("every change: ", dataSendToMac);
+  }, [dataSendToMac]);
 
   const errorResponseHandler = (response) => {
     errorHandling(response, navigate, errorAlert);
@@ -111,7 +111,7 @@ const ScriptBoardContent = () => {
         },
       );
       const { savedId, name, path, userUuid } = response.data;
-      setDataSendToMac({
+      await setDataSendToMac({
         savedId: savedId,
         name: name,
         title: postInfo.title,
@@ -146,7 +146,6 @@ const ScriptBoardContent = () => {
       );
       setUserScriptSavedId(null);
     } catch (error) {
-      console.log("before: ", error.response);
       errorResponseHandler(error.response);
     }
   };
