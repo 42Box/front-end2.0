@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Text, Textarea } from "@chakra-ui/react";
 import apiCall from "../../util/apiCall";
 import "./CommentNew.css";
 import { useAlert } from "../../hook/useAlert";
@@ -37,7 +37,7 @@ const CommentNew = ({ postId, onCommentSubmit }) => {
           commentContent: commentContent,
         },
       );
-      console.log(response.data);
+      console.log("comment post api response: ", response.data);
       setCommentContent("");
       event.target.value = "";
       if (onCommentSubmit) onCommentSubmit();
@@ -47,21 +47,28 @@ const CommentNew = ({ postId, onCommentSubmit }) => {
   };
 
   return (
-    <form onSubmit={submitHandler}>
-      <div className="comment-form">
-        <textarea
-          onChange={(event) => {
-            console.log(event.target.value);
-            setCommentContent(event.target.value);
-          }}
-          placeholder="댓글을 입력하세요."
-        ></textarea>
-        <div className="button-wrap">
-          <Button className="comment-form-button" type="submit">
-            등록
-          </Button>
-        </div>
-      </div>
+    <Flex width="100%" position="relative" justify-content="center">
+      <Textarea
+        height="130px"
+        width="100%"
+        display="flex"
+        placeholder="댓글을 입력하세요."
+        value={commentContent}
+        onChange={(event) => {
+          setCommentContent(event.target.value);
+        }}
+      />
+      <Box ml="auto">
+        <Button
+          position="absolute"
+          bottom="5px"
+          right="5px"
+          type="submit"
+          onClick={submitHandler}
+        >
+          등록
+        </Button>
+      </Box>
       {!isInputValid && (
         <AlertModal
           open={errorAlert.alertData.isOpen}
@@ -75,7 +82,7 @@ const CommentNew = ({ postId, onCommentSubmit }) => {
           <Text>{errorAlert.alertData.content}</Text>
         </AlertModal>
       )}
-    </form>
+    </Flex>
   );
 };
 

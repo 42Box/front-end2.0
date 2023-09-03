@@ -6,7 +6,7 @@ import CommentNew from "../Comment/CommentNew";
 
 export const CommentPaging = ({ postId, errorHandler }) => {
   const [commentInfo, setCommentInfo] = useState(null);
-  const [commentCurPage, setCommentCurPage] = useState(1);
+  const [commentCurPage, setCommentCurPage] = useState(0);
 
   useEffect(() => {
     commentsApiCall();
@@ -21,6 +21,7 @@ export const CommentPaging = ({ postId, errorHandler }) => {
         { params: { page: commentCurPage, size: 5 } },
       );
       setCommentInfo(response.data);
+      console.log("comment get api response: ", response.data);
       console.log("commentInfo Api Call is successful");
     } catch (error) {
       console.log("commentInfo Api Call is fail");
@@ -50,7 +51,7 @@ export const CommentPaging = ({ postId, errorHandler }) => {
       {commentInfo && commentInfo.totalElements > 0 && (
         <CommentList comments={commentInfo.content}></CommentList>
       )}
-      {commentInfo && commentInfo.totalElements > 0 && commentInfo?.first && (
+      {commentInfo && commentInfo.totalElements > 0 && commentInfo.first && (
         <Button
           width="66px"
           height="30px"
@@ -63,8 +64,8 @@ export const CommentPaging = ({ postId, errorHandler }) => {
       )}
       {commentInfo &&
         commentInfo.totalElements > 0 &&
-        !commentInfo?.first &&
-        !commentInfo?.last && (
+        !commentInfo.first &&
+        !commentInfo.last && (
           <>
             <Button
               width="66px"
@@ -86,7 +87,7 @@ export const CommentPaging = ({ postId, errorHandler }) => {
             </Button>
           </>
         )}
-      {commentInfo && commentInfo.totalElements > 0 && commentInfo?.last && (
+      {commentInfo && commentInfo.totalElements > 0 && commentInfo.last && (
         <Button
           width="66px"
           height="30px"
