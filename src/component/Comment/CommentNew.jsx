@@ -7,7 +7,7 @@ import { useAlert } from "../../hook/useAlert";
 import AlertModal from "../Util/AlertModal";
 import { errorHandling } from "../../util/errorHandling";
 
-const CommentNew = ({ postId }) => {
+const CommentNew = ({ postId, onCommentSubmit }) => {
   const navigate = useNavigate();
   const [isInputValid, setIsInputValid] = useState(true);
   const [commentContent, setCommentContent] = useState("");
@@ -37,9 +37,10 @@ const CommentNew = ({ postId }) => {
           commentContent: commentContent,
         },
       );
+      console.log(response.data);
       setCommentContent("");
       event.target.value = "";
-      navigate(`/script/content/${response.data.commentBoardId}`);
+      if (onCommentSubmit) onCommentSubmit();
     } catch (error) {
       errorHandling(error.response, navigate, errorAlert);
     }
@@ -49,7 +50,10 @@ const CommentNew = ({ postId }) => {
     <form onSubmit={submitHandler}>
       <div className="comment-form">
         <textarea
-          onChange={(event) => setCommentContent(event.target.value)}
+          onChange={(event) => {
+            console.log(event.target.value);
+            setCommentContent(event.target.value);
+          }}
           placeholder="댓글을 입력하세요."
         ></textarea>
         <div className="button-wrap">

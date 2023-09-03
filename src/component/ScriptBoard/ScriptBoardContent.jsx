@@ -42,11 +42,12 @@ const ScriptBoardContent = () => {
   const [postInfo, setPostInfo] = useState(null);
 
   const [dataSendToMac, setDataSendToMac] = useState({
-    savedId: null,
+    scriptUuid: null,
     name: null, // script name
-    title: null, // script 게시물 title
+    description: null, // script 게시물 title
     path: null,
     userUuid: null,
+    savedId: null,
   });
 
   const dragLimitBox = useRef(null);
@@ -77,18 +78,18 @@ const ScriptBoardContent = () => {
 
       if (response.data.scriptSaved) {
         setUserScriptSavedId(response.data.savedId);
-        setDataSendToMac({
-          savedId: response.data.savedId,
+        setDataSendToMac((prev) => ({
+          ...prev,
           name: response.data.scriptName,
-          title: response.data.title,
+          description: response.data.title,
           path: response.data.scriptPath,
-          userUuid: null,
-        });
+          savedId: response.data.savedId,
+        }));
       } else {
         setDataSendToMac((prev) => ({
           ...prev,
           name: response.data.scriptName,
-          title: response.data.title,
+          description: response.data.title,
           path: response.data.scriptPath,
         }));
       }
@@ -110,18 +111,19 @@ const ScriptBoardContent = () => {
           path: postInfo.scriptPath,
         },
       );
-      const { savedId, name, path, userUuid } = response.data;
+      console.log("file download response: ", response.data);
       await setDataSendToMac({
-        savedId: savedId,
-        name: name,
-        title: postInfo.title,
-        path: path,
-        userUuid: userUuid,
+        savedId: response.data.savedId,
+        name: response.data.name,
+        description: postInfo.title,
+        path: response.data.path,
+        userUuid: response.data.userUuid,
+        scriptUuid: response.data.scriptUuid,
       });
       window?.webkit?.messageHandlers.downloadScript.postMessage(
         JSON.stringify(dataSendToMac),
       );
-      setUserScriptSavedId(savedId);
+      setUserScriptSavedId(response.data.savedId);
       successAlert.openAlert({
         title: "파일을 저장했습니다!",
         content: "",
@@ -133,7 +135,7 @@ const ScriptBoardContent = () => {
 
   const deleteFile = async () => {
     try {
-      await apiCall(
+      const response = await apiCall(
         "DELETE",
         `https://api.42box.kr/user-service/users/me/scripts/${userScriptSavedId}`,
       );
@@ -141,6 +143,12 @@ const ScriptBoardContent = () => {
         title: "파일을 삭제했습니다!",
         content: "",
       });
+      console.log("file delete response: ", response.data);
+      await setDataSendToMac((prev) => ({
+        ...prev,
+        savedId: response.data.savedId,
+        userUuid: response.data.userUuid,
+      }));
       window?.webkit?.messageHandlers.deleteScript.postMessage(
         JSON.stringify(dataSendToMac),
       );
