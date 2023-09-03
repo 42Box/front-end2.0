@@ -125,20 +125,6 @@ const ScriptBoardNew = () => {
           <Box paddingTop="15px" />
           <Box display="flex" justifyContent="flex-end">
             <ConfirmCancle onCancle={cancleWriteHandler} />
-            {/* <Button
-              onClick={cancleWriteHandler}
-              borderRadius="20px"
-              border="1px solid #8E8E8E"
-              backgroundColor="transparent"
-              color="#8E8E8E"
-              _hover={{
-                border: "1.5px solid var(--Main-Orange, #FF9548)",
-                background: "var(--Light-Orange, #FFF0E5)",
-                color: "#FF9548",
-              }}
-            >
-              취소
-            </Button> */}
             <Flex paddingLeft="10px" />
             <BasicButton type="submit">등록</BasicButton>
           </Box>
