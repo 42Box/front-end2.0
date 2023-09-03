@@ -1,25 +1,16 @@
-.like-box-default {
+.like-box {
     width: 77px;
     height: 37px;
     padding: 4px 10px 4px 10px;
-    border-radius: 25px;
+    border: 25px;
     gap: 3px;
 }
 
-.like-box-hovered {
-    width: 77px;
-    height: 37px;
-    padding: 4px 10px 4px 10px;
-    border-radius: 25px;
-    gap: 3px;
+.like-box.hovered {
     background: #E8E8E8;
 }
 
-.like-box-liked {
-    width: 77px;
-    height: 37px;
-    padding: 4px 10px 4px 10px;
-    border-radius: 25px;
-    gap: 3px;
+.like-box.liked {
     background: #FF9548;
 }
+
