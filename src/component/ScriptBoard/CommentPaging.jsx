@@ -12,12 +12,13 @@ export const CommentPaging = ({ postId, errorHandler }) => {
     commentsApiCall();
     // eslint-disable-next-line
   }, [commentCurPage]);
+
   const commentsApiCall = async () => {
     try {
       const response = await apiCall(
         "GET",
         `https://api.42box.kr/comment-service/script-boards/${postId}/comments`,
-        { params: { page: commentCurPage, size: 2 } },
+        { params: { page: commentCurPage, size: 5 } },
       );
       setCommentInfo(response.data);
       console.log("commentInfo Api Call is successful");
@@ -39,7 +40,13 @@ export const CommentPaging = ({ postId, errorHandler }) => {
 
   return (
     <div>
-      <CommentNew postId={postId} />
+      <CommentNew
+        postId={postId}
+        onCommentSubmit={() => {
+          console.log("api call again!");
+          commentsApiCall();
+        }}
+      />
       {commentInfo && commentInfo.totalElements > 0 && (
         <CommentList comments={commentInfo.content}></CommentList>
       )}
