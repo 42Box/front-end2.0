@@ -27,7 +27,7 @@ const useOAuth = () => {
     setUserState(newUser);
     setLoginState(true);
     window.localStorage.setItem("loginState", "true");
-    window.localStorage.setItem("user", JSON.stringify(newUser));
+    window.localStorage.setItem("userState", JSON.stringify(newUser));
 
     const send = new Promise((resolve, reject) =>
       window?.webkit?.messageHandlers?.userProfile.postMessage(
