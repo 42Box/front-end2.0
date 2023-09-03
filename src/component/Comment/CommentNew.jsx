@@ -26,7 +26,7 @@ const CommentNew = (postId) => {
       if (!isInputValid) return;
       // await apiCall(
       //   "POST",
-      //   `boards/script-boards/${postId}/comments`,
+      //   `comment-service/script-boards/${postId}/comments`,
       //   commentDescription,
       // );
       // event.target.value = "";

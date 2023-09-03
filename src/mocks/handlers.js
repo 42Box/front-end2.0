@@ -84,9 +84,9 @@ export const handlers = [
           title: "Let's clean cache",
           content: "it's so useful!",
           scriptName: "my-script",
-          scriptPath: "script_file/0bc6fc4c-609e-471d-9327-3c5d078e9fe4.sh",
+          scriptPath: "script_file/1756fb9a-024e-4034-9f0a-817cb8bfc6ac.sh",
           scriptUrl:
-            "https://s3.ap-northeast-2.amazonaws.com/42box.kr/script_file/2b5dbc9a-0257-4255-9b83-06b044bca7b5.sh",
+            "https://42box-script-gateway-private-bucket.s3.ap-northeast-2.amazonaws.com/script_file/1756fb9a-024e-4034-9f0a-817cb8bfc6ac.sh",
           writerUuid: "user-uuid",
           writerNickname: "jiyun",
           writerProfileImageUrl: "url",
@@ -99,7 +99,7 @@ export const handlers = [
           commentCount: 0,
           boardLiked: false,
           scriptSaved: true,
-          myScriptId: 5,
+          savedId: 5,
         }),
       );
     },
@@ -107,7 +107,15 @@ export const handlers = [
   rest.post(
     "https://api.42box.kr/user-service/users/me/scripts",
     (req, res, ctx) => {
-      return res(ctx.status(200)); //statusCode 다르게 해서 테스트 해보기
+      return res(
+        ctx.json({
+          savedId: 1,
+          name: "hello",
+          description: "좋은 스크립트",
+          path: "/src",
+          userUuid: "user-uuid",
+        }),
+      ); //statusCode 다르게 해서 테스트 해보기
     },
   ),
   rest.delete(
@@ -119,33 +127,35 @@ export const handlers = [
 
   // comment
   rest.get(
-    "https://api.42box.kr/board-service/script-boards/:postId/comments",
+    `https://api.42box.kr/comment-service/script-boards/:postId/comments`,
     (req, res, ctx) => {
       const page = req.url.searchParams.get("page");
       console.log("data responding....");
       if (page === "1") {
         return res(
           ctx.json({
-            comments: [
+            content: [
               {
-                commentId: 1,
-                content: "this is cool",
-                writerUuid: "user-uuid",
-                writerNickname: "jiyun",
-                writerProfileImageUrl: "url",
-                writerProfileImagePath: "path",
-                regDate: "2023-08-29T15:15:33.3996",
-                modDate: "2023-08-29T15:15:33.3996",
+                commentId: 6,
+                commentBoardId: 1,
+                commentWriterUuid: "user-uuid1",
+                commentWriterNickname: "sechung",
+                commentWriterProfileImagePath: "ddd",
+                commentContent: "안쓰고는 못배기는 서비스라고 할 수 있지",
+                commentRegDate: "2023-09-02T22:19:04.760155",
+                commentModDate: "2023-09-02T22:19:04.760155",
+                commentType: "SCRIPT_BOARDS",
               },
               {
-                commentId: 2,
-                content: "Qué buenoooo",
-                writerUuid: "user-uuid",
-                writerNickname: "miguel",
-                writerProfileImageUrl: "url",
-                writerProfileImagePath: "path",
-                regDate: "2023-08-30T15:15:33.3996",
-                modDate: "2023-08-30T15:15:33.3996",
+                commentId: 5,
+                commentBoardId: 1,
+                commentWriterUuid: "user-uuid1",
+                commentWriterNickname: "sechung",
+                commentWriterProfileImagePath: "ddd",
+                commentContent: "안쓰고는 못배기는 서비스라고 할 수 있지",
+                commentRegDate: "2023-09-02T22:19:04.243801",
+                commentModDate: "2023-09-02T22:19:04.243801",
+                commentType: "SCRIPT_BOARDS",
               },
             ],
             pageable: {
@@ -161,8 +171,8 @@ export const handlers = [
               unpaged: false,
             },
             last: false,
-            totalPages: 2,
-            totalElements: 3,
+            totalPages: 3,
+            totalElements: 5,
             number: 0,
             sort: {
               empty: false,
@@ -171,23 +181,35 @@ export const handlers = [
             },
             first: true,
             size: 2,
-            numberOfElements: 2, // 현재 페이지의 댓글 수
+            numberOfElements: 2,
             empty: false,
           }),
         );
-      } else {
+      } else if (page === "2") {
         return res(
           ctx.json({
-            comments: [
+            content: [
+              {
+                commentId: 4,
+                commentBoardId: 1,
+                commentWriterUuid: "user-uuid1",
+                commentWriterNickname: "sechung",
+                commentWriterProfileImagePath: "ddd",
+                commentContent: "안쓰고는 못배기는 서비스라고 할 수 있지",
+                commentRegDate: "2023-09-02T22:19:03.747332",
+                commentModDate: "2023-09-02T22:19:03.747332",
+                commentType: "SCRIPT_BOARDS",
+              },
               {
                 commentId: 3,
-                content: "짱이에요",
-                writerUuid: "user-uuid",
-                writerNickname: "한국",
-                writerProfileImageUrl: "url",
-                writerProfileImagePath: "path",
-                regDate: "2023-08-31T15:15:33.3996",
-                modDate: "2023-08-31T15:15:33.3996",
+                commentBoardId: 1,
+                commentWriterUuid: "user-uuid1",
+                commentWriterNickname: "sechung",
+                commentWriterProfileImagePath: "ddd",
+                commentContent: "안쓰고는 못배기는 서비스라고 할 수 있지",
+                commentRegDate: "2023-09-02T22:19:03.183522",
+                commentModDate: "2023-09-02T22:19:03.183522",
+                commentType: "SCRIPT_BOARDS",
               },
             ],
             pageable: {
@@ -196,15 +218,15 @@ export const handlers = [
                 sorted: true,
                 unsorted: false,
               },
-              offset: 0,
+              offset: 2,
               pageNumber: 1,
               pageSize: 2,
               paged: true,
               unpaged: false,
             },
-            last: true,
-            totalPages: 2,
-            totalElements: 3,
+            last: false,
+            totalPages: 3,
+            totalElements: 5,
             number: 0,
             sort: {
               empty: false,
@@ -212,8 +234,51 @@ export const handlers = [
               unsorted: false,
             },
             first: false,
-            size: 1,
-            numberOfElements: 1, // 현재 페이지의 댓글 수
+            size: 2,
+            numberOfElements: 2,
+            empty: false,
+          }),
+        );
+      } else {
+        return res(
+          ctx.json({
+            content: [
+              {
+                commentId: 1,
+                commentBoardId: 1,
+                commentWriterUuid: "user-uuid1",
+                commentWriterNickname: "sechung",
+                commentWriterProfileImagePath: "ddd",
+                commentContent: "안쓰고는 못배기는 서비스라고 할 수 있지",
+                commentRegDate: "2023-09-02T22:19:01.880577",
+                commentModDate: "2023-09-02T22:19:01.880577",
+                commentType: "SCRIPT_BOARDS",
+              },
+            ],
+            pageable: {
+              sort: {
+                empty: false,
+                sorted: true,
+                unsorted: false,
+              },
+              offset: 4,
+              pageNumber: 2,
+              pageSize: 1,
+              paged: true,
+              unpaged: false,
+            },
+            last: true,
+            totalPages: 3,
+            totalElements: 5,
+            number: 0,
+            sort: {
+              empty: false,
+              sorted: true,
+              unsorted: false,
+            },
+            first: false,
+            size: 2,
+            numberOfElements: 1,
             empty: false,
           }),
         );
