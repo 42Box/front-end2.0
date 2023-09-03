@@ -25,6 +25,7 @@ const WriteButton = (props) => {
           textAlign="center"
           fontSize="18px"
           fontWeight="700"
+          margin={0}
         >
           글쓰기
         </Text>
