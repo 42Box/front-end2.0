@@ -31,6 +31,7 @@ const SearchFilterSort = ({ onSearch, onSort }) => {
     setFilterClicked(false);
     setNewestClicked(false);
     setSelectedOption(null);
+    onSort("likeCount,DESC");
   };
 
   const handleSelectOption = (option) => {
