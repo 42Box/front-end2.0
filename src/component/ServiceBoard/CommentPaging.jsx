@@ -4,7 +4,12 @@ import { Box, Button, Flex } from "@chakra-ui/react";
 import CommentList from "../Comment/CommentList";
 import CommentNew from "../Comment/CommentNew";
 
-export const CommentPaging = ({ postId, onRender, errorHandler }) => {
+export const CommentPaging = ({
+  boardType,
+  postId,
+  onRender,
+  errorHandler,
+}) => {
   const [commentInfo, setCommentInfo] = useState(null);
   const [commentCurPage, setCommentCurPage] = useState(0);
 
@@ -17,7 +22,7 @@ export const CommentPaging = ({ postId, onRender, errorHandler }) => {
     try {
       const response = await apiCall(
         "GET",
-        `https://api.42box.kr/comment-service/service-boards/${postId}/comments`,
+        `https://api.42box.kr/comment-service/${boardType}/${postId}/comments`,
         { params: { page: commentCurPage, size: 5 } }
       );
       setCommentInfo(response.data);
@@ -42,6 +47,7 @@ export const CommentPaging = ({ postId, onRender, errorHandler }) => {
   return (
     <Box>
       <CommentNew
+        boardType={boardType}
         postId={postId}
         onCommentSubmit={() => {
           console.log("api call again!");

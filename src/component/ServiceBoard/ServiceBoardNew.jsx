@@ -6,6 +6,7 @@ import FileSelectButton from "../Util/Button/FileSelectButton";
 import { useNavigate } from "react-router-dom";
 import ConfirmCancle from "../Util/Modal/confirmCancle";
 import BasicButton from "../Util/Button/BasicButton";
+import isUrlValid from "../../util/isUrlValid";
 
 const ServiceBoardNew = () => {
   const navigate = useNavigate();
@@ -14,8 +15,10 @@ const ServiceBoardNew = () => {
     setInputTitle,
     inputDetail,
     setInputDetail,
-    selectedFile,
-    setSelectedFile,
+    inputServiceUrl,
+    setInputServiceUrl,
+    selectedImage,
+    setSelectedImage,
     postFormData,
   } = useServiceBoardNew();
 
@@ -27,16 +30,20 @@ const ServiceBoardNew = () => {
     setInputDetail(event.target.value);
   };
 
-  const fileChangeHandler = (event) => {
-    const file = event.target.files[0];
-    setSelectedFile(file);
+  const serviceUrlChangeHandler = (event) => {
+    setInputServiceUrl(event.target.value);
   };
 
-  const selectFileHandler = () => {
-    const fileInput = document.getElementById("fileInput");
-    if (fileInput) {
-      fileInput.click();
-      fileInput.value = "";
+  const imageChangeHandler = (event) => {
+    const image = event.target.files[0];
+    setSelectedImage(image);
+  };
+
+  const selectImageHandler = () => {
+    const imageInput = document.getElementById("fileInput");
+    if (imageInput) {
+      imageInput.click();
+      imageInput.value = "";
     }
   };
 
@@ -46,7 +53,7 @@ const ServiceBoardNew = () => {
       inputTitle.length > 40 ||
       inputDetail.length < 10 ||
       inputDetail.length > 5000 ||
-      !selectedFile
+      !isUrlValid(inputServiceUrl)
     ) {
       return false;
     }
@@ -65,12 +72,12 @@ const ServiceBoardNew = () => {
   };
 
   const cancleWriteHandler = () => {
-    navigate("/script/board");
+    navigate("/service/board");
   };
 
   return (
     <BackGround>
-      <Header pageTitle="스크립트" allowNavigate={false}></Header>
+      <Header pageTitle="서비스 등록" allowNavigate={false}></Header>
       <Box width="704px" alignSelf="center">
         <form onSubmit={submitHandler}>
           <Box paddingTop="36px" />
@@ -92,22 +99,33 @@ const ServiceBoardNew = () => {
               paddingLeft="12px"
             >
               <FileSelectButton
-                onClick={selectFileHandler}
-                accept="application/x-sh"
-                onFileChange={fileChangeHandler}
-                selectedFile={selectedFile}
+                onClick={selectImageHandler}
+                accept="image/png"
+                onFileChange={imageChangeHandler}
+                selectedFile={selectedImage}
               />
               <Flex paddingLeft="15px" />
               <Text
                 fontSize="18px"
                 color="gray"
-                _hover={selectedFile ? { color: "#FF7070" } : {}}
-                onClick={() => setSelectedFile(null)}
+                _hover={selectedImage ? { color: "#FF7070" } : {}}
+                onClick={() => setSelectedImage(null)}
               >
-                {selectedFile ? selectedFile.name : "선택된 파일이 없습니다."}
+                {selectedImage ? selectedImage.name : "선택된 파일이 없습니다."}
               </Text>
             </Flex>
             <Box paddingTop="40px" />
+            <Input
+              onChange={serviceUrlChangeHandler}
+              height="48px"
+              borderRadius="12px"
+              border="1px solid #C7C7C7"
+              alignItems="center"
+              paddingLeft="12px"
+              placeholder="URL을 입력하세요."
+              _hover={{ border: "1px solid #FF9548" }}
+              focusBorderColor="#FF9548"
+            />
             <Textarea
               height="700px"
               placeholder="본문 내용을 입력해 주세요."
