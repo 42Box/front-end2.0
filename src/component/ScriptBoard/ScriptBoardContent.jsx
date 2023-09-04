@@ -51,7 +51,7 @@ const ScriptBoardContent = () => {
     try {
       const response = await apiCall(
         "GET",
-        `https://api.42box.kr/board-service/script-boards/${postId}`
+        `https://api.42box.kr/board-service/script-boards/${postId}`,
       );
 
       setPostInfo(response.data);
@@ -89,7 +89,7 @@ const ScriptBoardContent = () => {
           name: postInfo.scriptName,
           description: postInfo.content,
           path: postInfo.scriptPath,
-        }
+        },
       );
       console.log("file download response: ", response.data);
       await setDataSendToMac({
@@ -101,7 +101,7 @@ const ScriptBoardContent = () => {
         scriptUuid: response.data.scriptUuid,
       });
       window?.webkit?.messageHandlers.downloadScript.postMessage(
-        JSON.stringify(dataSendToMac)
+        JSON.stringify(dataSendToMac),
       );
       setUserScriptSavedId(response.data.savedId);
       successAlert.openAlert({
@@ -117,7 +117,7 @@ const ScriptBoardContent = () => {
     try {
       const response = await apiCall(
         "DELETE",
-        `https://api.42box.kr/user-service/users/me/scripts/${userScriptSavedId}`
+        `https://api.42box.kr/user-service/users/me/scripts/${userScriptSavedId}`,
       );
       successAlert.openAlert({
         title: "파일을 삭제했습니다!",
@@ -130,7 +130,7 @@ const ScriptBoardContent = () => {
         userUuid: response.data.userUuid,
       }));
       window?.webkit?.messageHandlers.deleteScript.postMessage(
-        JSON.stringify(dataSendToMac)
+        JSON.stringify(dataSendToMac),
       );
       setUserScriptSavedId(null);
     } catch (error) {
@@ -157,6 +157,7 @@ const ScriptBoardContent = () => {
         margin={6}
       >
         <BoardMain
+          boardId={postId}
           title={postInfo?.title}
           writerProfileImgPath={postInfo?.writerProfileImagePath}
           writerNickname={postInfo?.writerNickname}
@@ -188,8 +189,9 @@ const ScriptBoardContent = () => {
         alignItems="center"
         margin={5}
         marginTop="15px"
-        marginBottom="5px"
+        marginBottom="10px"
         paddingLeft="10px"
+        gap={3}
       >
         <Like
           postId={postInfo?.boardId}
@@ -197,10 +199,20 @@ const ScriptBoardContent = () => {
           count={postInfo?.likeCount}
           onRender={renderHandler}
         />
-        <Box display="flex" justifyContent="center" alignItems="center">
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          padding={1}
+        >
           <MsgIcon height="26px" width="26px" />
-          <Flex paddingLeft="4px" />
-          <Text margin={0} color="##5B5B5B" fontSize="22px">
+          <Flex paddingLeft="2px" />
+          <Text
+            fontSize="22px"
+            margin={0}
+            color="##5B5B5B"
+            marginBottom="2.2px"
+          >
             {postInfo?.commentCount}
           </Text>
         </Box>
