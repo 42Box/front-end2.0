@@ -6,8 +6,11 @@ import "./CommentNew.css";
 import { useAlert } from "../../hook/useAlert";
 import AlertModal from "../Util/AlertModal";
 import { errorHandling } from "../../util/errorHandling";
+import { loginState } from "../../recoil/states";
+import { useRecoilValue } from "recoil";
 
 const CommentNew = ({ boardType, postId, onCommentSubmit }) => {
+  const isLogin = useRecoilValue(loginState);
   const navigate = useNavigate();
   const [isInputValid, setIsInputValid] = useState(true);
   const [commentContent, setCommentContent] = useState("");
@@ -67,7 +70,9 @@ const CommentNew = ({ boardType, postId, onCommentSubmit }) => {
         <Textarea
           height="145px"
           width="100%"
-          placeholder="댓글을 입력하세요."
+          placeholder={
+            isLogin ? "댓글을 입력하세요." : "로그인이 필요한 서비스입니다."
+          }
           value={commentContent}
           onChange={(event) => {
             setCommentContent(event.target.value);
@@ -76,6 +81,7 @@ const CommentNew = ({ boardType, postId, onCommentSubmit }) => {
         />
         <Box ml="auto">
           <Button
+            isDisabled={isLogin ? false : true}
             position="absolute"
             bottom="10px"
             right="10px"
