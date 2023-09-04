@@ -17,6 +17,8 @@ const ServiceBoardNew = () => {
     setInputDetail,
     inputServiceUrl,
     setInputServiceUrl,
+    inputServiceName,
+    setInputServiceName,
     selectedImage,
     setSelectedImage,
     postFormData,
@@ -32,6 +34,10 @@ const ServiceBoardNew = () => {
 
   const serviceUrlChangeHandler = (event) => {
     setInputServiceUrl(event.target.value);
+  };
+
+  const serviceNameChangeHandler = (event) => {
+    setInputServiceName(event.target.value);
   };
 
   const imageChangeHandler = (event) => {
@@ -53,6 +59,7 @@ const ServiceBoardNew = () => {
       inputTitle.length > 40 ||
       inputDetail.length < 10 ||
       inputDetail.length > 5000 ||
+      inputServiceName.length === 0 ||
       !isUrlValid(inputServiceUrl)
     ) {
       return false;
@@ -116,16 +123,29 @@ const ServiceBoardNew = () => {
             </Flex>
             <Box paddingTop="40px" />
             <Input
+              onChange={serviceNameChangeHandler}
+              height="48px"
+              borderRadius="12px"
+              border="1px solid #C7C7C7"
+              alignItems="center"
+              paddingLeft="12px"
+              placeholder="사용자들에게 표시될 서비스 명을 입력하세요."
+              _hover={{ border: "1px solid #FF9548" }}
+              focusBorderColor="#FF9548"
+            />
+            <Box paddingTop="20px" />
+            <Input
               onChange={serviceUrlChangeHandler}
               height="48px"
               borderRadius="12px"
               border="1px solid #C7C7C7"
               alignItems="center"
               paddingLeft="12px"
-              placeholder="URL을 입력하세요."
+              placeholder="서비스 URL을 입력하세요."
               _hover={{ border: "1px solid #FF9548" }}
               focusBorderColor="#FF9548"
             />
+            <Box paddingTop="20px" />
             <Textarea
               height="700px"
               placeholder="본문 내용을 입력해 주세요."

@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Image, Box, Text, Flex, Divider } from "@chakra-ui/react";
-import { ReactComponent as MsgIcon } from "../../asset/message.svg";
+import { ReactComponent as MsgIcon } from "../../asset/post-view-message.svg";
 import { CommentPaging } from "./CommentPaging";
 import Header from "../Util/Header";
 import AlertModal from "../Util/AlertModal";
@@ -19,15 +19,6 @@ const ScriptBoardContent = () => {
   const [postInfo, setPostInfo] = useState(null);
   const [recallPostInfo, setRecallPostInfo] = useState(false);
 
-  const [dataSendToMac, setDataSendToMac] = useState({
-    scriptUuid: null,
-    name: null, // script name
-    description: null, // script 게시물 title
-    path: null,
-    userUuid: null,
-    savedId: null,
-  });
-
   const errorAlert = useAlert();
   const successAlert = useAlert();
 
@@ -35,10 +26,6 @@ const ScriptBoardContent = () => {
     postInfoApiCall();
     // eslint-disable-next-line
   }, [recallPostInfo]);
-
-  useEffect(() => {
-    console.log("every change: ", dataSendToMac);
-  }, [dataSendToMac]);
 
   const errorResponseHandler = (response) => {
     errorHandling(response, navigate, errorAlert);
@@ -52,23 +39,6 @@ const ScriptBoardContent = () => {
       );
 
       setPostInfo(response.data);
-
-      if (response.data.scriptSaved) {
-        setDataSendToMac((prev) => ({
-          ...prev,
-          name: response.data.scriptName,
-          description: response.data.title,
-          path: response.data.scriptPath,
-          savedId: response.data.savedId,
-        }));
-      } else {
-        setDataSendToMac((prev) => ({
-          ...prev,
-          name: response.data.scriptName,
-          description: response.data.title,
-          path: response.data.scriptPath,
-        }));
-      }
       console.log("postInfo Api Call is successful");
     } catch (error) {
       console.log("postInfo Api Call is fail");
@@ -95,24 +65,29 @@ const ScriptBoardContent = () => {
           height="20%"
           margin={4}
         >
-          <Text fontSize="35px" fontWeight="500">
+          <Flex paddingTop="36px" />
+          <Text fontSize="35px" fontWeight="500" margin={0}>
             {postInfo?.title}
           </Text>
           <PostMetaData postInfo={postInfo} />
+          <Flex paddingTop="36px" />
           <Divider size="20px" />
           <Box paddingTop="30px" />
-          <Image
-            src={`https://42box.kr/${postInfo?.imagePath}`}
-            maxWidth="704px"
-            alignSelf="center"
-          />
+          {postInfo?.imagePath && (
+            <Image
+              src={`https://42box.kr/${postInfo.imagePath}`}
+              maxWidth="704px"
+              alignSelf="center"
+            />
+          )}
           <Box paddingTop="12px" />
           <UrlBar postInfo={postInfo} />
-          <Box paddingTop="12px" />
+          <Box paddingTop="20px" />
           <Text fontSize="22px" margin="10px 0 0 ">
             {postInfo?.content}
           </Text>
         </Flex>
+        <Box paddingTop="30px" />
         <Flex
           justifyContent="flex-start"
           alignItems="center"
@@ -125,22 +100,15 @@ const ScriptBoardContent = () => {
             count={postInfo?.likeCount}
             onRender={renderHandler}
           />
-          <Box
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            minWidth="55px"
-            height="30px"
-            rounded="15px"
-            bg="transparent"
-            gap="3px"
-          >
-            <MsgIcon height="80%" />
-            <Text marginLeft="4px" color="var(--dg-01, #9E9E9E)">
+          <Box display="flex" justifyContent="center" alignItems="center">
+            <MsgIcon height="26px" width="26px" />
+            <Flex paddingLeft="4px" />
+            <Text margin={0} color="##5B5B5B" fontSize="22px">
               {postInfo?.commentCount}
             </Text>
           </Box>
         </Flex>
+        <Box paddingTop="77px" />
         <CommentPaging
           boardType="service-boards"
           postId={postId}

@@ -1,8 +1,33 @@
 import { Flex, Icon, Text } from "@chakra-ui/react";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { ReactComponent as PlusBlackIcon } from "../../asset/plus-black.svg";
+import apiCall from "../../util/apiCall";
+import { userState } from "../../recoil/states";
+import { useRecoilState } from "recoil";
 
 const UrlBar = ({ postInfo }) => {
+  const [userStateValue, setUserStateValue] = useRecoilState(userState);
+
+  const updateUrlListHandler = () => {
+    const newUrl = { name: postInfo.serviceName, url: postInfo.serviceUrl };
+    const oldUrlList = userStateValue.urlList;
+    const newUrlList = [...oldUrlList, newUrl];
+
+    apiCall("PUT", "user-service/users/me/url-list", { urlList: newUrlList })
+      .then((response) => {
+        setUserStateValue({
+          ...userStateValue,
+          urlList: response.data.urlList,
+        });
+        console.log("updating urlList success!!");
+        console.log("updated urlList: ", userStateValue.urlList);
+      })
+      .catch((error) => {
+        console.log("error fetching urlList", error);
+      });
+    window?.webkit?.messageHandlers.saveURL.postMessage(JSON.stringify(newUrl));
+  };
+
   return (
     <Flex
       alignSelf="center"
@@ -19,6 +44,7 @@ const UrlBar = ({ postInfo }) => {
       <a href={postInfo?.serviceUrl}>
         <Icon
           as={ExternalLinkIcon}
+          color="#AAAAAA"
           height="20px"
           width="20px"
           boxSize="8"
@@ -30,6 +56,7 @@ const UrlBar = ({ postInfo }) => {
         {postInfo?.serviceUrl}
       </Text>
       <Icon
+        onClick={updateUrlListHandler}
         as={PlusBlackIcon}
         boxSize="10"
         borderRadius="12px"

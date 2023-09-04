@@ -8,6 +8,7 @@ const useScriptBoardNew = () => {
   const [inputDetail, setInputDetail] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [inputServiceUrl, setInputServiceUrl] = useState("");
+  const [inputServiceName, setInputServiceName] = useState("");
 
   const getFormData = () => {
     const formData = new FormData();
@@ -17,6 +18,7 @@ const useScriptBoardNew = () => {
       JSON.stringify({
         title: inputTitle,
         content: inputDetail,
+        serviceName: inputServiceName,
         serviceUrl: inputServiceUrl,
       })
     );
@@ -40,6 +42,8 @@ const useScriptBoardNew = () => {
     setInputDetail,
     inputServiceUrl,
     setInputServiceUrl,
+    inputServiceName,
+    setInputServiceName,
     selectedImage,
     setSelectedImage,
     postFormData,
