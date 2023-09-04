@@ -41,8 +41,11 @@ const ServiceBoardNew = () => {
   };
 
   const imageChangeHandler = (event) => {
-    const image = event.target.files[0];
-    setSelectedImage(image);
+    if (event.target.files[0].size > 1024 * 1000) {
+      alert("이미지 크기 제한을 초과하였습니다(최대 2MB).");
+      return;
+    }
+    setSelectedImage(event.target.files[0]);
   };
 
   const selectImageHandler = () => {
