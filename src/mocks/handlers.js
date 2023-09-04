@@ -159,6 +159,31 @@ export const handlers = [
       );
     },
   ),
+  rest.get(
+    "https://42box.kr/script_file/1756fb9a-024e-4034-9f0a-817cb8bfc6ac.sh",
+    (req, res, ctx) => {
+      return res(
+        ctx.body(
+          "#!/bin/zsh\n" +
+            "\n" +
+            "# install brew\n" +
+            "git clone --depth=1 https://github.com/Homebrew/brew /goinfre/$USER/.brew\n" +
+            "echo 'export PATH=/goinfre/$USER/.brew/bin:$PATH' >> $HOME/.zshrc\n" +
+            "source $HOME/.zshrc\n" +
+            "brew doctor && brew update\n" +
+            "\n" +
+            "#ln -s ~/goinfre/.brew ~/.brew\n" +
+            "\n" +
+            "# install node\n" +
+            "brew install node@18\n" +
+            "echo 'export PATH=/goinfre/$USER/.brew/opt/node@18/bin:$PATH' >> $HOME/.zshrc\n" +
+            "node --version && npm --version\n" +
+            "npm install -g npm@9.8.1\n" +
+            "npm install -g create-react-app",
+        ),
+      );
+    },
+  ),
 
   // comment 서비스
   rest.get(
@@ -253,7 +278,7 @@ export const handlers = [
                 sorted: true,
                 unsorted: false,
               },
-              offset: 2,
+              offset: 0,
               pageNumber: 1,
               pageSize: 2,
               paged: true,

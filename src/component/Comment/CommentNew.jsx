@@ -19,14 +19,19 @@ const CommentNew = ({ boardType, postId, onCommentSubmit }) => {
     // move to ScriptBoard
     event.preventDefault();
     try {
-      if (
-        commentContent.trim().length < 1 ||
-        commentContent.trim().length > 500
-      ) {
+      if (commentContent.trim().length < 1) {
         setIsInputValid(false);
         errorAlert.openAlert({
           title: "글자를 입력해주세요.",
           content: "📝",
+        });
+        return;
+      }
+      if (commentContent.trim().length > 500) {
+        setIsInputValid(false);
+        errorAlert.openAlert({
+          title: "500글자를 초과했습니다.",
+          content: "⚠️",
         });
         return;
       }
@@ -54,55 +59,57 @@ const CommentNew = ({ boardType, postId, onCommentSubmit }) => {
       submitHandler(event);
       return;
     }
-    if (event.key === "Enter") {
-      submitHandler(event);
-      return;
-    }
   };
 
   return (
-    <Flex
-      width="100%"
-      position="relative"
-      justify-content="center"
-      marginBottom="40px"
-    >
-      <Textarea
-        height="130px"
-        width="100%"
-        placeholder="댓글을 입력하세요."
-        value={commentContent}
-        onChange={(event) => {
-          setCommentContent(event.target.value);
-        }}
-        onKeyDown={handleKeyPress}
-      />
-      <Box ml="auto">
-        <Button
-          position="absolute"
-          bottom="5px"
-          right="5px"
-          type="submit"
-          zIndex="1"
-          onClick={submitHandler}
-        >
-          등록
-        </Button>
-      </Box>
-      {!isInputValid && (
-        <AlertModal
-          open={errorAlert.alertData.isOpen}
-          close={() => {
-            errorAlert.closeAlert();
-            setIsInputValid(true);
-            navigate(`/script/content/${postId}`);
+    <Box margin={7} marginTop="5px">
+      <Flex width="100%" position="relative" justify-content="center">
+        <Textarea
+          height="145px"
+          width="100%"
+          placeholder="댓글을 입력하세요."
+          value={commentContent}
+          onChange={(event) => {
+            setCommentContent(event.target.value);
           }}
-          header={errorAlert.alertData.title}
-        >
-          <Text>{errorAlert.alertData.content}</Text>
-        </AlertModal>
-      )}
-    </Flex>
+          onKeyDown={handleKeyPress}
+        />
+        <Box ml="auto">
+          <Button
+            position="absolute"
+            bottom="10px"
+            right="10px"
+            height="2em"
+            type="submit"
+            zIndex={10}
+            borderRadius="15px"
+            border="1px solid #8E8E8E"
+            backgroundColor="transparent"
+            color="#8E8E8E"
+            _hover={{
+              border: "1.5px solid var(--Main-Orange, #FF9548)",
+              background: "var(--Light-Orange, #FFF0E5)",
+              color: "#FF9548",
+            }}
+            onClick={submitHandler}
+          >
+            등록하기
+          </Button>
+        </Box>
+        {!isInputValid && (
+          <AlertModal
+            open={errorAlert.alertData.isOpen}
+            close={() => {
+              errorAlert.closeAlert();
+              setIsInputValid(true);
+            }}
+            header={errorAlert.alertData.title}
+          >
+            <Text>{errorAlert.alertData.content}</Text>
+          </AlertModal>
+        )}
+      </Flex>
+    </Box>
   );
 };
 
