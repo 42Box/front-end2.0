@@ -132,7 +132,7 @@ const ServiceBoardNew = () => {
               border="1px solid #C7C7C7"
               alignItems="center"
               paddingLeft="12px"
-              placeholder="사용자들에게 표시될 서비스 명을 입력하세요."
+              placeholder="서비스 명을 입력하세요."
               _hover={{ border: "1px solid #FF9548" }}
               focusBorderColor="#FF9548"
             />
@@ -144,7 +144,7 @@ const ServiceBoardNew = () => {
               border="1px solid #C7C7C7"
               alignItems="center"
               paddingLeft="12px"
-              placeholder="서비스 URL을 입력하세요."
+              placeholder="https://example.com"
               _hover={{ border: "1px solid #FF9548" }}
               focusBorderColor="#FF9548"
             />

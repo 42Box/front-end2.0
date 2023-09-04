@@ -2,13 +2,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Image, Box, Text, Flex, Divider } from "@chakra-ui/react";
 import { ReactComponent as MsgIcon } from "../../asset/post-view-message.svg";
-import { CommentPaging } from "./CommentPaging";
+import { CommentPaging } from "../Comment/CommentPaging";
 import Header from "../Util/Header";
 import AlertModal from "../Util/AlertModal";
 import { useAlert } from "../../hook/useAlert";
 import apiCall from "../../util/apiCall";
 import { errorHandling } from "../../util/errorHandling";
-import { Like } from "./Like";
+import { Like } from "../Util/Button/Like";
 import BackGround from "../Util/BackGround";
 import UrlBar from "./UrlBar";
 import PostMetaData from "./PostMetaData";
@@ -91,7 +91,7 @@ const ScriptBoardContent = () => {
         <Flex
           justifyContent="flex-start"
           alignItems="center"
-          marginLeft="14px"
+          paddingLeft="25px"
           marginBottom="10px"
         >
           <Like
@@ -108,7 +108,7 @@ const ScriptBoardContent = () => {
             </Text>
           </Box>
         </Flex>
-        <Box paddingTop="77px" />
+        <Box paddingTop="5px" />
         <CommentPaging
           boardType="service-boards"
           postId={postId}

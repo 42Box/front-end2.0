@@ -4,11 +4,18 @@ import { ReactComponent as PlusBlackIcon } from "../../asset/plus-black.svg";
 import apiCall from "../../util/apiCall";
 import { userState } from "../../recoil/states";
 import { useRecoilState } from "recoil";
+import { loginState } from "../../recoil/states";
+import { useRecoilValue } from "recoil";
 
 const UrlBar = ({ postInfo }) => {
   const [userStateValue, setUserStateValue] = useRecoilState(userState);
+  const isLogin = useRecoilValue(loginState);
 
   const updateUrlListHandler = () => {
+    if (!isLogin) {
+      alert("로그인이 필요한 서비스입니다.");
+      return;
+    }
     const newUrl = { name: postInfo.serviceName, url: postInfo.serviceUrl };
     const oldUrlList = userStateValue.urlList;
     const newUrlList = [...oldUrlList, newUrl];
