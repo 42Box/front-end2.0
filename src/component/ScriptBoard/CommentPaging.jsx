@@ -9,7 +9,7 @@ import { ReactComponent as NextIcon } from "../../asset/next.svg";
 import { ReactComponent as PrevInvalidIcon } from "../../asset/previousInvalid.svg";
 import { ReactComponent as NextInvalidIcon } from "../../asset/nextInvalid.svg";
 
-export const CommentPaging = ({ postId, errorHandler }) => {
+export const CommentPaging = ({ boardType, postId, errorHandler }) => {
   const [commentInfo, setCommentInfo] = useState(null);
   const [commentCurPage, setCommentCurPage] = useState(0);
 
@@ -23,7 +23,7 @@ export const CommentPaging = ({ postId, errorHandler }) => {
       const response = await apiCall(
         "GET",
         `https://api.42box.kr/comment-service/script-boards/${postId}/comments`,
-        { params: { page: commentCurPage, size: 2 } },
+        { params: { page: commentCurPage, size: 15 } },
       );
       setCommentInfo(response.data);
       console.log("commentInfo Api Call is successful");
@@ -45,6 +45,7 @@ export const CommentPaging = ({ postId, errorHandler }) => {
   return (
     <>
       <CommentNew
+        boardType={boardType}
         postId={postId}
         onCommentSubmit={() => {
           console.log("api call again!");
