@@ -1,14 +1,14 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Box, Text, Flex, Divider } from "@chakra-ui/react";
-import { ReactComponent as MsgIcon } from "../../asset/message.svg";
-import { CommentPaging } from "./CommentPaging";
+import { ReactComponent as MsgIcon } from "../../asset/post-view-message.svg";
+import { CommentPaging } from "../Comment/CommentPaging";
 import Header from "../Util/Header";
 import AlertModal from "../Util/AlertModal";
 import { useAlert } from "../../hook/useAlert";
 import apiCall from "../../util/apiCall";
 import { errorHandling } from "../../util/errorHandling";
-import { Like } from "./Like";
+import { Like } from "../Util/Button/Like";
 import { ScriptPreviewPop } from "./ScriptPreviewPop";
 import BackGround from "../Util/BackGround";
 import { BoardMain } from "./BoardMain";
@@ -51,7 +51,7 @@ const ScriptBoardContent = () => {
     try {
       const response = await apiCall(
         "GET",
-        `https://api.42box.kr/board-service/script-boards/${postId}`,
+        `https://api.42box.kr/board-service/script-boards/${postId}`
       );
 
       setPostInfo(response.data);
@@ -89,7 +89,7 @@ const ScriptBoardContent = () => {
           name: postInfo.scriptName,
           description: postInfo.content,
           path: postInfo.scriptPath,
-        },
+        }
       );
       console.log("file download response: ", response.data);
       await setDataSendToMac({
@@ -101,7 +101,7 @@ const ScriptBoardContent = () => {
         scriptUuid: response.data.scriptUuid,
       });
       window?.webkit?.messageHandlers.downloadScript.postMessage(
-        JSON.stringify(dataSendToMac),
+        JSON.stringify(dataSendToMac)
       );
       setUserScriptSavedId(response.data.savedId);
       successAlert.openAlert({
@@ -117,7 +117,7 @@ const ScriptBoardContent = () => {
     try {
       const response = await apiCall(
         "DELETE",
-        `https://api.42box.kr/user-service/users/me/scripts/${userScriptSavedId}`,
+        `https://api.42box.kr/user-service/users/me/scripts/${userScriptSavedId}`
       );
       successAlert.openAlert({
         title: "파일을 삭제했습니다!",
@@ -130,7 +130,7 @@ const ScriptBoardContent = () => {
         userUuid: response.data.userUuid,
       }));
       window?.webkit?.messageHandlers.deleteScript.postMessage(
-        JSON.stringify(dataSendToMac),
+        JSON.stringify(dataSendToMac)
       );
       setUserScriptSavedId(null);
     } catch (error) {
@@ -189,6 +189,7 @@ const ScriptBoardContent = () => {
         margin={5}
         marginTop="15px"
         marginBottom="5px"
+        paddingLeft="10px"
       >
         <Like
           postId={postInfo?.boardId}
@@ -196,18 +197,10 @@ const ScriptBoardContent = () => {
           count={postInfo?.likeCount}
           onRender={renderHandler}
         />
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          minWidth="55px"
-          height="30px"
-          rounded="15px"
-          bg="transparent"
-          gap="3px"
-        >
-          <MsgIcon height="80%" />
-          <Text marginLeft="4px" color="var(--dg-01, #9E9E9E)">
+        <Box display="flex" justifyContent="center" alignItems="center">
+          <MsgIcon height="26px" width="26px" />
+          <Flex paddingLeft="4px" />
+          <Text margin={0} color="##5B5B5B" fontSize="22px">
             {postInfo?.commentCount}
           </Text>
         </Box>
