@@ -8,12 +8,13 @@ const SearchBar = ({ onSearch }) => {
   // const [isValidInput, setIsValidInput] = useState(true);
 
   const handleSearch = () => {
-    if (inputValue !== "") {
-      // setIsValidInput(true);
-      onSearch(inputValue, "TITLE");
-    } else {
-      // setIsValidInput(false);
-    }
+    // if (inputValue !== "") {
+    //   // setIsValidInput(true);
+    //   onSearch(inputValue, "TITLE");
+    // } else {
+    //   // setIsValidInput(false);
+    // }
+    onSearch(inputValue, "TITLE");
   };
 
   const handleKeyDown = (event) => {
