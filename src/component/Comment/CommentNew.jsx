@@ -7,7 +7,7 @@ import { useAlert } from "../../hook/useAlert";
 import AlertModal from "../Util/AlertModal";
 import { errorHandling } from "../../util/errorHandling";
 
-const CommentNew = ({ postId, onCommentSubmit }) => {
+const CommentNew = ({ boardType, postId, onCommentSubmit }) => {
   const navigate = useNavigate();
   const [isInputValid, setIsInputValid] = useState(true);
   const [commentContent, setCommentContent] = useState("");
@@ -37,10 +37,10 @@ const CommentNew = ({ postId, onCommentSubmit }) => {
       }
       const response = await apiCall(
         "POST",
-        `comment-service/script-boards/${postId}/comments`,
+        `comment-service/${boardType}/${postId}/comments`,
         {
           commentContent: commentContent,
-        },
+        }
       );
       console.log("comment post api response: ", response.data);
       setCommentContent("");

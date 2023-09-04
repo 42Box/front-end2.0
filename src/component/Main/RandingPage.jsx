@@ -3,7 +3,7 @@ import AdBanner from "./AdBanner";
 import { Box, Flex } from "@chakra-ui/react";
 import ScriptBoardPreview from "./ScriptBoardPreview";
 import IconBoardPreview from "./IconBoardPreview";
-import ServiceRegisterBoardPreview from "./ServiceRegisterBoardPreview";
+import ServiceBoardPreview from "./ServiceBoardPreview";
 import BackGround from "../Util/BackGround";
 
 const RandingPage = () => {
@@ -14,7 +14,7 @@ const RandingPage = () => {
         <AdBanner />
         <ScriptBoardPreview />
         <IconBoardPreview />
-        <ServiceRegisterBoardPreview />
+        <ServiceBoardPreview />
         <Flex minHeight="calc(100vh * 0.1)" alignItems="baseline">
           {/* Footer 내용 */}
         </Flex>
