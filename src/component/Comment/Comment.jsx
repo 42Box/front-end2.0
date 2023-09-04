@@ -3,7 +3,7 @@ import { Box, Divider, Flex, Image, Text } from "@chakra-ui/react";
 
 const Comment = (props) => {
   return (
-    <Box width="100%" marginTop="12px" rounded="lg">
+    <Box marginTop="12px" rounded="lg">
       <Flex direction="column" marginBottom="12px" margin={4}>
         <Flex marginBottom="12px" alignItems="center">
           <Image
@@ -17,7 +17,7 @@ const Comment = (props) => {
           <Text marginLeft="5px" marginRight="5px" textColor="#8E8E8E">
             │
           </Text>
-          <Text marginLeft="5px" fontSize="17px">
+          <Text paddingTop="2px" fontSize="17px">
             {props.date}
           </Text>
         </Flex>

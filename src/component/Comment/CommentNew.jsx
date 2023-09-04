@@ -54,55 +54,57 @@ const CommentNew = ({ postId, onCommentSubmit }) => {
       submitHandler(event);
       return;
     }
-    if (event.key === "Enter") {
-      submitHandler(event);
-      return;
-    }
+    // if (event.key === "Enter") {
+    //   submitHandler(event);
+    //   return;
+    // }
   };
 
   return (
-    <Flex
-      width="100%"
-      position="relative"
-      justify-content="center"
-      marginBottom="40px"
-    >
-      <Textarea
-        height="130px"
+    <Box margin={7}>
+      <Flex
         width="100%"
-        placeholder="댓글을 입력하세요."
-        value={commentContent}
-        onChange={(event) => {
-          setCommentContent(event.target.value);
-        }}
-        onKeyDown={handleKeyPress}
-      />
-      <Box ml="auto">
-        <Button
-          position="absolute"
-          bottom="5px"
-          right="5px"
-          type="submit"
-          zIndex="1"
-          onClick={submitHandler}
-        >
-          등록
-        </Button>
-      </Box>
-      {!isInputValid && (
-        <AlertModal
-          open={errorAlert.alertData.isOpen}
-          close={() => {
-            errorAlert.closeAlert();
-            setIsInputValid(true);
-            navigate(`/script/content/${postId}`);
+        position="relative"
+        justify-content="center"
+        marginBottom="40px"
+      >
+        <Textarea
+          height="130px"
+          width="100%"
+          placeholder="댓글을 입력하세요."
+          value={commentContent}
+          onChange={(event) => {
+            setCommentContent(event.target.value);
           }}
-          header={errorAlert.alertData.title}
-        >
-          <Text>{errorAlert.alertData.content}</Text>
-        </AlertModal>
-      )}
-    </Flex>
+          onKeyDown={handleKeyPress}
+        />
+        <Box ml="auto">
+          <Button
+            position="absolute"
+            bottom="5px"
+            right="5px"
+            type="submit"
+            zIndex="1"
+            onClick={submitHandler}
+          >
+            등록
+          </Button>
+        </Box>
+        {!isInputValid && (
+          <AlertModal
+            open={errorAlert.alertData.isOpen}
+            close={() => {
+              errorAlert.closeAlert();
+              setIsInputValid(true);
+              navigate(`/script/content/${postId}`);
+            }}
+            header={errorAlert.alertData.title}
+          >
+            <Text>{errorAlert.alertData.content}</Text>
+          </AlertModal>
+        )}
+      </Flex>
+    </Box>
   );
 };
 

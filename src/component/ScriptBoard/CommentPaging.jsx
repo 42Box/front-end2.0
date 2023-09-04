@@ -18,7 +18,7 @@ export const CommentPaging = ({ postId, onRender, errorHandler }) => {
       const response = await apiCall(
         "GET",
         `https://api.42box.kr/comment-service/script-boards/${postId}/comments`,
-        { params: { page: commentCurPage, size: 5 } },
+        { params: { page: commentCurPage, size: 15 } },
       );
       setCommentInfo(response.data);
       onRender();
@@ -75,7 +75,7 @@ export const CommentPaging = ({ postId, onRender, errorHandler }) => {
           commentInfo.totalElements > 0 &&
           !commentInfo.first &&
           !commentInfo.last && (
-            <>
+            <Flex justifyContent="flex-end" alignItems="center" margin="10px">
               <Button
                 width="66px"
                 height="30px"
@@ -96,7 +96,7 @@ export const CommentPaging = ({ postId, onRender, errorHandler }) => {
               >
                 다음 ▶
               </Button>
-            </>
+            </Flex>
           )}
         {commentInfo && commentInfo.totalElements > 0 && commentInfo.last && (
           <Button

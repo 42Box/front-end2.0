@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Image,
   Button,
@@ -11,16 +11,14 @@ import {
   Box,
   Text,
   Flex,
-  PopoverArrow,
-  PopoverCloseButton,
-  PopoverHeader,
-  PopoverBody,
-  PopoverContent,
-  Popover,
-  PopoverTrigger,
   Divider,
 } from "@chakra-ui/react";
-import { EditIcon, DeleteIcon, HamburgerIcon } from "@chakra-ui/icons";
+import {
+  EditIcon,
+  DownloadIcon,
+  DeleteIcon,
+  HamburgerIcon,
+} from "@chakra-ui/icons";
 import { ReactComponent as MsgIcon } from "../../asset/message.svg";
 import { CommentPaging } from "./CommentPaging";
 import Header from "../Util/Header";
@@ -30,16 +28,16 @@ import { useAlert } from "../../hook/useAlert";
 import apiCall from "../../util/apiCall";
 import { errorHandling } from "../../util/errorHandling";
 import "./ScriptBoardContent.css";
-import axios from "axios";
 import { Like } from "./Like";
-import BasicButton from "../Util/Button/BasicButton";
+import { ScriptPreviewPop } from "./ScriptPreviewPop";
+import BackGround from "../Util/BackGround";
+import { FaPlay } from "react-icons/fa";
 
 const ScriptBoardContent = () => {
   const navigate = useNavigate();
   const postId = useParams().postId;
   const [userScriptSavedId, setUserScriptSavedId] = useState(null);
   const [isPreviewOn, setIsPreviewOn] = useState(false);
-  const [filePreview, setFilePreview] = useState("");
   const [postInfo, setPostInfo] = useState(null);
   const [recallPostInfo, setRecallPostInfo] = useState(false);
 
@@ -52,7 +50,6 @@ const ScriptBoardContent = () => {
     savedId: null,
   });
 
-  const dragLimitBox = useRef(null);
   const errorAlert = useAlert();
   const successAlert = useAlert();
 
@@ -61,9 +58,9 @@ const ScriptBoardContent = () => {
     // eslint-disable-next-line
   }, [recallPostInfo]);
 
-  useEffect(() => {
-    console.log("every change: ", dataSendToMac);
-  }, [dataSendToMac]);
+  // useEffect(() => {
+  //   console.log("every change: ", dataSendToMac);
+  // }, [dataSendToMac]);
 
   const errorResponseHandler = (response) => {
     errorHandling(response, navigate, errorAlert);
@@ -160,39 +157,22 @@ const ScriptBoardContent = () => {
     }
   };
 
-  const readFileHandler = async () => {
-    try {
-      const response = await axios.get(
-        `https://42box.kr/${postInfo.scriptPath}`,
-      );
-      const file = response.data;
-      console.log(file);
-      setFilePreview(file);
-    } catch (error) {
-      errorResponseHandler(error.response);
-    }
-  };
-
   const renderHandler = () => {
     setRecallPostInfo(!recallPostInfo);
   };
 
+  const previewHandler = () => {
+    setIsPreviewOn(!isPreviewOn);
+  };
+
   return (
-    <Box
-      width="768px" // 최대 너비 제한
-      height="1024px"
-      padding="4" // 패딩
-      borderWidth="1px" // 테두리
-      borderRadius="md" // 테두리 모서리 반경
-      boxShadow="lg" // 그림자>
-      ref={dragLimitBox}
-    >
+    <BackGround>
       <Header pageTitle="스크립트" />
       <Flex
         flexDirection="column"
         justifyContent="space-evenly"
         height="20%"
-        margin={4}
+        margin={6}
       >
         <Text fontSize="35px" fontWeight="500">
           {postInfo?.title}
@@ -215,7 +195,9 @@ const ScriptBoardContent = () => {
             <Text marginLeft="5px" marginRight="5px" textColor="#8E8E8E">
               │
             </Text>
-            <DateComponent date={postInfo?.regDate} />
+            <Text paddingTop="2px" fontSize="17px">
+              <DateComponent date={postInfo?.regDate} />
+            </Text>
           </Flex>
           <Menu>
             <MenuButton
@@ -231,121 +213,85 @@ const ScriptBoardContent = () => {
           </Menu>
         </Flex>
         <Divider size="20px" />
-        <Popover
-          placement="auto"
-          matchWidth={true}
-          onOpen={() => setIsPreviewOn(true)}
-          onClose={() => setIsPreviewOn(false)}
+        <ScriptPreviewPop
+          postInfo={postInfo}
+          isPreviewOn={isPreviewOn}
+          setIsPreviewOn={setIsPreviewOn}
+          previewHandler={previewHandler}
+          errorHandler={(response) => errorResponseHandler(response)}
         >
-          <PopoverTrigger>
+          <Flex justifyContent="flex-end" alignItems="center" zIndex={10}>
             <Button
-              width="146px"
-              height="33px"
-              padding="6px 10px 6px 10px"
-              margin="16px 0 0 40px"
-              border="1.5px solid #000"
-              rounded="full"
-              gap="2px"
-              background="transparent"
-              onClick={readFileHandler}
-              disabled={true}
+              borderRadius="lg"
+              border="1px #8E8E8E"
+              backgroundColor="var(--DG-01, #D3D3D3)"
+              color="#000000"
+              margin="4px"
+              zIndex={10}
+              _hover={{
+                border: "1.5px solid var(--Main-Orange, #FF9548)",
+                background: "var(--Light-Orange, #FFF0E5)",
+                color: "#FF9548",
+              }}
+              type="button"
+              onClick={() => {
+                console.log("on execute:", dataSendToMac);
+                if (dataSendToMac.path) {
+                  window?.webkit?.messageHandlers.executeScript.postMessage(
+                    JSON.stringify(dataSendToMac),
+                  );
+                }
+              }}
             >
-              {isPreviewOn ? "스크립트 닫기 " : "스크립트 미리보기"}
+              <FaPlay />
             </Button>
-          </PopoverTrigger>
-          {filePreview && (
-            <PopoverContent
-              width="70vw"
-              height="auto"
-              drag={true}
-              dragConstraints={dragLimitBox}
-            >
-              <PopoverArrow />
-              <PopoverCloseButton />
-              <PopoverHeader fontSize="17px">
-                {postInfo?.scriptName}
-              </PopoverHeader>
-              <PopoverBody
-                fontSize="17px"
-                dangerouslySetInnerHTML={{
-                  __html: filePreview.replace(/\n/g, "<br>"),
+            {userScriptSavedId === null ? (
+              <Button
+                bborderRadius="lg"
+                border="1px #8E8E8E"
+                backgroundColor="var(--DG-01, #D3D3D3)"
+                color="#000000"
+                margin="4px"
+                zIndex={10}
+                _hover={{
+                  border: "1.5px solid var(--Main-Orange, #FF9548)",
+                  background: "var(--Light-Orange, #FFF0E5)",
+                  color: "#FF9548",
                 }}
-              />
-            </PopoverContent>
-          )}
-        </Popover>
+                type="button"
+                onClick={downloadFile}
+              >
+                <DownloadIcon />
+              </Button>
+            ) : (
+              <Button
+                borderRadius="lg"
+                border="1px #8E8E8E"
+                backgroundColor="var(--DG-01, #D3D3D3)"
+                color="#000000"
+                margin="4px"
+                zIndex={10}
+                _hover={{
+                  border: "1.5px solid var(--Main-Orange, #FF9548)",
+                  background: "var(--Light-Orange, #FFF0E5)",
+                  color: "#FF9548",
+                }}
+                type="button"
+                onClick={deleteFile}
+              >
+                <DeleteIcon />
+              </Button>
+            )}
+          </Flex>
+        </ScriptPreviewPop>
         <Text fontSize="22px" margin="10px 0 0 ">
           {postInfo?.content}
         </Text>
       </Flex>
-      <Flex justifyContent="center" alignItems="center" marginBottom="10px">
-        <BasicButton
-          type="button"
-          onClick={() => {
-            console.log("on execute:", dataSendToMac);
-            if (dataSendToMac.path) {
-              window?.webkit?.messageHandlers.executeScript.postMessage(
-                JSON.stringify(dataSendToMac),
-              );
-            }
-          }}
-        >
-          실행
-        </BasicButton>
-        {/*<Button*/}
-        {/*  width="66px"*/}
-        {/*  height="30px"*/}
-        {/*  border="1.5px solid gray"*/}
-        {/*  rounded="full"*/}
-        {/*  background="transparent"*/}
-        {/*  gap="6px"*/}
-        {/*  onClick={() => {*/}
-        {/*    console.log("on execute:", dataSendToMac);*/}
-        {/*    if (dataSendToMac.path) {*/}
-        {/*      window?.webkit?.messageHandlers.executeScript.postMessage(*/}
-        {/*        JSON.stringify(dataSendToMac),*/}
-        {/*      );*/}
-        {/*    }*/}
-        {/*  }}*/}
-        {/*>*/}
-        {/*  실행*/}
-        {/*</Button>*/}
-        {userScriptSavedId === null ? (
-          <BasicButton type="button" onClick={downloadFile}>
-            저장
-          </BasicButton>
-        ) : (
-          // <Button
-          //   width="66px"
-          //   height="30px"
-          //   border="1.5px solid gray"
-          //   rounded="full"
-          //   background="transparent"
-          //   gap="6px"
-          //   onClick={downloadFile}
-          // >
-          //   저장
-          // </Button>
-          <BasicButton type="button" onClick={deleteFile}>
-            삭제
-          </BasicButton>
-          // <Button
-          //   width="66px"
-          //   height="30px"
-          //   border="1.5px solid gray"
-          //   rounded="full"
-          //   background="transparent"
-          //   gap="6px"
-          //   onClick={deleteFile}
-          // >
-          //   삭제
-          // </Button>
-        )}
-      </Flex>
       <Flex
         justifyContent="flex-start"
         alignItems="center"
-        marginLeft="14px"
+        margin={6}
         marginBottom="10px"
       >
         <Like
@@ -399,7 +345,7 @@ const ScriptBoardContent = () => {
           <Text>{successAlert.alertData.content}</Text>
         </AlertModal>
       )}
-    </Box>
+    </BackGround>
   );
 };
 

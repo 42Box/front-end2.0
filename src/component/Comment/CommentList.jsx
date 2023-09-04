@@ -7,7 +7,7 @@ import { Box } from "@chakra-ui/react";
 
 const CommentList = (props) => {
   return (
-    <Box marginBottom="7px">
+    <Box margin={5} marginBottom="7px">
       {props.comments.map((comment) => (
         <Comment
           key={comment.commentId}
