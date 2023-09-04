@@ -6,10 +6,10 @@ import MyPage from "./component/MyPage/MyPage";
 import ScriptBoard from "./component/ScriptBoard/ScriptBoard";
 import IconBoard from "./component/IconBoard/IconBoard";
 import IconBoardNew from "./component/IconBoard/IconBoardNew";
-import ServiceRegisterBoard from "./component/ServiceRegisterBoard/ServiceRegisterBoard";
+import ServiceBoard from "./component/ServiceBoard/ServiceBoard";
 import ScriptBoardNew from "./component/ScriptBoard/ScriptBoardNew";
 import ScriptBoardContent from "./component/ScriptBoard/ScriptBoardContent";
-import ServiceRegisterBoardContent from "./component/ServiceRegisterBoard/ServiceRegisterBoardContent";
+import ServiceBoardContent from "./component/ServiceBoard/ServiceBoardContent";
 import NotFound from "./component/Util/NotFound";
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
@@ -36,18 +36,15 @@ const App = () => {
       <Route path="/script/board" element={<ScriptBoard />} />
       <Route path="/icon/board" element={<IconBoard />} />
       <Route path="/icon/board/:postId" element={<RandingPage />} />
-      <Route
-        path="/service-register/board"
-        element={<ServiceRegisterBoard />}
-      />
+      <Route path="/service/board" element={<ServiceBoard />} />
       <Route path="/script/new" element={<ScriptBoardNew />} />
       <Route path="/icon/new" element={<IconBoardNew />} />
-      {/* <Route path="/service-register/new" element={<ServiceRegisterBoardNew />} /> */}
+      {/* <Route path="/service-register/new" element={<ServiceBoardNew />} /> */}
       <Route path="/script/content/:postId" element={<ScriptBoardContent />} />
       {/* <Route path="/icon/content/:postId" element={<IconBoardContent />} /> */}
       <Route
-        path="/service-register/content/:postId"
-        element={<ServiceRegisterBoardContent />}
+        path="/service/content/:postId"
+        element={<ServiceBoardContent />}
       />
       <Route path="*" element={<NotFound />} />
     </Routes>
