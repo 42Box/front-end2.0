@@ -213,7 +213,7 @@ const ScriptBoardContent = () => {
         </Box>
       </Flex>
       <CommentPaging
-        boardType="script-baords"
+        boardType="script-boards"
         postId={postId}
         errorHandler={(response) => errorResponseHandler(response)}
       ></CommentPaging>

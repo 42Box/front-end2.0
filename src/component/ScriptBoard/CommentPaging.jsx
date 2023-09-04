@@ -34,12 +34,15 @@ export const CommentPaging = ({ boardType, postId, errorHandler }) => {
   };
 
   const nextPageHandler = () => {
-    if (commentCurPage > commentInfo.totalPages - 1) return;
-    setCommentCurPage(commentCurPage + 1);
+    if (commentCurPage < commentInfo.totalPages - 1) {
+      setCommentCurPage(commentCurPage + 1);
+    }
   };
 
   const prevPageHandler = () => {
-    if (commentCurPage > 0) setCommentCurPage(commentCurPage - 1);
+    if (commentCurPage > 0) {
+      setCommentCurPage(commentCurPage - 1);
+    }
   };
 
   return (
