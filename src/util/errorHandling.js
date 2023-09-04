@@ -17,7 +17,8 @@ export const errorHandling = (response, navigate, errorAlert) => {
       content: "💥401💥",
     });
     window.localStorage.removeItem("loginState");
-    // navigate("/");
+    window.localStorage.removeItem("userState");
+    navigate("/");
   } else if (response.status === 404) {
     errorAlert.openAlert({
       title: "없는 데이터입니다!",

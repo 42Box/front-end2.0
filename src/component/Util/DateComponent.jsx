@@ -16,7 +16,11 @@ const DateComponent = (props) => {
     return <Text textColor="#8E8E8E">{timeDifference}분 전</Text>;
   }
   if (currentDate.hasSame(dateObj, "day")) {
-    return <Text textColor="#8E8E8E">{dateObj.toFormat("HH:mm")}</Text>;
+    return (
+      <Text letterSpacing="1.5px" textColor="#8E8E8E">
+        {dateObj.toFormat("HH:mm")}
+      </Text>
+    );
   }
   if (currentDate.hasSame(dateObj.plus({ days: 1 }), "day")) {
     return <Text textColor="#8E8E8E">어제</Text>;
