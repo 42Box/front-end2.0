@@ -160,7 +160,7 @@ export const handlers = [
     },
   ),
   rest.get(
-    "https://s3.ap-northeast-2.amazonaws.com/42box.kr/script_file/2b5dbc9a-0257-4255-9b83-06b044bca7b5.sh",
+    "https://42box.kr/script_file/1756fb9a-024e-4034-9f0a-817cb8bfc6ac.sh",
     (req, res, ctx) => {
       return res(
         ctx.body(

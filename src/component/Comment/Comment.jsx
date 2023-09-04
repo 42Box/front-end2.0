@@ -21,8 +21,13 @@ const Comment = (props) => {
             {props.date}
           </Text>
         </Flex>
-        <Text marginLeft="5px" fontSize="17px">
-          {props.content}
+        <Text fontSize="17px">
+          {props.content.split("\n").map((line) => (
+            <Text>
+              {line}
+              <br />
+            </Text>
+          ))}
         </Text>
       </Flex>
       <Divider />

@@ -1,43 +1,24 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import {
-  Image,
-  Button,
-  IconButton,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  Box,
-  Text,
-  Flex,
-  Divider,
-} from "@chakra-ui/react";
-import {
-  EditIcon,
-  DownloadIcon,
-  DeleteIcon,
-  HamburgerIcon,
-} from "@chakra-ui/icons";
+import { Box, Text, Flex, Divider } from "@chakra-ui/react";
 import { ReactComponent as MsgIcon } from "../../asset/message.svg";
 import { CommentPaging } from "./CommentPaging";
 import Header from "../Util/Header";
 import AlertModal from "../Util/AlertModal";
-import DateComponent from "../Util/DateComponent";
 import { useAlert } from "../../hook/useAlert";
 import apiCall from "../../util/apiCall";
 import { errorHandling } from "../../util/errorHandling";
-import "./ScriptBoardContent.css";
 import { Like } from "./Like";
 import { ScriptPreviewPop } from "./ScriptPreviewPop";
 import BackGround from "../Util/BackGround";
-import { FaPlay } from "react-icons/fa";
+import { BoardMain } from "./BoardMain";
+import "./ScriptBoardContent.css";
+import { ScriptPreviewButtons } from "./ScriptPreviewButtons";
 
 const ScriptBoardContent = () => {
   const navigate = useNavigate();
   const postId = useParams().postId;
   const [userScriptSavedId, setUserScriptSavedId] = useState(null);
-  const [isPreviewOn, setIsPreviewOn] = useState(false);
   const [postInfo, setPostInfo] = useState(null);
   const [recallPostInfo, setRecallPostInfo] = useState(false);
 
@@ -161,138 +142,53 @@ const ScriptBoardContent = () => {
     setRecallPostInfo(!recallPostInfo);
   };
 
-  const previewHandler = () => {
-    setIsPreviewOn(!isPreviewOn);
-  };
-
   return (
     <BackGround>
-      <Header pageTitle="스크립트" />
+      <Header
+        pageTitle="스크립트"
+        allowHomeNavigate={true}
+        allowBoardNavigate={true}
+        boardRoute={"/service/board"}
+      />
       <Flex
         flexDirection="column"
         justifyContent="space-evenly"
         height="20%"
         margin={6}
       >
-        <Text fontSize="35px" fontWeight="500">
-          {postInfo?.title}
-        </Text>
-        <Flex justifyContent="space-between" alignItems="center">
-          <Flex alignItems="center">
-            <Image
-              src={`https://42box.kr/${postInfo?.writerProfileImagePath}`}
-              width="23px"
-              height="23px"
-            />
-            <Text
-              fontSize="20px"
-              marginLeft="8px"
-              marginRight="0px"
-              textColor="#8E8E8E"
-            >
-              {postInfo?.writerNickname}
-            </Text>
-            <Text marginLeft="5px" marginRight="5px" textColor="#8E8E8E">
-              │
-            </Text>
-            <Text paddingTop="2px" fontSize="17px">
-              <DateComponent date={postInfo?.regDate} />
-            </Text>
-          </Flex>
-          <Menu>
-            <MenuButton
-              as={IconButton}
-              aria-label="Options"
-              icon={<HamburgerIcon />}
-              variant="outline"
-            />
-            <MenuList>
-              <MenuItem icon={<EditIcon />}>수정하기</MenuItem>
-              <MenuItem icon={<DeleteIcon />}>삭제하기</MenuItem>
-            </MenuList>
-          </Menu>
-        </Flex>
-        <Divider size="20px" />
+        <BoardMain
+          title={postInfo?.title}
+          writerProfileImgPath={postInfo?.writerProfileImagePath}
+          writerNickname={postInfo?.writerNickname}
+          regDate={postInfo?.regDate}
+        />
+        <Divider size="20px" marginTop="15px" marginBottom="15px" />
         <ScriptPreviewPop
           postInfo={postInfo}
-          isPreviewOn={isPreviewOn}
-          setIsPreviewOn={setIsPreviewOn}
-          previewHandler={previewHandler}
-          errorHandler={(response) => errorResponseHandler(response)}
+          errorHandle={(response) => errorResponseHandler(response)}
         >
-          <Flex justifyContent="flex-end" alignItems="center" zIndex={10}>
-            <Button
-              borderRadius="lg"
-              border="1px #8E8E8E"
-              backgroundColor="var(--DG-01, #D3D3D3)"
-              color="#000000"
-              margin="4px"
-              zIndex={10}
-              _hover={{
-                border: "1.5px solid var(--Main-Orange, #FF9548)",
-                background: "var(--Light-Orange, #FFF0E5)",
-                color: "#FF9548",
-              }}
-              type="button"
-              onClick={() => {
-                console.log("on execute:", dataSendToMac);
-                if (dataSendToMac.path) {
-                  window?.webkit?.messageHandlers.executeScript.postMessage(
-                    JSON.stringify(dataSendToMac),
-                  );
-                }
-              }}
-            >
-              <FaPlay />
-            </Button>
-            {userScriptSavedId === null ? (
-              <Button
-                bborderRadius="lg"
-                border="1px #8E8E8E"
-                backgroundColor="var(--DG-01, #D3D3D3)"
-                color="#000000"
-                margin="4px"
-                zIndex={10}
-                _hover={{
-                  border: "1.5px solid var(--Main-Orange, #FF9548)",
-                  background: "var(--Light-Orange, #FFF0E5)",
-                  color: "#FF9548",
-                }}
-                type="button"
-                onClick={downloadFile}
-              >
-                <DownloadIcon />
-              </Button>
-            ) : (
-              <Button
-                borderRadius="lg"
-                border="1px #8E8E8E"
-                backgroundColor="var(--DG-01, #D3D3D3)"
-                color="#000000"
-                margin="4px"
-                zIndex={10}
-                _hover={{
-                  border: "1.5px solid var(--Main-Orange, #FF9548)",
-                  background: "var(--Light-Orange, #FFF0E5)",
-                  color: "#FF9548",
-                }}
-                type="button"
-                onClick={deleteFile}
-              >
-                <DeleteIcon />
-              </Button>
-            )}
-          </Flex>
+          <ScriptPreviewButtons
+            dataSendToMac={dataSendToMac}
+            userScriptSavedId={userScriptSavedId}
+            downloadFile={downloadFile}
+            deleteFile={deleteFile}
+          />
         </ScriptPreviewPop>
-        <Text fontSize="22px" margin="10px 0 0 ">
-          {postInfo?.content}
+        <Text fontSize="20px" marginTop="15px" marginLeft="15px">
+          {postInfo?.content.split("\n").map((line) => (
+            <Text>
+              {line}
+              <br />
+            </Text>
+          ))}
         </Text>
       </Flex>
       <Flex
         justifyContent="flex-start"
         alignItems="center"
-        margin={6}
-        marginBottom="10px"
+        margin={5}
+        marginTop="15px"
+        marginBottom="5px"
       >
         <Like
           postId={postInfo?.boardId}
@@ -318,7 +214,6 @@ const ScriptBoardContent = () => {
       </Flex>
       <CommentPaging
         postId={postId}
-        onRender={renderHandler}
         errorHandler={(response) => errorResponseHandler(response)}
       ></CommentPaging>
       {errorAlert.alertData.isOpen && (
