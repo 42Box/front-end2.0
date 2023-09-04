@@ -10,6 +10,7 @@ import TextPreviewList from "../TextPreview/TextPreviewList";
 import useGetBoardInfo from "../../api/useGetBoardInfo";
 import Pagenation from "../Util/Pagenation";
 import SearchFilterSort from "../Util/SearchFilterSort";
+import NoPosts from "../Util/NoPosts";
 
 const ScriptBoard = () => {
   const loginStateValue = useRecoilValue(loginState);
@@ -63,12 +64,18 @@ const ScriptBoard = () => {
         allowBoardNavigate={false}
       />
       <SearchFilterSort onSearch={searchHandler} onSort={sortHandler} />
-      <TextPreviewList to="/script/content" posts={boardInfo.content} />
-      <Pagenation
-        onPagenation={pageNationHandler}
-        current={viewOption.page}
-        totalPages={boardInfo.totalPages}
-      ></Pagenation>
+      {boardInfo.empty ? (
+        <NoPosts />
+      ) : (
+        <>
+          <TextPreviewList to="/script/content" posts={boardInfo.content} />
+          <Pagenation
+            onPagenation={pageNationHandler}
+            current={viewOption.page}
+            totalPages={boardInfo.totalPages}
+          ></Pagenation>
+        </>
+      )}
     </BackGround>
   );
 };
