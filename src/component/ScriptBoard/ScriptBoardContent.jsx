@@ -285,7 +285,7 @@ const ScriptBoardContent = () => {
             console.log("on execute:", dataSendToMac);
             if (dataSendToMac.path) {
               window?.webkit?.messageHandlers.executeScript.postMessage(
-                JSON.stringify(dataSendToMac),
+                JSON.stringify(dataSendToMac)
               );
             }
           }}
@@ -371,6 +371,7 @@ const ScriptBoardContent = () => {
         </Box>
       </Flex>
       <CommentPaging
+        boardType="script-baords"
         postId={postId}
         onRender={renderHandler}
         errorHandler={(response) => errorResponseHandler(response)}
