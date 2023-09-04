@@ -13,7 +13,7 @@ import { useRecoilValue } from "recoil";
 
 export const CommentPaging = ({ boardType, postId, errorHandler }) => {
   const isLogin = useRecoilValue(loginState);
-  const [isComments, setIsComments] = useState(false);
+  const [isComments, setIsComments] = useState(true);
   const [commentInfo, setCommentInfo] = useState(null);
   const [commentCurPage, setCommentCurPage] = useState(0);
 
