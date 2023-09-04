@@ -1,4 +1,5 @@
 import {
+  Button,
   Flex,
   IconButton,
   Image,
@@ -6,12 +7,21 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   Text,
 } from "@chakra-ui/react";
 import { ReactComponent as MeatBallIcon } from "../../asset/meatball-menu.svg";
 import DateComponent from "../Util/DateComponent";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import apiCall from "../../util/apiCall";
 
 export const BoardMain = ({
   boardId,
@@ -21,6 +31,7 @@ export const BoardMain = ({
   regDate,
 }) => {
   const navigate = useNavigate();
+  const [onConFirmModal, setOnConFirmModal] = useState(false);
   const moveToEdit = () => {
     navigate("/script/edit/" + boardId);
   };
@@ -35,6 +46,14 @@ export const BoardMain = ({
     if (userNickname === writerNickname) return true;
   };
 
+  const deleteHandler = async () => {
+    try {
+      await apiCall("DELETE", `board-service/script-boards/${boardId}`);
+      navigate("/script/board");
+    } catch (error) {
+      alert("게시물 삭제에 실패했습니다");
+    }
+  };
   return (
     <>
       <Text fontSize="27px" fontWeight="500">
@@ -81,7 +100,12 @@ export const BoardMain = ({
                 >
                   수정
                 </MenuItem>
-                <MenuItem minWidth="unset" width="auto" icon={<DeleteIcon />}>
+                <MenuItem
+                  minWidth="unset"
+                  width="auto"
+                  icon={<DeleteIcon />}
+                  onClick={() => setOnConFirmModal(true)}
+                >
                   삭제
                 </MenuItem>
               </Flex>
@@ -89,6 +113,33 @@ export const BoardMain = ({
           </Menu>
         )}
       </Flex>
+      {onConFirmModal && (
+        <Modal isOpen={onConFirmModal} onClose={() => setOnConFirmModal(false)}>
+          <ModalOverlay />
+          <ModalContent justifyContent="center" alignContent="center">
+            <ModalHeader>❌삭제❌</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <Text>정말 삭제하시겠습니까?!</Text>
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                backgroundColor="#FF9548"
+                color="#FFF0E5"
+                mr={3}
+                onClick={() => {
+                  setOnConFirmModal(false);
+                }}
+              >
+                ✨ 취소하기
+              </Button>
+              <Button variant="ghost" onClick={deleteHandler}>
+                💥 삭제하기
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      )}
     </>
   );
 };

@@ -12,6 +12,7 @@ import axios from "axios";
 export const ScriptBoardEdit = () => {
   const { postId } = useParams();
   const navigate = useNavigate();
+  const [oldFile, setOldFile] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
 
   const [postInfo, setPostInfo] = useState({
@@ -41,7 +42,8 @@ export const ScriptBoardEdit = () => {
           `https://42box.kr/${boardResponse.data.scriptPath}`,
         );
         const file = fileResponse.data;
-        setSelectedFile(file);
+        console.log("PAST file api call: ", file);
+        setOldFile(file);
       } catch (error) {
         console.error("Error fetching post:", error);
       }
@@ -121,7 +123,11 @@ export const ScriptBoardEdit = () => {
                 _hover={selectedFile ? { color: "#FF7070" } : {}}
                 onClick={() => setSelectedFile(null)}
               >
-                {selectedFile ? selectedFile.name : "선택된 파일이 없습니다."}
+                {selectedFile
+                  ? selectedFile.name
+                  : oldFile
+                  ? postInfo?.scriptName
+                  : "선택된 파일이 없습니다."}
               </Text>
             </Flex>
             <Box paddingTop="40px" />
