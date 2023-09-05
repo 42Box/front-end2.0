@@ -40,9 +40,9 @@ const IconBoardPreview = () => {
             transform: "translateX(650px)",
             transition: "transform 5s",
           }}
-          onMouseEnter={() => setIsRunningFoxHovered(true)} // 호버 인 상태 변경
-          onMouseLeave={() => setIsRunningFoxHovered(false)} // 호버 아웃 상태 변경
-          style={{ zIndex: isRunningFoxHovered ? "2" : "auto" }} // 스택 순서 설정
+          onMouseEnter={() => setIsRunningFoxHovered(true)}
+          onMouseLeave={() => setIsRunningFoxHovered(false)}
+          style={{ zIndex: isRunningFoxHovered ? "2" : "auto" }}
         />
         {gifs.map((gif, index) => {
           return (
@@ -52,9 +52,9 @@ const IconBoardPreview = () => {
               onClick={() => onClickHandler(gif)}
               cursor="pointer"
               style={{
-                filter: isRunningFoxHovered ? "blur(10px)" : "none", // 블러 효과 조건부 설정
-                transition: "filter 0.3s", // 필터 애니메이션 지속 시간
-                zIndex: isRunningFoxHovered ? "1" : "auto", // 스택 순서 설정
+                filter: isRunningFoxHovered ? "blur(10px)" : "none",
+                transition: "filter 0.3s",
+                zIndex: isRunningFoxHovered ? "1" : "auto",
               }}
               _hover={{
                 transform: "scale(1.5)",
