@@ -1,15 +1,19 @@
 import { useState, useEffect } from "react";
 import { Portal, Box, Text, Stack } from "@chakra-ui/react";
+import { useRecoilValue } from "recoil";
+import { searchBarState } from "../../recoil/searchBarState";
 
 const FilterOptions = ({ isOpen, onSelect, filterButtonRef }) => {
-  const options = [
-    "추천 수 ~10",
-    "추천 수 10~50",
-    "추천 수 50~100",
-    "추천 수 100~",
-  ];
+  const searchWord = useRecoilValue(searchBarState);
+  const options = ["없음", "제목", "내용", "작성자", "스크립트 명", "전체"];
   const [selectedOption, setSelectedOption] = useState(null);
   const [position, setPosition] = useState({ top: 0, left: 0 });
+
+  useEffect(() => {
+    if (searchWord === "NONE") {
+      setSelectedOption(null);
+    }
+  }, [searchWord]);
 
   useEffect(() => {
     const updatePosition = () => {
@@ -37,8 +41,8 @@ const FilterOptions = ({ isOpen, onSelect, filterButtonRef }) => {
   }, [filterButtonRef]);
 
   const handleOptionClick = (option) => {
-    setSelectedOption(option);
     onSelect(option);
+    setSelectedOption(option);
   };
 
   return isOpen ? (
