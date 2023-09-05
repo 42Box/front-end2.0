@@ -14,7 +14,7 @@ const SearchBar = ({ onSearch }) => {
     // } else {
     //   // setIsValidInput(false);
     // }
-    onSearch(inputValue, "TITLE");
+    onSearch(inputValue);
   };
 
   const handleKeyDown = (event) => {
@@ -47,6 +47,7 @@ const SearchBar = ({ onSearch }) => {
         _focus={{ borderColor: "#FF9548" }}
         borderColor="#CECECE"
         onChange={inputValueHandler}
+        value={inputValue}
       />
       <InputRightElement height="33px" width="33px" cursor="pointer">
         <SearchIcon

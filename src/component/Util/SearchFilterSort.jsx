@@ -6,37 +6,48 @@ import FilterOptions from "./FilterOptions";
 import SortNewestButton from "./Button/SortNewestButton";
 import SortPopularButton from "./Button/SortPopularButton";
 
-const SearchFilterSort = ({ onSearch, onSort }) => {
+const SearchFilterSort = ({ onSearch, onSearchOption, onSort }) => {
   const [filterClicked, setFilterClicked] = useState(false);
   const [newestClicked, setNewestClicked] = useState(true);
   const [popularClicked, setPopularClicked] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
 
   const toggleFilter = () => {
-    setFilterClicked(true);
+    setFilterClicked(!filterClicked);
     setNewestClicked(false);
     setPopularClicked(false);
   };
 
   const handleNewestClick = () => {
     setNewestClicked(true);
-    setFilterClicked(false);
+    // setFilterClicked(false);
     setPopularClicked(false);
-    setSelectedOption(null);
+    // setSelectedOption(null);
     onSort("regDate,DESC");
   };
 
   const handlePopularClick = () => {
     setPopularClicked(true);
-    setFilterClicked(false);
+    // setFilterClicked(false);
     setNewestClicked(false);
-    setSelectedOption(null);
+    // setSelectedOption(null);
     onSort("likeCount,DESC");
   };
+
+  const searchCondition = [
+    "NONE",
+    "TITLE",
+    "CONTENT",
+    "WRITER_NICKNAME",
+    "SCRIPT_NAME",
+    "ALL",
+  ];
+  const options = ["없음", "제목", "내용", "작성자", "스크립트 명", "전체"];
 
   const handleSelectOption = (option) => {
     setSelectedOption(option);
     setFilterClicked(false);
+    onSearchOption(searchCondition[options.indexOf(option)]);
   };
 
   const filterButtonRef = useRef(null);

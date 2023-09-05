@@ -4,7 +4,7 @@ import { forwardRef } from "react";
 
 const FilterButton = forwardRef(
   ({ onClick, isClicked, selectedOption }, ref) => {
-    const buttonText = selectedOption ? selectedOption : "필터";
+    const buttonText = selectedOption ? selectedOption : "검색 기준";
     const isSelected = selectedOption !== null;
 
     return (
