@@ -211,6 +211,7 @@ const ScriptBoardContent = () => {
             fontSize="22px"
             margin={0}
             color="##5B5B5B"
+            marginLeft="3px"
             marginBottom="2.2px"
           >
             {postInfo?.commentCount}
