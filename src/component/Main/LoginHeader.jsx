@@ -5,29 +5,39 @@ import Logo from "./Logo";
 import MainTitle from "./MainTitle";
 import MyPageIcon from "./MyPageIcon";
 import LoginButton from "./LoginButton";
+import apiCall from "../../util/apiCall";
 
 export const LoginHeader = () => {
   const [loginStateValue, setLoginStateValue] = useRecoilState(loginState);
   const setUserStateValue = useSetRecoilState(userState);
 
   const logoutHandler = () => {
-    setLoginStateValue(false);
-    setUserStateValue({
-      uuid: null,
-      nickname: null,
-      theme: null,
-      icon: null,
-      urlList: null,
-      statusMessage: null,
-      profileImageUrl: null,
-      profileImagePath: null,
-      bigProfileImagePath: null,
-      quickSlotList: null,
-    });
-
-    window.localStorage.removeItem("loginState");
-    window.localStorage.removeItem("userState");
-    console.log("logged out!");
+    apiCall("GET", "/user-service/users/me/logout")
+      .then(() => {
+        console.log("cookie removed");
+        setLoginStateValue(false);
+        setUserStateValue({
+          uuid: null,
+          nickname: null,
+          theme: null,
+          icon: null,
+          urlList: null,
+          statusMessage: null,
+          profileImageUrl: null,
+          profileImagePath: null,
+          bigProfileImagePath: null,
+          quickSlotList: null,
+        });
+        console.log("user state info removed");
+        window.localStorage.removeItem("loginState");
+        window.localStorage.removeItem("userState");
+        console.log("user state info in localStorage removed");
+        alert("로그아웃에 성공하였습니다.");
+      })
+      .catch((error) => {
+        alert("로그아웃에 실패하였습니다.");
+        console.log("logout fail: ", error);
+      });
   };
 
   return (
