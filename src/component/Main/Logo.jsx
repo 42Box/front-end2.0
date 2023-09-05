@@ -22,10 +22,10 @@ const Logo = ({ allowHomeNavigate }) => {
   return (
     <Image
       src={logoImage}
-      style={customStyles}
       width="43px"
       heigt="41px"
       alignSelf="center"
+      {...customStyles}
     />
   );
 };
