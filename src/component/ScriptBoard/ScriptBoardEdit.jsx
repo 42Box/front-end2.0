@@ -79,7 +79,7 @@ export const ScriptBoardEdit = () => {
       console.log(editPostInfo);
       await apiCall(
         "PUT",
-        `/board-service/script-boards/${postId}}`,
+        `/board-service/script-boards/${postId}`,
         editPostInfo,
       );
       navigate(`/script/content/${postId}`);
