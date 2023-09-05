@@ -15,13 +15,13 @@ import "./index.css";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <RecoilRoot>
-        <ChakraProvider theme={theme}>
-          <App />
-        </ChakraProvider>
-      </RecoilRoot>
-    </BrowserRouter>
-  </React.StrictMode>,
+  <BrowserRouter>
+    <RecoilRoot>
+      <ChakraProvider theme={theme}>
+        <App />
+      </ChakraProvider>
+    </RecoilRoot>
+  </BrowserRouter>
 );
+// <React.StrictMode>
+// {/* </React.StrictMode>, */}
