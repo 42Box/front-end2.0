@@ -1,16 +1,29 @@
 import useOAuth from "../../api/useOAuth";
 import { Navigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import LoadingIndicator from "./LoadingIndicator";
 
 const Auth = () => {
-  const login = useOAuth(); // hook function
+  const login = useOAuth();
+  const [isLoading, setIsLoading] = useState(true);
 
-  // it's called when component is rendering
   useEffect(() => {
-    login();
+    login()
+      .then(() => {
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error("OAuth login error:", error);
+        setIsLoading(false);
+      });
   }, [login]);
 
-  return <Navigate to="/" replace={true} />; // replace : do not add current url(auth page) to browser history
+  if (isLoading) {
+    console.log("login.....");
+    return <LoadingIndicator />;
+  }
+
+  return <Navigate to="/" replace={true} />;
 };
 
 export default Auth;
