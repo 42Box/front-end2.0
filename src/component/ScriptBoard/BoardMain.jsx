@@ -134,10 +134,10 @@ export const BoardMain = ({
                   setOnConFirmModal(false);
                 }}
               >
-                ✨ 취소하기
+                취소하기
               </Button>
               <Button variant="ghost" onClick={deleteHandler}>
-                💥 삭제하기
+                삭제하기
               </Button>
             </ModalFooter>
           </ModalContent>

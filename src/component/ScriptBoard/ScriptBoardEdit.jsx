@@ -31,7 +31,7 @@ export const ScriptBoardEdit = () => {
           `/board-service/script-boards/${postId}`,
         );
         setEditPostInfo(boardResponse.data);
-
+        
         const fileResponse = await axios.get(
           `https://42box.kr/${boardResponse.data.scriptPath}`,
         );
