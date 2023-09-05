@@ -19,6 +19,7 @@ const Auth = () => {
   }, [login]);
 
   if (isLoading) {
+    console.log("login.....");
     return <LoadingIndicator />;
   }
 
