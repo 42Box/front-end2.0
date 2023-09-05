@@ -42,13 +42,16 @@ export const BoardMain = ({
     if (userStateJson) {
       userNickname = JSON.parse(userStateJson).nickname;
     }
-    console.log(userStateJson);
     if (userNickname === writerNickname) return true;
   };
 
   const deleteHandler = async () => {
     try {
-      await apiCall("DELETE", `board-service/script-boards/${boardId}`);
+      const response = await apiCall(
+        "DELETE",
+        `board-service/script-boards/${boardId}`,
+      );
+      console.log("delete status:", response.status);
       navigate("/script/board");
     } catch (error) {
       alert("게시물 삭제에 실패했습니다");
@@ -131,10 +134,10 @@ export const BoardMain = ({
                   setOnConFirmModal(false);
                 }}
               >
-                ✨ 취소하기
+                취소하기
               </Button>
               <Button variant="ghost" onClick={deleteHandler}>
-                💥 삭제하기
+                삭제하기
               </Button>
             </ModalFooter>
           </ModalContent>
