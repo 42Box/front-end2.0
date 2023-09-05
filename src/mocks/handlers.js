@@ -105,6 +105,12 @@ export const handlers = [
       );
     },
   ),
+  rest.delete(
+    "https://api.42box.kr/board-service/script-boards/:postId",
+    (req, res, ctx) => {
+      return res(ctx.json(200));
+    },
+  ),
   rest.post(
     "https://api.42box.kr/user-service/users/me/scripts",
     (req, res, ctx) => {
