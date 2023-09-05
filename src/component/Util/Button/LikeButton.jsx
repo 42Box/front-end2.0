@@ -1,12 +1,27 @@
 import { Button, Text, Flex } from "@chakra-ui/react";
-import { ReactComponent as LikeIcon } from "../../asset/content-view-like.svg";
-import { ReactComponent as LikeClickedIcon } from "../../asset/content-view-like-clicked.svg";
-import apiCall from "../../util/apiCall";
+import { ReactComponent as LikeIcon } from "../../../asset/content-view-like.svg";
+import { ReactComponent as LikeClickedIcon } from "../../../asset/content-view-like-clicked.svg";
+import apiCall from "../../../util/apiCall";
+import { loginState } from "../../../recoil/states";
+import { useRecoilValue } from "recoil";
 
-export const Like = ({ postId, likeState, count, onRender }) => {
+export const LikeButton = ({
+  boardType,
+  postId,
+  likeState,
+  count,
+  onRender,
+}) => {
+  const isLogin = useRecoilValue(loginState);
+
   const likeHandler = async () => {
+    if (!isLogin) {
+      alert("로그인이 필요한 서비스입니다.");
+      return;
+    }
+
     try {
-      await apiCall("POST", "board-service/script-boards/likes", {
+      await apiCall("POST", `board-service/${boardType}/likes`, {
         boardId: postId,
         likeDislikeStatus: likeState ? true : false,
       });
