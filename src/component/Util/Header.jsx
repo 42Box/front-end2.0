@@ -39,7 +39,13 @@ const Header = ({
       >
         <Logo allowHomeNavigate={allowHomeNavigate} />
         <Box paddingLeft="10px" />
-        <Text fontSize="30px" fontWeight="700" margin={0} {...customStyles}>
+        <Text
+          fontSize="30px"
+          fontWeight="700"
+          margin={0}
+          paddingTop="10px"
+          {...customStyles}
+        >
           {pageTitle}
         </Text>
       </Flex>
