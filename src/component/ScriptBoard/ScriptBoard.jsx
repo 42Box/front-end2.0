@@ -13,6 +13,7 @@ import SearchFilterSort from "../Util/SearchFilterSort";
 import NoPosts from "../Util/NoPosts";
 
 const ScriptBoard = () => {
+  const searchWord = useRecoilValue(searchBarState);
   const loginStateValue = useRecoilValue(loginState);
   const searchBarStateValue = useRecoilValue(searchBarState);
   const [queryParams] = useSearchParams();
@@ -35,11 +36,20 @@ const ScriptBoard = () => {
     setViewOption({ ...viewOption, page: pageIndex });
   };
 
-  const searchHandler = (word, condition) => {
+  const searchHandler = (word) => {
     setViewOption({
       ...viewOption,
       page: 0,
       search: word,
+      searchCondition: "ALL",
+    });
+  };
+
+  const searchOptionHandler = (condition) => {
+    setViewOption({
+      ...viewOption,
+      page: 0,
+      search: searchWord,
       searchCondition: condition,
     });
   };
@@ -63,7 +73,11 @@ const ScriptBoard = () => {
         allowHomeNavigate={true}
         allowBoardNavigate={false}
       />
-      <SearchFilterSort onSearch={searchHandler} onSort={sortHandler} />
+      <SearchFilterSort
+        onSearch={searchHandler}
+        onSearchOption={searchOptionHandler}
+        onSort={sortHandler}
+      />
       {boardInfo.empty ? (
         <NoPosts />
       ) : (

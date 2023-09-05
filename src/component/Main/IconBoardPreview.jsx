@@ -28,13 +28,13 @@ const IconBoardPreview = () => {
         <Box
           alt="미리보기 1"
           boxSize="50px"
-          width="5%"
           borderRadius="8px"
           background="none"
           marginRight="10px"
           onClick={() => onClickHandler("fox")}
           flex="1"
           style={{ overflow: "hidden" }}
+          _hover={{ background: "#DDDDDD" }}
         >
           <Image
             width="100%" // 이미지 크기 100%로 설정
@@ -53,6 +53,7 @@ const IconBoardPreview = () => {
           onClick={() => onClickHandler("box")}
           flex="1"
           style={{ overflow: "hidden" }}
+          _hover={{ background: "#DDDDDD" }}
         >
           <Image
             width="100%"
@@ -71,6 +72,7 @@ const IconBoardPreview = () => {
           onClick={() => onClickHandler("42")}
           flex="1"
           style={{ overflow: "hidden" }}
+          _hover={{ background: "#DDDDDD" }}
         >
           <Image
             width="100%"
