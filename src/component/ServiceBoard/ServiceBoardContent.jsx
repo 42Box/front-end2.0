@@ -133,7 +133,7 @@ const ServiceBoardContent = () => {
             open={successAlert.alertData.isOpen}
             close={() => {
               successAlert.closeAlert();
-              // navigate(`/script/content/${postId}`);
+              navigate(`/service/content/${postId}`);
             }}
             header={successAlert.alertData.title}
           >
