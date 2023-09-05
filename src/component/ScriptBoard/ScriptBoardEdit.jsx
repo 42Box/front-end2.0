@@ -12,46 +12,48 @@ import axios from "axios";
 export const ScriptBoardEdit = () => {
   const { postId } = useParams();
   const navigate = useNavigate();
-  const [oldFile, setOldFile] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
 
-  const [postInfo, setPostInfo] = useState({
+  const [editPostInfo, setEditPostInfo] = useState({
     title: "",
     content: "",
     scriptName: "",
     scriptPath: "",
-    scriptUrl: "",
   });
+  const [title, setTitle] = useState(editPostInfo?.title);
+  const [content, setContent] = useState(editPostInfo?.content);
 
   useEffect(() => {
-    async function fetchPost() {
+    const fetchPost = async () => {
       try {
         const boardResponse = await apiCall(
           "GET",
           `/board-service/script-boards/${postId}`,
         );
-        setPostInfo({
-          title: boardResponse.data.title,
-          content: boardResponse.data.content,
-          scriptName: boardResponse.data.scriptName,
-          scriptPath: boardResponse.data.scriptPath,
-          scriptUrl: boardResponse.data.scriptUrl,
-        });
-        console.log("script path: ", boardResponse.data.scriptPath);
+        setEditPostInfo(boardResponse.data);
+        
         const fileResponse = await axios.get(
           `https://42box.kr/${boardResponse.data.scriptPath}`,
         );
         const file = fileResponse.data;
         console.log("PAST file api call: ", file);
-        setOldFile(file);
+        setSelectedFile(file);
       } catch (error) {
         console.error("Error fetching post:", error);
       }
-    }
+    };
 
     fetchPost();
     // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    setTitle(editPostInfo.title);
+  }, [editPostInfo.title]);
+
+  useEffect(() => {
+    setContent(editPostInfo.content);
+  }, [editPostInfo.content]);
 
   const fileChangeHandler = (event) => {
     const file = event.target.files[0];
@@ -66,18 +68,20 @@ export const ScriptBoardEdit = () => {
     }
   };
 
-  const inputChangeHandler = (event) => {
-    const { name, value } = event.target;
-    setPostInfo({
-      ...postInfo,
-      [name]: value,
-    });
-  };
-
   const submitHandler = async (event) => {
     event.preventDefault();
+    if (!editPostInfo.scriptName) {
+      alert("⚠️파일을 선택해주세요.⚠️");
+      return;
+    }
+
     try {
-      await apiCall("PUT", `/board-service/script-boards/${postId}}`, postInfo);
+      console.log(editPostInfo);
+      await apiCall(
+        "PUT",
+        `/board-service/script-boards/${postId}}`,
+        editPostInfo,
+      );
       navigate(`/script/content/${postId}`);
     } catch (error) {
       alert(
@@ -94,13 +98,13 @@ export const ScriptBoardEdit = () => {
           <Box paddingTop="36px" />
           <Box height="926px" borderBottom="1px solid #C7C7C7">
             <Input
-              onChange={inputChangeHandler}
+              value={title}
+              onChange={(event) => setTitle(event.target.value)}
               borderColor="transparent"
               placeholder="제목을 입력하세요."
               _placeholder={{ color: "#C7C7C7" }}
               fontSize="32px"
               variant="unstyled"
-              value={postInfo.title}
             />
             <Box paddingTop="36px" />
             <Flex
@@ -125,20 +129,18 @@ export const ScriptBoardEdit = () => {
               >
                 {selectedFile
                   ? selectedFile.name
-                  : oldFile
-                  ? postInfo?.scriptName
-                  : "선택된 파일이 없습니다."}
+                  : editPostInfo?.scriptName || "선택된 파일이 없습니다."}
               </Text>
             </Flex>
             <Box paddingTop="40px" />
             <Textarea
+              value={content}
               height="700px"
               placeholder="본문 내용을 입력해 주세요."
               borderColor="transparent"
-              onChange={inputChangeHandler}
+              onChange={(event) => setContent(event.target.value)}
               fontSize="22px"
               variant="unstyled"
-              value={postInfo.content}
               sx={{
                 "&::-webkit-scrollbar-thumb": {
                   backgroundColor: "transparent",
