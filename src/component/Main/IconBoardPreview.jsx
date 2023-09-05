@@ -1,4 +1,5 @@
 import { Box, Flex, Image } from "@chakra-ui/react";
+import { useState } from "react"; // useState 추가
 import BoardPreviewTitle from "./MainPreviewTitle";
 import apiCall from "../../util/apiCall";
 import box42 from "../../asset/42box.gif";
@@ -11,7 +12,9 @@ import foxTail from "../../asset/foxtail.gif";
 import runningFox from "../../asset/running-fox.gif";
 
 const IconBoardPreview = () => {
-  const gifs = [runningFox, foxTail, box42, flip42, gun, gon, gam, lee];
+  const gifs = [foxTail, box42, flip42, gun, gon, gam, lee];
+
+  const [isRunningFoxHovered, setIsRunningFoxHovered] = useState(false); // 호버 상태 저장
 
   const onClickHandler = async (icon) => {
     try {
@@ -28,17 +31,35 @@ const IconBoardPreview = () => {
     <>
       <Box paddingTop="40px" />
       <BoardPreviewTitle title="아이콘 변경" to="/icon/board" />
-      <Flex justifyContent="space-between" marginTop="20px">
+      <Flex justifyContent="space-between" marginTop="20px" height="40px">
+        <Image
+          src={runningFox}
+          onClick={() => onClickHandler(runningFox)}
+          cursor="pointer"
+          _hover={{
+            transform: "translateX(650px)",
+            transition: "transform 5s",
+          }}
+          onMouseEnter={() => setIsRunningFoxHovered(true)}
+          onMouseLeave={() => setIsRunningFoxHovered(false)}
+          style={{ zIndex: isRunningFoxHovered ? "2" : "auto" }}
+        />
         {gifs.map((gif, index) => {
           return (
             <Image
               src={gif}
               key={index}
-              width="45px"
-              height="45px"
               onClick={() => onClickHandler(gif)}
               cursor="pointer"
-              _hover={{ transform: "scale(1.5)", transition: "transform 0.3s" }}
+              style={{
+                filter: isRunningFoxHovered ? "blur(10px)" : "none",
+                transition: "filter 0.3s",
+                zIndex: isRunningFoxHovered ? "1" : "auto",
+              }}
+              _hover={{
+                transform: "scale(1.5)",
+                transition: "transform 0.3s",
+              }}
             />
           );
         })}
