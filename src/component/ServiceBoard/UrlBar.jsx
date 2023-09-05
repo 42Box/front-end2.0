@@ -41,7 +41,6 @@ const UrlBar = ({ postInfo }) => {
       height="45px"
       borderRadius="12px"
       border="1px solid #DDDDDD"
-      width="500px"
       fontSize="20px"
       fontWeight="600"
       alignItems="center"
