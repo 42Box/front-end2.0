@@ -1,11 +1,13 @@
-import { Flex, Text } from "@chakra-ui/react";
+import { Image } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import logoImage from "../../asset/logo.png";
 
 const Logo = ({ allowHomeNavigate }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
     if (allowHomeNavigate) {
+      console.log("hererere");
       navigate("/");
     }
   };
@@ -18,23 +20,13 @@ const Logo = ({ allowHomeNavigate }) => {
     : {};
 
   return (
-    <Flex
+    <Image
+      src={logoImage}
+      style={customStyles}
       width="43px"
-      height="41px"
-      display="inline-flex"
-      padding="13px 8px"
-      flexDirection="column"
-      justifyContent="center"
-      alignItems="center"
-      gap="10px"
-      borderRadius="10px"
-      background="#FF9548"
-      {...customStyles}
-    >
-      <Text color="#FFF" fontSize="12px" fontWeight="700">
-        Logo
-      </Text>
-    </Flex>
+      heigt="41px"
+      alignSelf="center"
+    />
   );
 };
 
