@@ -69,6 +69,7 @@ export const ScriptPreviewPop = ({ postInfo, errorHandle, children }) => {
         >
           {filePreview.length > 0 ? (
             <Flex flexDirection="column">
+              {children}
               <Text borderBottom="1.5px solid #8E8E8E" fontSize="17px">
                 {postInfo?.scriptName}
               </Text>
@@ -78,7 +79,7 @@ export const ScriptPreviewPop = ({ postInfo, errorHandle, children }) => {
                   __html: filePreview.replace(/\n/g, "<br>"),
                 }}
               ></Text>
-              {children}
+              <>{filePreview.length > 500 && children}</>
             </Flex>
           ) : (
             <Text align="center">파일 내용이 존재하지 않습니다 📂</Text>
