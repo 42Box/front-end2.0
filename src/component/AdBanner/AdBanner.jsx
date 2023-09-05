@@ -14,12 +14,12 @@ const AdBanner = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentAd((prevAd) => (prevAd + 1) % adImages.length);
-    }, 4000);
+    }, 7000);
 
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [currentAd]);
 
   return (
     <div className="ad-banner">
