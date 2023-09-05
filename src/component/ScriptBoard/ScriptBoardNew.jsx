@@ -93,7 +93,7 @@ const ScriptBoardNew = () => {
             >
               <FileSelectButton
                 onClick={selectFileHandler}
-                accept="application/x-sh"
+                accept="text/x-sh,application/x-sh"
                 onFileChange={fileChangeHandler}
                 selectedFile={selectedFile}
               />
