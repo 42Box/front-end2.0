@@ -15,6 +15,7 @@ import NotFound from "./component/Util/NotFound";
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import { loginState, userState } from "./recoil/states";
+import { ScriptBoardEdit } from "./component/ScriptBoard/ScriptBoardEdit";
 
 const App = () => {
   const setLoginState = useSetRecoilState(loginState);
@@ -41,6 +42,7 @@ const App = () => {
       <Route path="/script/new" element={<ScriptBoardNew />} />
       <Route path="/icon/new" element={<IconBoardNew />} />
       <Route path="/service/new" element={<ServiceBoardNew />} />
+      <Route path="/script/edit/:postId" element={<ScriptBoardEdit />} />
       <Route path="/script/content/:postId" element={<ScriptBoardContent />} />
       {/* <Route path="/icon/content/:postId" element={<IconBoardContent />} /> */}
       <Route

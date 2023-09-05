@@ -33,10 +33,25 @@ export const ScriptPreviewPop = ({ postInfo, errorHandle, children }) => {
         height="33px"
         marginTop="15px"
         marginLeft="10%"
-        border="1.5px solid #000"
         rounded="full"
         gap="2px"
         background="transparent"
+        border="1px solid #8E8E8E"
+        backgroundColor="transparent"
+        color="#8E8E8E"
+        _hover={
+          isPreviewOn
+            ? {
+                border: "1.5px solid #000",
+                background: "none",
+                color: "#000",
+              }
+            : {
+                border: "1.5px solid var(--Main-Orange, #FF9548)",
+                background: "var(--Light-Orange, #FFF0E5)",
+                color: "#FF9548",
+              }
+        }
         onClick={() => setIsPreviewOn(!isPreviewOn)}
         disabled={true}
       >
