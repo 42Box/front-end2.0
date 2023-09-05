@@ -8,7 +8,7 @@ import AlertModal from "../Util/AlertModal";
 import { useAlert } from "../../hook/useAlert";
 import apiCall from "../../util/apiCall";
 import { errorHandling } from "../../util/errorHandling";
-import { Like } from "../Util/Button/Like";
+import { LikeButton } from "../Util/Button/LikeButton";
 import { ScriptPreviewPop } from "./ScriptPreviewPop";
 import BackGround from "../Util/BackGround";
 import { BoardMain } from "./BoardMain";
@@ -51,7 +51,7 @@ const ScriptBoardContent = () => {
     try {
       const response = await apiCall(
         "GET",
-        `https://api.42box.kr/board-service/script-boards/${postId}`,
+        `https://api.42box.kr/board-service/script-boards/${postId}`
       );
 
       setPostInfo(response.data);
@@ -89,7 +89,7 @@ const ScriptBoardContent = () => {
           name: postInfo.scriptName,
           description: postInfo.content,
           path: postInfo.scriptPath,
-        },
+        }
       );
       console.log("file download response: ", response.data);
       await setDataSendToMac({
@@ -101,7 +101,7 @@ const ScriptBoardContent = () => {
         scriptUuid: response.data.scriptUuid,
       });
       window?.webkit?.messageHandlers.downloadScript.postMessage(
-        JSON.stringify(dataSendToMac),
+        JSON.stringify(dataSendToMac)
       );
       setUserScriptSavedId(response.data.savedId);
       successAlert.openAlert({
@@ -117,7 +117,7 @@ const ScriptBoardContent = () => {
     try {
       const response = await apiCall(
         "DELETE",
-        `https://api.42box.kr/user-service/users/me/scripts/${userScriptSavedId}`,
+        `https://api.42box.kr/user-service/users/me/scripts/${userScriptSavedId}`
       );
       successAlert.openAlert({
         title: "파일을 삭제했습니다!",
@@ -130,7 +130,7 @@ const ScriptBoardContent = () => {
         userUuid: response.data.userUuid,
       }));
       window?.webkit?.messageHandlers.deleteScript.postMessage(
-        JSON.stringify(dataSendToMac),
+        JSON.stringify(dataSendToMac)
       );
       setUserScriptSavedId(null);
     } catch (error) {
@@ -193,7 +193,8 @@ const ScriptBoardContent = () => {
         paddingLeft="10px"
         gap={3}
       >
-        <Like
+        <LikeButton
+          boardType="script-boards"
           postId={postInfo?.boardId}
           likeState={postInfo?.boardLiked}
           count={postInfo?.likeCount}
