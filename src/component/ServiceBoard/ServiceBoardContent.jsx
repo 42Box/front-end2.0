@@ -8,12 +8,12 @@ import AlertModal from "../Util/AlertModal";
 import { useAlert } from "../../hook/useAlert";
 import apiCall from "../../util/apiCall";
 import { errorHandling } from "../../util/errorHandling";
-import { Like } from "../Util/Button/Like";
+import { LikeButton } from "../Util/Button/LikeButton";
 import BackGround from "../Util/BackGround";
 import UrlBar from "./UrlBar";
 import PostMetaData from "./PostMetaData";
 
-const ScriptBoardContent = () => {
+const ServiceBoardContent = () => {
   const navigate = useNavigate();
   const postId = useParams().postId;
   const [postInfo, setPostInfo] = useState(null);
@@ -94,7 +94,8 @@ const ScriptBoardContent = () => {
           paddingLeft="25px"
           marginBottom="10px"
         >
-          <Like
+          <LikeButton
+            boardType="service-boards"
             postId={postInfo?.boardId}
             likeState={postInfo?.boardLiked}
             count={postInfo?.likeCount}
@@ -144,4 +145,4 @@ const ScriptBoardContent = () => {
   );
 };
 
-export default ScriptBoardContent;
+export default ServiceBoardContent;
