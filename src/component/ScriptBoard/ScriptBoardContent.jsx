@@ -154,6 +154,7 @@ const ScriptBoardContent = () => {
         margin={6}
       >
         <BoardMain
+          boardType="script-boards"
           boardId={postId}
           title={postInfo?.title}
           writerProfileImgPath={postInfo?.writerProfileImagePath}
@@ -203,68 +204,51 @@ const ScriptBoardContent = () => {
           display="flex"
           justifyContent="center"
           alignItems="center"
-          margin={5}
-          marginTop="15px"
-          marginBottom="10px"
-          paddingLeft="10px"
-          gap={3}
+          padding={1}
         >
-          <LikeButton
-            boardType="script-boards"
-            postId={postInfo?.boardId}
-            likeState={postInfo?.boardLiked}
-            count={postInfo?.likeCount}
-            onRender={renderHandler}
-          />
-          <Box
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            padding={1}
+          <MsgIcon height="26px" width="26px" />
+          <Flex paddingLeft="2px" />
+          <Text
+            fontSize="22px"
+            margin={0}
+            color="##5B5B5B"
+            marginLeft="3px"
+            marginBottom="2.2px"
           >
-            <MsgIcon height="26px" width="26px" />
-            <Flex paddingLeft="2px" />
-            <Text
-              fontSize="22px"
-              margin={0}
-              color="##5B5B5B"
-              marginLeft="3px"
-              marginBottom="2.2px"
-            >
-              {postInfo?.commentCount}
-            </Text>
-          </Box>
-        </Flex>
-        <CommentPaging
-          boardType="script-boards"
-          postId={postId}
-          errorHandler={(response) => errorResponseHandler(response)}
-        ></CommentPaging>
-        {errorAlert.alertData.isOpen && (
-          <AlertModal
-            open={errorAlert.alertData.isOpen}
-            close={() => {
-              errorAlert.closeAlert();
-              navigate(`/script/content/${postId}`);
-            }}
-            header={errorAlert.alertData.title}
-          >
-            <Text>{errorAlert.alertData.content}</Text>
-          </AlertModal>
-        )}
-        {successAlert.alertData.isOpen && (
-          <AlertModal
-            open={successAlert.alertData.isOpen}
-            close={() => {
-              successAlert.closeAlert();
-              navigate(`/script/content/${postId}`);
-            }}
-            header={successAlert.alertData.title}
-          >
-            <Text>{successAlert.alertData.content}</Text>
-          </AlertModal>
-        )}
-      </BackGround>
+            {postInfo?.commentCount}
+          </Text>
+        </Box>
+      </Flex>
+      <CommentPaging
+        boardType="script-boards"
+        postId={postId}
+        errorHandler={(response) => errorResponseHandler(response)}
+      ></CommentPaging>
+      {errorAlert.alertData.isOpen && (
+        <AlertModal
+          open={errorAlert.alertData.isOpen}
+          close={() => {
+            errorAlert.closeAlert();
+            navigate(`/script/content/${postId}`);
+          }}
+          header={errorAlert.alertData.title}
+        >
+          <Text>{errorAlert.alertData.content}</Text>
+        </AlertModal>
+      )}
+      {successAlert.alertData.isOpen && (
+        <AlertModal
+          open={successAlert.alertData.isOpen}
+          close={() => {
+            successAlert.closeAlert();
+            navigate(`/script/content/${postId}`);
+          }}
+          header={successAlert.alertData.title}
+        >
+          <Text>{successAlert.alertData.content}</Text>
+        </AlertModal>
+      )}
+    </BackGround>
   );
 };
 
