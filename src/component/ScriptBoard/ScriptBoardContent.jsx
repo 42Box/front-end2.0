@@ -143,27 +143,36 @@ const ScriptBoardContent = () => {
   };
 
   return (
-    <BackGround>
-      <Header
-        pageTitle="스크립트"
-        allowHomeNavigate={true}
-        allowBoardNavigate={true}
-        boardRoute={"/script/board"}
-      />
-      <Flex
-        flexDirection="column"
-        justifyContent="space-evenly"
-        height="20%"
-        margin={6}
-      >
-        <BoardMain
-          boardId={postId}
-          title={postInfo?.title}
-          writerProfileImgPath={postInfo?.writerProfileImagePath}
-          writerNickname={postInfo?.writerNickname}
-          regDate={postInfo?.regDate}
+      <BackGround>
+        <Header
+          pageTitle="스크립트"
+          allowHomeNavigate={true}
+          allowBoardNavigate={true}
+          boardRoute={"/service/board"}
         />
-        <Divider size="20px" marginTop="15px" marginBottom="15px" />
+        <Flex
+          flexDirection="column"
+          justifyContent="space-evenly"
+          height="20%"
+          margin={6}
+        >
+          <BoardMain
+            boardId={postId}
+            title={postInfo?.title}
+            writerProfileImgPath={postInfo?.writerProfileImagePath}
+            writerNickname={postInfo?.writerNickname}
+            regDate={postInfo?.regDate}
+          />
+          <Divider size="20px" marginTop="15px" marginBottom="15px" />
+          <Text fontSize="20px" marginTop="15px" marginLeft="15px">
+            {postInfo?.content.split("\n").map((line) => (
+              <Text>
+                {line}
+                <br />
+              </Text>
+            ))}
+          </Text>
+        </Flex>
         <ScriptPreviewPop
           postInfo={postInfo}
           errorHandle={(response) => errorResponseHandler(response)}
@@ -175,80 +184,71 @@ const ScriptBoardContent = () => {
             deleteFile={deleteFile}
           />
         </ScriptPreviewPop>
-        <Text fontSize="20px" marginTop="15px" marginLeft="15px">
-          {postInfo?.content.split("\n").map((line) => (
-            <Text>
-              {line}
-              <br />
-            </Text>
-          ))}
-        </Text>
-      </Flex>
-      <Flex
-        justifyContent="flex-start"
-        alignItems="center"
-        margin={5}
-        marginTop="15px"
-        marginBottom="10px"
-        paddingLeft="10px"
-        gap={3}
-      >
-        <LikeButton
-          boardType="script-boards"
-          postId={postInfo?.boardId}
-          likeState={postInfo?.boardLiked}
-          count={postInfo?.likeCount}
-          onRender={renderHandler}
-        />
-        <Box
-          display="flex"
-          justifyContent="center"
+        <Flex
+          justifyContent="flex-start"
           alignItems="center"
-          padding={1}
+          margin={5}
+          marginTop="15px"
+          marginBottom="10px"
+          paddingLeft="10px"
+          gap={3}
         >
-          <MsgIcon height="26px" width="26px" />
-          <Flex paddingLeft="2px" />
-          <Text
-            fontSize="22px"
-            margin={0}
-            color="##5B5B5B"
-            marginLeft="3px"
-            marginBottom="2.2px"
+          <LikeButton
+            boardType="script-boards"
+            postId={postInfo?.boardId}
+            likeState={postInfo?.boardLiked}
+            count={postInfo?.likeCount}
+            onRender={renderHandler}
+          />
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            padding={1}
           >
-            {postInfo?.commentCount}
-          </Text>
-        </Box>
-      </Flex>
-      <CommentPaging
-        boardType="script-boards"
-        postId={postId}
-        errorHandler={(response) => errorResponseHandler(response)}
-      ></CommentPaging>
-      {errorAlert.alertData.isOpen && (
-        <AlertModal
-          open={errorAlert.alertData.isOpen}
-          close={() => {
-            errorAlert.closeAlert();
-            navigate(`/script/content/${postId}`);
-          }}
-          header={errorAlert.alertData.title}
-        >
-          <Text>{errorAlert.alertData.content}</Text>
-        </AlertModal>
-      )}
-      {successAlert.alertData.isOpen && (
-        <AlertModal
-          open={successAlert.alertData.isOpen}
-          close={() => {
-            successAlert.closeAlert();
-            navigate(`/script/content/${postId}`);
-          }}
-          header={successAlert.alertData.title}
-        >
-          <Text>{successAlert.alertData.content}</Text>
-        </AlertModal>
-      )}
-    </BackGround>
+            <MsgIcon height="26px" width="26px" />
+            <Flex paddingLeft="2px" />
+            <Text
+              fontSize="22px"
+              margin={0}
+              color="##5B5B5B"
+              marginLeft="3px"
+              marginBottom="2.2px"
+            >
+              {postInfo?.commentCount}
+            </Text>
+          </Box>
+        </Flex>
+        <CommentPaging
+          boardType="script-boards"
+          postId={postId}
+          errorHandler={(response) => errorResponseHandler(response)}
+        ></CommentPaging>
+        {errorAlert.alertData.isOpen && (
+          <AlertModal
+            open={errorAlert.alertData.isOpen}
+            close={() => {
+              errorAlert.closeAlert();
+              navigate(`/script/content/${postId}`);
+            }}
+            header={errorAlert.alertData.title}
+          >
+            <Text>{errorAlert.alertData.content}</Text>
+          </AlertModal>
+        )}
+        {successAlert.alertData.isOpen && (
+          <AlertModal
+            open={successAlert.alertData.isOpen}
+            close={() => {
+              successAlert.closeAlert();
+              navigate(`/script/content/${postId}`);
+            }}
+            header={successAlert.alertData.title}
+          >
+            <Text>{successAlert.alertData.content}</Text>
+          </AlertModal>
+        )}
+      </BackGround>
   );
 };
 
