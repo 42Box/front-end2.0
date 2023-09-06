@@ -58,7 +58,7 @@ const ServiceBoardContent = () => {
         allowBoardNavigate={true}
         boardRoute="/service/board"
       />
-      <Box alignItems="center" width="704px">
+      <Box alignItems="center" width="704px" alignSelf="center">
         <BoardMain
           boardType="service-boards"
           boardId={postId}
@@ -108,9 +108,10 @@ const ServiceBoardContent = () => {
             <MsgIcon height="26px" width="26px" />
             <Flex paddingLeft="2px" />
             <Text
+              fontWeight="500"
+              color="#5B5B5B"
               fontSize="22px"
               margin={0}
-              color="##5B5B5B"
               marginLeft="3px"
               marginBottom="2.2px"
             >
