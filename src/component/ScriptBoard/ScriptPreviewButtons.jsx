@@ -9,13 +9,17 @@ export const ScriptPreviewButtons = ({
   deleteFile,
 }) => {
   return (
-    <Flex justifyContent="flex-end" alignItems="center" zIndex={10}>
+    <Flex
+      justifyContent="flex-end"
+      alignItems="center"
+      zIndex={10}
+      paddingTop="20px"
+    >
       <Button
         borderRadius="lg"
         border="1px #8E8E8E"
         backgroundColor="var(--DG-01, #D3D3D3)"
         color="#000000"
-        margin="4px"
         zIndex={10}
         _hover={{
           border: "1.5px solid var(--Main-Orange, #FF9548)",
@@ -27,7 +31,7 @@ export const ScriptPreviewButtons = ({
           console.log("on execute:", dataSendToMac);
           if (dataSendToMac.path) {
             window?.webkit?.messageHandlers.executeScript.postMessage(
-              JSON.stringify(dataSendToMac),
+              JSON.stringify(dataSendToMac)
             );
           }
         }}

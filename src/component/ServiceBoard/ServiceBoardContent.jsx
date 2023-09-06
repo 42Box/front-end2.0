@@ -35,7 +35,7 @@ const ServiceBoardContent = () => {
     try {
       const response = await apiCall(
         "GET",
-        `https://api.42box.kr/board-service/service-boards/${postId}`,
+        `https://api.42box.kr/board-service/service-boards/${postId}`
       );
 
       setPostInfo(response.data);
@@ -58,7 +58,6 @@ const ServiceBoardContent = () => {
         allowBoardNavigate={true}
         boardRoute="/service/board"
       />
-      <Flex padding="10px" />
       <Flex
         flexDirection="column"
         justifyContent="space-evenly"
@@ -73,7 +72,6 @@ const ServiceBoardContent = () => {
           writerNickname={postInfo?.writerNickname}
           regDate={postInfo?.regDate}
         />
-        <Flex padding="10px" />
         <Divider size="20px" marginTop="15px" marginBottom="15px" />
         <Flex padding="10px" />
         <UrlBar postInfo={postInfo} />

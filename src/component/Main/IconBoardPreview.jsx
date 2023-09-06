@@ -12,14 +12,14 @@ import foxTail from "../../asset/foxtail.gif";
 import runningFox from "../../asset/running-fox.gif";
 
 const IconBoardPreview = () => {
-  const gifs = [runningFox, foxTail, box42, flip42, gun, gon, gam, lee];
+  const gifs = [runningFox, foxTail, box42, flip42, gon, gun, gam, lee];
   const gifs_string = [
     "fox",
     "sitting_fox",
     "box",
     "42",
-    "gun",
     "gon",
+    "gun",
     "gam",
     "lee",
   ];
@@ -28,8 +28,8 @@ const IconBoardPreview = () => {
 
   const onClickHandler = async (index) => {
     try {
-      console.log("icon name: ", gifs_string[index]);
       const icon = gifs_string[index];
+      console.log(icon + " icon selected.");
       await apiCall("PUT", "https://api.42box.kr/user-service/users/me/icon", {
         icon: icon,
       });
@@ -55,26 +55,37 @@ const IconBoardPreview = () => {
           onMouseEnter={() => setIsRunningFoxHovered(true)}
           onMouseLeave={() => setIsRunningFoxHovered(false)}
           style={{ zIndex: isRunningFoxHovered ? "2" : "auto" }}
+          height="100%"
+          objsetFit="contain"
         />
-        {gifs.slice(1).map((gif, index) => {
-          return (
-            <Image
-              src={gif}
-              key={index}
-              onClick={() => onClickHandler(index)}
-              cursor="pointer"
-              style={{
-                filter: isRunningFoxHovered ? "blur(10px)" : "none",
-                transition: "filter 0.3s",
-                zIndex: isRunningFoxHovered ? "1" : "auto",
-              }}
-              _hover={{
-                transform: "scale(1.5)",
-                transition: "transform 0.3s",
-              }}
-            />
-          );
-        })}
+        <Flex
+          height="100%"
+          justifyContent="space-between"
+          width="85%"
+          style={{
+            filter: isRunningFoxHovered ? "blur(20px)" : "none",
+            transition: "filter 0.3s, opacity 0.3s", // transition 추가
+            zIndex: isRunningFoxHovered ? "1" : "auto",
+            opacity: isRunningFoxHovered ? 0 : 1, // opacity를 추가
+          }}
+        >
+          {gifs.slice(1).map((gif, index) => {
+            return (
+              <Image
+                src={gif}
+                key={index}
+                objsetFit="contain"
+                height="100%"
+                onClick={() => onClickHandler(index + 1)}
+                cursor="pointer"
+                _hover={{
+                  transform: "scale(1.5)",
+                  transition: "transform 0.3s",
+                }}
+              />
+            );
+          })}
+        </Flex>
       </Flex>
     </>
   );
