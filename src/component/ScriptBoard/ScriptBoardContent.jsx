@@ -145,7 +145,7 @@ const ScriptBoardContent = () => {
         pageTitle="스크립트"
         allowHomeNavigate={true}
         allowBoardNavigate={true}
-        boardRoute={"/service/board"}
+        boardRoute={"/script/board"}
       />
       <Box width="704px" alignItems="center" alignSelf="center">
         <BoardMain
