@@ -7,9 +7,13 @@ import { useNavigate } from "react-router-dom";
 import ConfirmCancle from "../Util/Modal/confirmCancle";
 import BasicButton from "../Util/Button/BasicButton";
 import isUrlValid from "../../util/isUrlValid";
+import { loginState } from "../../recoil/states";
+import { useRecoilValue } from "recoil";
+import WrongApproach from "../Util/WrongApproach";
 
 const ServiceBoardNew = () => {
   const navigate = useNavigate();
+  const isLogin = useRecoilValue(loginState);
   const {
     inputTitle,
     setInputTitle,
@@ -23,6 +27,10 @@ const ServiceBoardNew = () => {
     setSelectedImage,
     postFormData,
   } = useServiceBoardNew();
+
+  if (!isLogin) {
+    return <WrongApproach />;
+  }
 
   const titleChangeHandler = (event) => {
     setInputTitle(event.target.value);
