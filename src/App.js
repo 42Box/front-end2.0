@@ -5,7 +5,7 @@ import Auth from "./component/Auth/Auth";
 import MyPage from "./component/MyPage/MyPage";
 import ScriptBoard from "./component/ScriptBoard/ScriptBoard";
 import IconBoard from "./component/IconBoard/IconBoard";
-import IconBoardNew from "./component/IconBoard/IconBoardNew";
+// import IconBoardNew from "./component/IconBoard/IconBoardNew";
 import ServiceBoard from "./component/ServiceBoard/ServiceBoard";
 import ServiceBoardNew from "./component/ServiceBoard/ServiceBoardNew";
 import ScriptBoardContent from "./component/ScriptBoard/ScriptBoardContent";
@@ -40,7 +40,7 @@ const App = () => {
       <Route path="/icon/board/:postId" element={<RandingPage />} />
       <Route path="/service/board" element={<ServiceBoard />} />
       <Route path="/script/new" element={<ScriptBoardNew />} />
-      <Route path="/icon/new" element={<IconBoardNew />} />
+      {/* <Route path="/icon/new" element={<IconBoardNew />} /> */}
       <Route path="/service/new" element={<ServiceBoardNew />} />
       <Route path="/script/edit/:postId" element={<ScriptBoardEdit />} />
       <Route path="/script/content/:postId" element={<ScriptBoardContent />} />
