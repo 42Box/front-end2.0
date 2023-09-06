@@ -27,7 +27,7 @@ export const CommentPaging = ({ boardType, postId, errorHandler }) => {
       const response = await apiCall(
         "GET",
         `https://api.42box.kr/comment-service/${boardType}/${postId}/comments`,
-        { params: { page: commentCurPage, size: 15 } },
+        { params: { page: commentCurPage, size: 15 } }
       );
       if (response.data.empty === true) {
         setIsComments(false);
@@ -55,21 +55,20 @@ export const CommentPaging = ({ boardType, postId, errorHandler }) => {
 
   return (
     <>
-      {isLogin && (
-        <CommentNew
-          boardType={boardType}
-          postId={postId}
-          onCommentSubmit={() => {
-            console.log("api call again!");
-            commentsApiCall();
-          }}
-        />
-      )}
+      <CommentNew
+        boardType={boardType}
+        postId={postId}
+        onCommentSubmit={() => {
+          console.log("api call again!");
+          commentsApiCall();
+        }}
+      />
       {isComments ? (
         <>
           {commentInfo !== null && commentInfo.totalElements > 0 && (
             <>
-              <CommentList comments={commentInfo.content}></CommentList>
+              <Box paddingTop="18px" />
+              <CommentList comments={commentInfo.content} />
               <Flex
                 margin={7}
                 justifyContent="space-between"
