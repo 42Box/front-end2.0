@@ -59,9 +59,10 @@ export const BoardMain = ({
   };
   return (
     <>
-      <Text fontSize="27px" fontWeight="500">
+      <Text fontSize="33px" fontWeight="500">
         {title}
       </Text>
+      <Flex padding="3px" />
       <Flex justifyContent="space-between" alignItems="center">
         <Flex alignItems="center">
           <Image

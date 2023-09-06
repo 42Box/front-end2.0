@@ -32,7 +32,7 @@ export const LikeButton = ({
   return (
     <Button
       onClick={likeHandler}
-      paddingLeft="10px"
+      paddingLeft="5px"
       paddingRight="10px"
       height="30px"
       borderRadius="25px"
