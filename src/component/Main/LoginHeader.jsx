@@ -12,6 +12,10 @@ export const LoginHeader = () => {
   const setUserStateValue = useSetRecoilState(userState);
 
   const logoutHandler = () => {
+    console.log("user state info removed");
+    window.localStorage.removeItem("loginState");
+    window.localStorage.removeItem("userState");
+    console.log("user state info in localStorage removed");
     apiCall("GET", "/user-service/users/me/logout")
       .then(() => {
         console.log("cookie removed");
@@ -28,10 +32,6 @@ export const LoginHeader = () => {
           bigProfileImagePath: null,
           quickSlotList: null,
         });
-        console.log("user state info removed");
-        window.localStorage.removeItem("loginState");
-        window.localStorage.removeItem("userState");
-        console.log("user state info in localStorage removed");
         alert("로그아웃에 성공하였습니다.");
       })
       .catch((error) => {
