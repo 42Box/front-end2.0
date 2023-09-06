@@ -1,6 +1,6 @@
 import "./IconBoard.css";
 
-import Container from "../Util/Container";
+import BackGround from "../Util/BackGround";
 import Header from "../Util/Header";
 import WriteButton from "../Util/Button/WriteButton";
 import IconGalleryView from "./IconGalleryView";
@@ -20,13 +20,13 @@ const IconBoard = () => {
   // };
 
   return (
-    <Container>
+    <BackGround>
       <Header
         pageTitle="아이콘 게시판"
         rightButton={<WriteButton path="/icon/new" />}
       />
       <IconGalleryView />
-    </Container>
+    </BackGround>
   );
 };
 
