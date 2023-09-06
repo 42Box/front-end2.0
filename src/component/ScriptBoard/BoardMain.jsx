@@ -94,37 +94,37 @@ export const BoardMain = ({
             <DateComponent date={regDate} />
           </Text>
         </Flex>
-        {/*{isWriter() && (*/}
-        <Menu>
-          <MenuButton
-            border="none"
-            as={IconButton}
-            icon={<MeatBallIcon />}
-            backgroundColor="white"
-            _hover={{ bg: "gray.200" }}
-          />
-          <MenuList minWidth="unset" width="auto" borderRadius="10">
-            <Flex direction="row" align="center" justify="center">
-              <MenuItem
-                minWidth="unset"
-                width="auto"
-                icon={<EditIcon />}
-                onClick={moveToEdit}
-              >
-                수정
-              </MenuItem>
-              <MenuItem
-                minWidth="unset"
-                width="auto"
-                icon={<DeleteIcon />}
-                onClick={() => setOnConFirmModal(true)}
-              >
-                삭제
-              </MenuItem>
-            </Flex>
-          </MenuList>
-        </Menu>
-        {/*)}*/}
+        {isWriter() && (
+          <Menu>
+            <MenuButton
+              border="none"
+              as={IconButton}
+              icon={<MeatBallIcon />}
+              backgroundColor="white"
+              _hover={{ bg: "gray.200" }}
+            />
+            <MenuList minWidth="unset" width="auto" borderRadius="10">
+              <Flex direction="row" align="center" justify="center">
+                <MenuItem
+                  minWidth="unset"
+                  width="auto"
+                  icon={<EditIcon />}
+                  onClick={moveToEdit}
+                >
+                  수정
+                </MenuItem>
+                <MenuItem
+                  minWidth="unset"
+                  width="auto"
+                  icon={<DeleteIcon />}
+                  onClick={() => setOnConFirmModal(true)}
+                >
+                  삭제
+                </MenuItem>
+              </Flex>
+            </MenuList>
+          </Menu>
+        )}
       </Flex>
       {onConFirmModal && (
         <Modal isOpen={onConFirmModal} onClose={() => setOnConFirmModal(false)}>
