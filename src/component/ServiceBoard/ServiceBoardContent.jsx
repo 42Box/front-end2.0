@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Image, Box, Text, Flex, Divider } from "@chakra-ui/react";
+import { Box, Text, Flex, Divider } from "@chakra-ui/react";
 import { ReactComponent as MsgIcon } from "../../asset/post-view-message.svg";
 import { CommentPaging } from "../Comment/CommentPaging";
 import Header from "../Util/Header";
@@ -11,7 +11,7 @@ import { errorHandling } from "../../util/errorHandling";
 import { LikeButton } from "../Util/Button/LikeButton";
 import BackGround from "../Util/BackGround";
 import UrlBar from "./UrlBar";
-import PostMetaData from "./PostMetaData";
+import { BoardMain } from "../ScriptBoard/BoardMain";
 
 const ServiceBoardContent = () => {
   const navigate = useNavigate();
@@ -35,7 +35,7 @@ const ServiceBoardContent = () => {
     try {
       const response = await apiCall(
         "GET",
-        `https://api.42box.kr/board-service/service-boards/${postId}`
+        `https://api.42box.kr/board-service/service-boards/${postId}`,
       );
 
       setPostInfo(response.data);
@@ -59,40 +59,42 @@ const ServiceBoardContent = () => {
           allowBoardNavigate={true}
           boardRoute="/service/board"
         />
+        <Flex padding="10px" />
         <Flex
           flexDirection="column"
           justifyContent="space-evenly"
           height="20%"
-          margin={4}
+          margin={6}
         >
-          <Flex paddingTop="36px" />
-          <Text fontSize="35px" fontWeight="500" margin={0}>
-            {postInfo?.title}
-          </Text>
-          <PostMetaData postInfo={postInfo} />
-          <Flex paddingTop="36px" />
-          <Divider size="20px" />
-          <Box paddingTop="30px" />
-          {postInfo?.imagePath && (
-            <Image
-              src={`https://42box.kr/${postInfo.imagePath}`}
-              maxWidth="704px"
-              alignSelf="center"
-            />
-          )}
-          <Box paddingTop="12px" />
+          <BoardMain
+            boardId={postId}
+            title={postInfo?.title}
+            writerProfileImgPath={postInfo?.writerProfileImagePath}
+            writerNickname={postInfo?.writerNickname}
+            regDate={postInfo?.regDate}
+          />
+          <Flex padding="10px" />
+          <Divider size="20px" marginTop="15px" marginBottom="15px" />
+          <Flex padding="10px" />
           <UrlBar postInfo={postInfo} />
-          <Box paddingTop="20px" />
-          <Text fontSize="22px" margin="10px 0 0 ">
-            {postInfo?.content}
+          <Text fontSize="20px" marginTop="25px" marginLeft="5px">
+            {postInfo?.content.split("\n").map((line) => (
+              <Text>
+                {line}
+                <br />
+              </Text>
+            ))}
           </Text>
         </Flex>
-        <Box paddingTop="30px" />
+        <Box padding="20px" />
         <Flex
           justifyContent="flex-start"
           alignItems="center"
-          paddingLeft="25px"
+          margin={6}
+          marginTop="15px"
           marginBottom="10px"
+          paddingLeft="10px"
+          gap={3}
         >
           <LikeButton
             boardType="service-boards"
@@ -101,15 +103,25 @@ const ServiceBoardContent = () => {
             count={postInfo?.likeCount}
             onRender={renderHandler}
           />
-          <Box display="flex" justifyContent="center" alignItems="center">
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            padding={1}
+          >
             <MsgIcon height="26px" width="26px" />
-            <Flex paddingLeft="4px" />
-            <Text margin={0} color="##5B5B5B" fontSize="22px">
+            <Flex paddingLeft="2px" />
+            <Text
+              fontSize="22px"
+              margin={0}
+              color="##5B5B5B"
+              marginLeft="3px"
+              marginBottom="2.2px"
+            >
               {postInfo?.commentCount}
             </Text>
           </Box>
         </Flex>
-        <Box paddingTop="5px" />
         <CommentPaging
           boardType="service-boards"
           postId={postId}

@@ -31,8 +31,9 @@ export const ScriptPreviewPop = ({ postInfo, errorHandle, children }) => {
       <Button
         width="146px"
         height="33px"
-        marginTop="15px"
+        marginTop="10px"
         marginLeft="10%"
+        marginBottom="5px"
         rounded="full"
         gap="2px"
         background="transparent"
@@ -59,8 +60,10 @@ export const ScriptPreviewPop = ({ postInfo, errorHandle, children }) => {
       </Button>
       {isPreviewOn && (
         <Container
+          overflowY="auto" //세로 스크롤
+          maxHeight="50vh"
           width="70%"
-          maxWidth="768px"
+          minWidth="70vw"
           margin="0 auto"
           padding="3"
           borderWidth="1px"
