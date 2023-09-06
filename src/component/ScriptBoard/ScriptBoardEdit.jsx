@@ -30,14 +30,14 @@ export const ScriptBoardEdit = () => {
           "GET",
           `/board-service/script-boards/${postId}`,
         );
+        setTitle(boardResponse?.data?.title);
+        setContent(boardResponse?.data?.content);
         setEditPostInfo(boardResponse.data);
-        
+
         const fileResponse = await axios.get(
           `https://42box.kr/${boardResponse.data.scriptPath}`,
         );
-        const file = fileResponse.data;
-        console.log("PAST file api call: ", file);
-        setSelectedFile(file);
+        setSelectedFile(fileResponse.data);
       } catch (error) {
         console.error("Error fetching post:", error);
       }
@@ -46,14 +46,6 @@ export const ScriptBoardEdit = () => {
     fetchPost();
     // eslint-disable-next-line
   }, []);
-
-  useEffect(() => {
-    setTitle(editPostInfo.title);
-  }, [editPostInfo.title]);
-
-  useEffect(() => {
-    setContent(editPostInfo.content);
-  }, [editPostInfo.content]);
 
   const fileChangeHandler = (event) => {
     const file = event.target.files[0];
@@ -77,11 +69,11 @@ export const ScriptBoardEdit = () => {
 
     try {
       console.log(editPostInfo);
-      await apiCall(
-        "PUT",
-        `/board-service/script-boards/${postId}`,
-        editPostInfo,
-      );
+      await apiCall("PUT", `/board-service/script-boards/${postId}`, {
+        ...editPostInfo,
+        title: title,
+        content: content,
+      });
       navigate(`/script/content/${postId}`);
     } catch (error) {
       alert(
@@ -138,7 +130,9 @@ export const ScriptBoardEdit = () => {
               height="700px"
               placeholder="본문 내용을 입력해 주세요."
               borderColor="transparent"
-              onChange={(event) => setContent(event.target.value)}
+              onChange={(event) => {
+                setContent(event.target.value);
+              }}
               fontSize="22px"
               variant="unstyled"
               sx={{
