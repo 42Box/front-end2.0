@@ -7,21 +7,20 @@ import FileSelectButton from "../Util/Button/FileSelectButton";
 import ConfirmCancle from "../Util/Modal/confirmCancle";
 import BasicButton from "../Util/Button/BasicButton";
 import BackGround from "../Util/BackGround";
-import axios from "axios";
 
 export const ScriptBoardEdit = () => {
   const { postId } = useParams();
   const navigate = useNavigate();
-  const [selectedFile, setSelectedFile] = useState(null);
 
-  const [editPostInfo, setEditPostInfo] = useState({
-    title: "",
-    content: "",
-    scriptName: "",
-    scriptPath: "",
-  });
-  const [title, setTitle] = useState(editPostInfo?.title);
-  const [content, setContent] = useState(editPostInfo?.content);
+  // const [editPostInfo, setEditPostInfo] = useState({
+  //   title: "",
+  //   content: "",
+  //   scriptName: "",
+  //   // scriptUrl: "",
+  // });
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -30,14 +29,10 @@ export const ScriptBoardEdit = () => {
           "GET",
           `/board-service/script-boards/${postId}`,
         );
-        setTitle(boardResponse?.data?.title);
-        setContent(boardResponse?.data?.content);
-        setEditPostInfo(boardResponse.data);
-
-        const fileResponse = await axios.get(
-          `https://42box.kr/${boardResponse.data.scriptPath}`,
-        );
-        setSelectedFile(fileResponse.data);
+        setTitle(boardResponse.data.title);
+        setContent(boardResponse.data.content);
+        // setEditPostInfo(boardResponse.data);
+        console.log(boardResponse.data);
       } catch (error) {
         console.error("Error fetching post:", error);
       }
@@ -47,8 +42,38 @@ export const ScriptBoardEdit = () => {
     // eslint-disable-next-line
   }, []);
 
+  const getFormData = async () => {
+    const formData = new FormData();
+    // if (selectedFile) {
+    formData.append("script-file", selectedFile);
+    formData.append(
+      "body",
+      JSON.stringify({
+        title: title,
+        content: content,
+        scriptName: selectedFile.name,
+      }),
+    );
+    // } else {
+    //   const fileResponse = await axios.get(editPostInfo.scriptUrl);
+    //   // "https://42box.kr.s3.ap-northeast-2.amazonaws.com/script_file/8569c654-34eb-4def-8da9-8b415ac5d15e.sh"
+    //   console.log(fileResponse.data);
+    //   formData.append("script-file", fileResponse.data);
+    //   formData.append(
+    //     "body",
+    //     JSON.stringify({
+    //       title: title,
+    //       content: content,
+    //       scriptName: editPostInfo.scriptName,
+    //     }),
+    //   );
+    // }
+    return formData;
+  };
+
   const fileChangeHandler = (event) => {
     const file = event.target.files[0];
+    console.log(file);
     setSelectedFile(file);
   };
 
@@ -60,20 +85,33 @@ export const ScriptBoardEdit = () => {
     }
   };
 
+  const validateForm = () => {
+    if (
+      title.length < 10 ||
+      title.length > 40 ||
+      content.length < 10 ||
+      content.length > 5000 ||
+      !selectedFile
+    ) {
+      return false;
+    }
+    return true;
+  };
+
   const submitHandler = async (event) => {
     event.preventDefault();
-    if (!editPostInfo.scriptName) {
-      alert("⚠️파일을 선택해주세요.⚠️");
+    if (!validateForm()) {
+      alert(
+        "⚠️글을 등록할 수 없습니다.⚠️\n파일이 첨부되었는지, 제목과 내용을 지정된 길이에 맞게 입력하였는지 확인해주세요.",
+      );
       return;
     }
-
     try {
-      console.log(editPostInfo);
-      await apiCall("PUT", `/board-service/script-boards/${postId}`, {
-        ...editPostInfo,
-        title: title,
-        content: content,
-      });
+      await apiCall(
+        "PUT",
+        `/board-service/script-boards/${postId}`,
+        getFormData(),
+      );
       navigate(`/script/content/${postId}`);
     } catch (error) {
       alert(
@@ -119,9 +157,7 @@ export const ScriptBoardEdit = () => {
                 _hover={selectedFile ? { color: "#FF7070" } : {}}
                 onClick={() => setSelectedFile(null)}
               >
-                {selectedFile
-                  ? selectedFile.name
-                  : editPostInfo?.scriptName || "선택된 파일이 없습니다."}
+                {selectedFile ? selectedFile.name : "선택된 파일이 없습니다."}
               </Text>
             </Flex>
             <Box paddingTop="40px" />

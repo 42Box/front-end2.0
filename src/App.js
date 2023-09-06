@@ -49,6 +49,7 @@ const App = () => {
         path="/service/content/:postId"
         element={<ServiceBoardContent />}
       />
+      <Route path="/service/edit/:postId" element={<ScriptBoardEdit />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

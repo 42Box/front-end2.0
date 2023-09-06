@@ -12,12 +12,24 @@ import foxTail from "../../asset/foxtail.gif";
 import runningFox from "../../asset/running-fox.gif";
 
 const IconBoardPreview = () => {
-  const gifs = [foxTail, box42, flip42, gun, gon, gam, lee];
+  const gifs = [runningFox, foxTail, box42, flip42, gun, gon, gam, lee];
+  const gifs_string = [
+    "fox",
+    "sitting_fox",
+    "box",
+    "42",
+    "gun",
+    "gon",
+    "gam",
+    "lee",
+  ];
 
   const [isRunningFoxHovered, setIsRunningFoxHovered] = useState(false); // 호버 상태 저장
 
-  const onClickHandler = async (icon) => {
+  const onClickHandler = async (index) => {
     try {
+      console.log("icon name: ", gifs_string[index]);
+      const icon = gifs_string[index];
       await apiCall("PUT", "https://api.42box.kr/user-service/users/me/icon", {
         icon: icon,
       });
@@ -34,7 +46,7 @@ const IconBoardPreview = () => {
       <Flex justifyContent="space-between" marginTop="20px" height="40px">
         <Image
           src={runningFox}
-          onClick={() => onClickHandler(runningFox)}
+          onClick={() => onClickHandler(0)}
           cursor="pointer"
           _hover={{
             transform: "translateX(650px)",
@@ -44,12 +56,12 @@ const IconBoardPreview = () => {
           onMouseLeave={() => setIsRunningFoxHovered(false)}
           style={{ zIndex: isRunningFoxHovered ? "2" : "auto" }}
         />
-        {gifs.map((gif, index) => {
+        {gifs.slice(1).map((gif, index) => {
           return (
             <Image
               src={gif}
               key={index}
-              onClick={() => onClickHandler(gif)}
+              onClick={() => onClickHandler(index)}
               cursor="pointer"
               style={{
                 filter: isRunningFoxHovered ? "blur(10px)" : "none",
