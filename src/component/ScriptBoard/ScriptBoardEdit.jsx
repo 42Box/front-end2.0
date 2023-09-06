@@ -37,7 +37,8 @@ export const ScriptBoardEdit = () => {
         const fileResponse = await axios.get(
           `https://42box.kr/${boardResponse.data.scriptPath}`,
         );
-        setSelectedFile(fileResponse.data);
+        console.log(fileResponse.data);
+        setSelectedFile(fileResponse.data); // 예전꺼
       } catch (error) {
         console.error("Error fetching post:", error);
       }

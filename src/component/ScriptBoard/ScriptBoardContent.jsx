@@ -154,6 +154,7 @@ const ScriptBoardContent = () => {
         margin={6}
       >
         <BoardMain
+          boardType="script-boards"
           boardId={postId}
           title={postInfo?.title}
           writerProfileImgPath={postInfo?.writerProfileImagePath}

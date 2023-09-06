@@ -30,7 +30,7 @@ const IconBoardPreview = () => {
   return (
     <>
       <Box paddingTop="40px" />
-      <BoardPreviewTitle title="아이콘 변경" to="/icon/board" />
+      <BoardPreviewTitle title="아이콘 변경" />
       <Flex justifyContent="space-between" marginTop="20px" height="40px">
         <Image
           src={runningFox}

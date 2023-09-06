@@ -24,6 +24,7 @@ import { useState } from "react";
 import apiCall from "../../util/apiCall";
 
 export const BoardMain = ({
+  boardType,
   boardId,
   title,
   writerProfileImgPath,
@@ -33,7 +34,11 @@ export const BoardMain = ({
   const navigate = useNavigate();
   const [onConFirmModal, setOnConFirmModal] = useState(false);
   const moveToEdit = () => {
-    navigate("/script/edit/" + boardId);
+    if (boardType === "script-boards") {
+      navigate("/script/edit/" + boardId);
+    } else if (boardType === "service-boards") {
+      navigate("/service/edit/" + boardId);
+    }
   };
 
   const isWriter = () => {
@@ -49,10 +54,14 @@ export const BoardMain = ({
     try {
       const response = await apiCall(
         "DELETE",
-        `board-service/script-boards/${boardId}`,
+        `board-service/${boardType}/${boardId}`,
       );
       console.log("delete status:", response.status);
-      navigate("/script/board");
+      if (boardType === "script-boards") {
+        navigate("/script/board");
+      } else if (boardType === "service-boards") {
+        navigate("/service/board");
+      }
     } catch (error) {
       alert("게시물 삭제에 실패했습니다");
     }
@@ -85,37 +94,37 @@ export const BoardMain = ({
             <DateComponent date={regDate} />
           </Text>
         </Flex>
-        {isWriter() && (
-          <Menu>
-            <MenuButton
-              border="none"
-              as={IconButton}
-              icon={<MeatBallIcon />}
-              backgroundColor="white"
-              _hover={{ bg: "gray.200" }}
-            />
-            <MenuList minWidth="unset" width="auto" borderRadius="10">
-              <Flex direction="row" align="center" justify="center">
-                <MenuItem
-                  minWidth="unset"
-                  width="auto"
-                  icon={<EditIcon />}
-                  onClick={moveToEdit}
-                >
-                  수정
-                </MenuItem>
-                <MenuItem
-                  minWidth="unset"
-                  width="auto"
-                  icon={<DeleteIcon />}
-                  onClick={() => setOnConFirmModal(true)}
-                >
-                  삭제
-                </MenuItem>
-              </Flex>
-            </MenuList>
-          </Menu>
-        )}
+        {/*{isWriter() && (*/}
+        <Menu>
+          <MenuButton
+            border="none"
+            as={IconButton}
+            icon={<MeatBallIcon />}
+            backgroundColor="white"
+            _hover={{ bg: "gray.200" }}
+          />
+          <MenuList minWidth="unset" width="auto" borderRadius="10">
+            <Flex direction="row" align="center" justify="center">
+              <MenuItem
+                minWidth="unset"
+                width="auto"
+                icon={<EditIcon />}
+                onClick={moveToEdit}
+              >
+                수정
+              </MenuItem>
+              <MenuItem
+                minWidth="unset"
+                width="auto"
+                icon={<DeleteIcon />}
+                onClick={() => setOnConFirmModal(true)}
+              >
+                삭제
+              </MenuItem>
+            </Flex>
+          </MenuList>
+        </Menu>
+        {/*)}*/}
       </Flex>
       {onConFirmModal && (
         <Modal isOpen={onConFirmModal} onClose={() => setOnConFirmModal(false)}>
