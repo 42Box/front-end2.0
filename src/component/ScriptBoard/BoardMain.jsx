@@ -24,6 +24,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import apiCall from "../../util/apiCall";
 import { userState } from "../../recoil/states";
+import { useRecoilValue } from "recoil";
 
 export const BoardMain = ({
   boardType,
@@ -36,6 +37,7 @@ export const BoardMain = ({
   const navigate = useNavigate();
   const [onConFirmModal, setOnConFirmModal] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const userStateValue = useRecoilValue(userState);
 
   const moveToEdit = () => {
     if (boardType === "script-boards") {
@@ -46,8 +48,10 @@ export const BoardMain = ({
   };
 
   const isWriter = () => {
-    if (userState?.nickname === writerNickname) {
+    if (userStateValue?.nickname === writerNickname) {
       return true;
+    } else {
+      return false;
     }
   };
 
