@@ -27,7 +27,7 @@ export const CommentPaging = ({ boardType, postId, errorHandler }) => {
       const response = await apiCall(
         "GET",
         `https://api.42box.kr/comment-service/${boardType}/${postId}/comments`,
-        { params: { page: commentCurPage, size: 15 } }
+        { params: { page: commentCurPage, size: 15 } },
       );
       if (response.data.empty === true) {
         setIsComments(false);
@@ -71,7 +71,7 @@ export const CommentPaging = ({ boardType, postId, errorHandler }) => {
             <>
               <CommentList comments={commentInfo.content}></CommentList>
               <Flex
-                margin={10}
+                margin={7}
                 justifyContent="space-between"
                 alignItems="center"
               >

@@ -12,8 +12,8 @@ import { LikeButton } from "../Util/Button/LikeButton";
 import { ScriptPreviewPop } from "./ScriptPreviewPop";
 import BackGround from "../Util/BackGround";
 import { BoardMain } from "./BoardMain";
-import "./ScriptBoardContent.css";
 import { ScriptPreviewButtons } from "./ScriptPreviewButtons";
+import "./ScriptBoardContent.css";
 
 const ScriptBoardContent = () => {
   const navigate = useNavigate();
@@ -39,10 +39,6 @@ const ScriptBoardContent = () => {
     // eslint-disable-next-line
   }, [recallPostInfo]);
 
-  // useEffect(() => {
-  //   console.log("every change: ", dataSendToMac);
-  // }, [dataSendToMac]);
-
   const errorResponseHandler = (response) => {
     errorHandling(response, navigate, errorAlert);
   };
@@ -51,7 +47,7 @@ const ScriptBoardContent = () => {
     try {
       const response = await apiCall(
         "GET",
-        `https://api.42box.kr/board-service/script-boards/${postId}`
+        `https://api.42box.kr/board-service/script-boards/${postId}`,
       );
 
       setPostInfo(response.data);
@@ -89,7 +85,7 @@ const ScriptBoardContent = () => {
           name: postInfo.scriptName,
           description: postInfo.content,
           path: postInfo.scriptPath,
-        }
+        },
       );
       console.log("file download response: ", response.data);
       await setDataSendToMac({
@@ -101,7 +97,7 @@ const ScriptBoardContent = () => {
         scriptUuid: response.data.scriptUuid,
       });
       window?.webkit?.messageHandlers.downloadScript.postMessage(
-        JSON.stringify(dataSendToMac)
+        JSON.stringify(dataSendToMac),
       );
       setUserScriptSavedId(response.data.savedId);
       successAlert.openAlert({
@@ -117,7 +113,7 @@ const ScriptBoardContent = () => {
     try {
       const response = await apiCall(
         "DELETE",
-        `https://api.42box.kr/user-service/users/me/scripts/${userScriptSavedId}`
+        `https://api.42box.kr/user-service/users/me/scripts/${userScriptSavedId}`,
       );
       successAlert.openAlert({
         title: "파일을 삭제했습니다!",
@@ -130,7 +126,7 @@ const ScriptBoardContent = () => {
         userUuid: response.data.userUuid,
       }));
       window?.webkit?.messageHandlers.deleteScript.postMessage(
-        JSON.stringify(dataSendToMac)
+        JSON.stringify(dataSendToMac),
       );
       setUserScriptSavedId(null);
     } catch (error) {
@@ -143,49 +139,69 @@ const ScriptBoardContent = () => {
   };
 
   return (
-      <BackGround>
-        <Header
-          pageTitle="스크립트"
-          allowHomeNavigate={true}
-          allowBoardNavigate={true}
-          boardRoute={"/service/board"}
+    <BackGround>
+      <Header
+        pageTitle="스크립트"
+        allowHomeNavigate={true}
+        allowBoardNavigate={true}
+        boardRoute={"/service/board"}
+      />
+      <Flex padding="10px" />
+      <Flex
+        flexDirection="column"
+        justifyContent="space-evenly"
+        height="20%"
+        margin={6}
+      >
+        <BoardMain
+          boardId={postId}
+          title={postInfo?.title}
+          writerProfileImgPath={postInfo?.writerProfileImagePath}
+          writerNickname={postInfo?.writerNickname}
+          regDate={postInfo?.regDate}
         />
-        <Flex
-          flexDirection="column"
-          justifyContent="space-evenly"
-          height="20%"
-          margin={6}
-        >
-          <BoardMain
-            boardId={postId}
-            title={postInfo?.title}
-            writerProfileImgPath={postInfo?.writerProfileImagePath}
-            writerNickname={postInfo?.writerNickname}
-            regDate={postInfo?.regDate}
-          />
-          <Divider size="20px" marginTop="15px" marginBottom="15px" />
-          <Text fontSize="20px" marginTop="15px" marginLeft="15px">
-            {postInfo?.content.split("\n").map((line) => (
-              <Text>
-                {line}
-                <br />
-              </Text>
-            ))}
-          </Text>
-        </Flex>
-        <ScriptPreviewPop
-          postInfo={postInfo}
-          errorHandle={(response) => errorResponseHandler(response)}
-        >
-          <ScriptPreviewButtons
-            dataSendToMac={dataSendToMac}
-            userScriptSavedId={userScriptSavedId}
-            downloadFile={downloadFile}
-            deleteFile={deleteFile}
-          />
-        </ScriptPreviewPop>
-        <Flex
-          justifyContent="flex-start"
+        <Flex padding="10px" />
+        <Divider size="20px" marginTop="15px" marginBottom="15px" />
+        <Text fontSize="20px" marginTop="15px" marginLeft="5px">
+          {postInfo?.content.split("\n").map((line) => (
+            <Text>
+              {line}
+              <br />
+            </Text>
+          ))}
+        </Text>
+      </Flex>
+      <ScriptPreviewPop
+        postInfo={postInfo}
+        errorHandle={(response) => errorResponseHandler(response)}
+      >
+        <ScriptPreviewButtons
+          dataSendToMac={dataSendToMac}
+          userScriptSavedId={userScriptSavedId}
+          downloadFile={downloadFile}
+          deleteFile={deleteFile}
+        />
+      </ScriptPreviewPop>
+      <Box padding="20px" />
+      <Flex
+        justifyContent="flex-start"
+        alignItems="center"
+        margin={6}
+        marginTop="15px"
+        marginBottom="10px"
+        paddingLeft="10px"
+        gap={3}
+      >
+        <LikeButton
+          boardType="script-boards"
+          postId={postInfo?.boardId}
+          likeState={postInfo?.boardLiked}
+          count={postInfo?.likeCount}
+          onRender={renderHandler}
+        />
+        <Box
+          display="flex"
+          justifyContent="center"
           alignItems="center"
           margin={5}
           marginTop="15px"
