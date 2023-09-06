@@ -1,5 +1,6 @@
 import {
   Button,
+  Box,
   Flex,
   IconButton,
   Image,
@@ -22,6 +23,7 @@ import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import apiCall from "../../util/apiCall";
+import { userState } from "../../recoil/states";
 
 export const BoardMain = ({
   boardType,
@@ -33,6 +35,8 @@ export const BoardMain = ({
 }) => {
   const navigate = useNavigate();
   const [onConFirmModal, setOnConFirmModal] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const moveToEdit = () => {
     if (boardType === "script-boards") {
       navigate("/script/edit/" + boardId);
@@ -42,19 +46,16 @@ export const BoardMain = ({
   };
 
   const isWriter = () => {
-    let userNickname = "";
-    const userStateJson = localStorage.getItem("userState");
-    if (userStateJson) {
-      userNickname = JSON.parse(userStateJson).nickname;
+    if (userState?.nickname === writerNickname) {
+      return true;
     }
-    if (userNickname === writerNickname) return true;
   };
 
   const deleteHandler = async () => {
     try {
       const response = await apiCall(
         "DELETE",
-        `board-service/${boardType}/${boardId}`,
+        `board-service/${boardType}/${boardId}`
       );
       console.log("delete status:", response.status);
       if (boardType === "script-boards") {
@@ -67,30 +68,29 @@ export const BoardMain = ({
     }
   };
   return (
-    <>
-      <Text fontSize="33px" fontWeight="500">
+    <Box height="153px">
+      <Box paddingTop="36px" />
+      <Text fontSize="33px" fontWeight="500" margin={0}>
         {title}
       </Text>
-      <Flex padding="3px" />
-      <Flex justifyContent="space-between" alignItems="center">
-        <Flex alignItems="center">
+      <Box paddingTop="17px" />
+      <Flex justifyContent="space-between" alignItems="center" height="26px">
+        <Flex alignItems="center" height="26px">
           <Image
             src={`https://42box.kr/${writerProfileImgPath}`}
             width="23px"
             height="23px"
           />
-          <Text
-            fontSize="20px"
-            marginLeft="8px"
-            marginRight="0px"
-            textColor="#8E8E8E"
-          >
+          <Flex paddingLeft="10px" />
+          <Text fontSize="20px" textColor="#8E8E8E" margin={0}>
             {writerNickname}
           </Text>
-          <Text marginLeft="5px" marginRight="5px" textColor="#8E8E8E">
+          <Flex paddingLeft="10px" />
+          <Text textColor="#8E8E8E" margin={0}>
             │
           </Text>
-          <Text paddingTop="2px" fontSize="17px">
+          <Flex paddingLeft="10px" />
+          <Text fontSize="17px" margin={0}>
             <DateComponent date={regDate} />
           </Text>
         </Flex>
@@ -102,27 +102,32 @@ export const BoardMain = ({
               icon={<MeatBallIcon />}
               backgroundColor="white"
               _hover={{ bg: "gray.200" }}
+              onClick={() => {
+                setIsMenuOpen(!isMenuOpen);
+              }}
             />
-            <MenuList minWidth="unset" width="auto" borderRadius="10">
-              <Flex direction="row" align="center" justify="center">
-                <MenuItem
-                  minWidth="unset"
-                  width="auto"
-                  icon={<EditIcon />}
-                  onClick={moveToEdit}
-                >
-                  수정
-                </MenuItem>
-                <MenuItem
-                  minWidth="unset"
-                  width="auto"
-                  icon={<DeleteIcon />}
-                  onClick={() => setOnConFirmModal(true)}
-                >
-                  삭제
-                </MenuItem>
-              </Flex>
-            </MenuList>
+            {isMenuOpen && (
+              <MenuList minWidth="unset" width="auto" borderRadius="10">
+                <Flex direction="row" align="center" justify="center">
+                  <MenuItem
+                    minWidth="unset"
+                    width="auto"
+                    icon={<EditIcon />}
+                    onClick={moveToEdit}
+                  >
+                    수정
+                  </MenuItem>
+                  <MenuItem
+                    minWidth="unset"
+                    width="auto"
+                    icon={<DeleteIcon />}
+                    onClick={() => setOnConFirmModal(true)}
+                  >
+                    삭제
+                  </MenuItem>
+                </Flex>
+              </MenuList>
+            )}
           </Menu>
         )}
       </Flex>
@@ -153,6 +158,6 @@ export const BoardMain = ({
           </ModalContent>
         </Modal>
       )}
-    </>
+    </Box>
   );
 };

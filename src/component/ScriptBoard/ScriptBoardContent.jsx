@@ -47,7 +47,7 @@ const ScriptBoardContent = () => {
     try {
       const response = await apiCall(
         "GET",
-        `https://api.42box.kr/board-service/script-boards/${postId}`,
+        `https://api.42box.kr/board-service/script-boards/${postId}`
       );
 
       setPostInfo(response.data);
@@ -85,7 +85,9 @@ const ScriptBoardContent = () => {
           name: postInfo.scriptName,
           description: postInfo.content,
           path: postInfo.scriptPath,
-        },
+          userUuid: postInfo.userUuid,
+          scriptUuid: postInfo.scriptUuid,
+        }
       );
       console.log("file download response: ", response.data);
       await setDataSendToMac({
@@ -97,7 +99,7 @@ const ScriptBoardContent = () => {
         scriptUuid: response.data.scriptUuid,
       });
       window?.webkit?.messageHandlers.downloadScript.postMessage(
-        JSON.stringify(dataSendToMac),
+        JSON.stringify(dataSendToMac)
       );
       setUserScriptSavedId(response.data.savedId);
       successAlert.openAlert({
@@ -113,7 +115,7 @@ const ScriptBoardContent = () => {
     try {
       const response = await apiCall(
         "DELETE",
-        `https://api.42box.kr/user-service/users/me/scripts/${userScriptSavedId}`,
+        `https://api.42box.kr/user-service/users/me/scripts/${userScriptSavedId}`
       );
       successAlert.openAlert({
         title: "파일을 삭제했습니다!",
@@ -126,7 +128,7 @@ const ScriptBoardContent = () => {
         userUuid: response.data.userUuid,
       }));
       window?.webkit?.messageHandlers.deleteScript.postMessage(
-        JSON.stringify(dataSendToMac),
+        JSON.stringify(dataSendToMac)
       );
       setUserScriptSavedId(null);
     } catch (error) {
@@ -146,32 +148,15 @@ const ScriptBoardContent = () => {
         allowBoardNavigate={true}
         boardRoute={"/service/board"}
       />
-      <Flex padding="10px" />
-      <Flex
-        flexDirection="column"
-        justifyContent="space-evenly"
-        height="20%"
-        margin={6}
-      >
-        <BoardMain
-          boardType="script-boards"
-          boardId={postId}
-          title={postInfo?.title}
-          writerProfileImgPath={postInfo?.writerProfileImagePath}
-          writerNickname={postInfo?.writerNickname}
-          regDate={postInfo?.regDate}
-        />
-        <Flex padding="10px" />
-        <Divider size="20px" marginTop="15px" marginBottom="15px" />
-        <Text fontSize="20px" marginTop="15px" marginLeft="5px">
-          {postInfo?.content.split("\n").map((line) => (
-            <Text>
-              {line}
-              <br />
-            </Text>
-          ))}
-        </Text>
-      </Flex>
+      <BoardMain
+        boardType="script-boards"
+        boardId={postId}
+        title={postInfo?.title}
+        writerProfileImgPath={postInfo?.writerProfileImagePath}
+        writerNickname={postInfo?.writerNickname}
+        regDate={postInfo?.regDate}
+      />
+      <Divider size="20px" marginTop="15px" marginBottom="15px" />
       <ScriptPreviewPop
         postInfo={postInfo}
         errorHandle={(response) => errorResponseHandler(response)}
@@ -183,6 +168,14 @@ const ScriptBoardContent = () => {
           deleteFile={deleteFile}
         />
       </ScriptPreviewPop>
+      <Text fontSize="20px" marginTop="15px" marginLeft="5px">
+        {postInfo?.content.split("\n").map((line) => (
+          <Text>
+            {line}
+            <br />
+          </Text>
+        ))}
+      </Text>
       <Box padding="20px" />
       <Flex
         justifyContent="flex-start"
