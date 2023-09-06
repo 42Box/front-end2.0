@@ -15,7 +15,6 @@ import NoPosts from "../Util/NoPosts";
 const ScriptBoard = () => {
   const searchWord = useRecoilValue(searchBarState);
   const loginStateValue = useRecoilValue(loginState);
-  const searchBarStateValue = useRecoilValue(searchBarState);
   const [queryParams] = useSearchParams();
 
   const [viewOption, setViewOption] = useState(
@@ -59,9 +58,8 @@ const ScriptBoard = () => {
       page: 0,
       size: 5,
       sort: sortOption,
-      search: searchBarStateValue === "" ? "" : viewOption.search,
-      searchCondition:
-        searchBarStateValue === "" ? "NONE" : viewOption.searchCondition,
+      search: searchWord === "" ? "" : viewOption.search,
+      searchCondition: searchWord === "" ? "NONE" : viewOption.searchCondition,
     });
   };
 
