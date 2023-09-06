@@ -45,6 +45,7 @@ export const LikeButton = ({
       {likeState ? <LikeClickedIcon /> : <LikeIcon />}
       <Flex paddingRight="3px" />
       <Text
+        fontWeight="500"
         fontSize="22px"
         height="27px"
         margin={0}

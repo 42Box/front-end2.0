@@ -6,9 +6,13 @@ import FileSelectButton from "../Util/Button/FileSelectButton";
 import { useNavigate } from "react-router-dom";
 import ConfirmCancle from "../Util/Modal/confirmCancle";
 import BasicButton from "../Util/Button/BasicButton";
+import { loginState } from "../../recoil/states";
+import { useRecoilValue } from "recoil";
+import WrongApproach from "../Util/WrongApproach";
 
 const ScriptBoardNew = () => {
   const navigate = useNavigate();
+  const isLogin = useRecoilValue(loginState);
   const {
     inputTitle,
     setInputTitle,
@@ -18,6 +22,10 @@ const ScriptBoardNew = () => {
     setSelectedFile,
     postFormData,
   } = useScriptBoardNew();
+
+  if (!isLogin) {
+    return <WrongApproach />;
+  }
 
   const titleChangeHandler = (event) => {
     setInputTitle(event.target.value);

@@ -1,15 +1,22 @@
 import BackGround from "../Util/BackGround";
 import Header from "../Util/Header";
 import { userState } from "../../recoil/states";
-import { useRecoilState } from "recoil";
+import { loginState } from "../../recoil/states";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { Text, Box } from "@chakra-ui/react";
 import MyPosts from "./MyPosts";
 import MyComments from "./MyComments";
 import StatusMessage from "./StatusMessage";
 import ProfileImage from "./ProfileImage";
+import WrongApproach from "../Util/WrongApproach";
 
 const MyPage = () => {
   const [userStateValue, setUserStateValue] = useRecoilState(userState);
+  const isLogin = useRecoilValue(loginState);
+
+  if (!isLogin) {
+    return <WrongApproach />;
+  }
 
   return (
     <BackGround>

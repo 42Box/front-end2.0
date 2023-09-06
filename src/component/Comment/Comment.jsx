@@ -1,36 +1,36 @@
 import "./Comment.css";
-import { Box, Divider, Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Flex, Image, Text } from "@chakra-ui/react";
 
 const Comment = (props) => {
   return (
-    <Box marginTop="12px" rounded="lg">
-      <Flex direction="column" marginBottom="12px" margin={4}>
-        <Flex marginBottom="12px" alignItems="center">
-          <Image
-            src={`https://42box.kr/${props.img}`}
-            width="23px"
-            height="23px"
-          />
-          <Text marginLeft="8px" fontSize="18px" textColor="#8E8E8E">
-            {props.author}
-          </Text>
-          <Text marginLeft="5px" marginRight="5px" textColor="#8E8E8E">
-            │
-          </Text>
-          <Text paddingTop="2px" fontSize="17px">
-            {props.date}
-          </Text>
-        </Flex>
-        <Text fontSize="17px">
-          {props.content.split("\n").map((line) => (
-            <Text>
-              {line}
-              <br />
-            </Text>
-          ))}
+    <Box height="134px" rounded="lg" borderBottom="1px solid #E8E8E8">
+      <Box height="30px" />
+      <Flex alignItems="center" height="26px">
+        <Image
+          src={`https://42box.kr/${props.img}`}
+          width="23px"
+          height="23px"
+        />
+        <Flex paddingLeft="8px" />
+        <Text margin={0} fontSize="18px" textColor="#8E8E8E">
+          {props.author}
+        </Text>
+        <Flex paddingLeft="5px" />
+        <Text margin={0} textColor="#8E8E8E">
+          │
+        </Text>
+        <Text paddingTop="2px" margin={0} fontSize="17px">
+          {props.date}
         </Text>
       </Flex>
-      <Divider />
+      <Text fontSize="17px" margin={0}>
+        {props.content.split("\n").map((line) => (
+          <Text>
+            {line}
+            <br />
+          </Text>
+        ))}
+      </Text>
     </Box>
   );
 };

@@ -65,57 +65,57 @@ const CommentNew = ({ boardType, postId, onCommentSubmit }) => {
   };
 
   return (
-    <Box margin={7} marginTop="5px">
-      <Flex width="100%" position="relative" justify-content="center">
-        <Textarea
-          height="145px"
-          width="100%"
-          placeholder={
-            isLogin ? "댓글을 입력하세요." : "로그인이 필요한 서비스입니다."
-          }
-          value={commentContent}
-          onChange={(event) => {
-            setCommentContent(event.target.value);
+    <Flex width="100%" position="relative" justify-content="center">
+      <Textarea
+        isDisabled={isLogin ? false : true}
+        borderRadius="15px"
+        height="145px"
+        width="100%"
+        placeholder={
+          isLogin ? "댓글을 입력하세요." : "로그인이 필요한 서비스입니다."
+        }
+        value={commentContent}
+        onChange={(event) => {
+          setCommentContent(event.target.value);
+        }}
+        onKeyDown={handleKeyPress}
+      />
+      <Box ml="auto">
+        <Button
+          isDisabled={isLogin ? false : true}
+          position="absolute"
+          bottom="10px"
+          right="10px"
+          height="2em"
+          type="submit"
+          zIndex={10}
+          borderRadius="15px"
+          border="1px solid #8E8E8E"
+          backgroundColor="transparent"
+          color="#8E8E8E"
+          _hover={{
+            border: "1.5px solid var(--Main-Orange, #FF9548)",
+            background: "var(--Light-Orange, #FFF0E5)",
+            color: "#FF9548",
           }}
-          onKeyDown={handleKeyPress}
-        />
-        <Box ml="auto">
-          <Button
-            isDisabled={isLogin ? false : true}
-            position="absolute"
-            bottom="10px"
-            right="10px"
-            height="2em"
-            type="submit"
-            zIndex={10}
-            borderRadius="15px"
-            border="1px solid #8E8E8E"
-            backgroundColor="transparent"
-            color="#8E8E8E"
-            _hover={{
-              border: "1.5px solid var(--Main-Orange, #FF9548)",
-              background: "var(--Light-Orange, #FFF0E5)",
-              color: "#FF9548",
-            }}
-            onClick={submitHandler}
-          >
-            등록하기
-          </Button>
-        </Box>
-        {!isInputValid && (
-          <AlertModal
-            open={errorAlert.alertData.isOpen}
-            close={() => {
-              errorAlert.closeAlert();
-              setIsInputValid(true);
-            }}
-            header={errorAlert.alertData.title}
-          >
-            <Text>{errorAlert.alertData.content}</Text>
-          </AlertModal>
-        )}
-      </Flex>
-    </Box>
+          onClick={submitHandler}
+        >
+          등록하기
+        </Button>
+      </Box>
+      {!isInputValid && (
+        <AlertModal
+          open={errorAlert.alertData.isOpen}
+          close={() => {
+            errorAlert.closeAlert();
+            setIsInputValid(true);
+          }}
+          header={errorAlert.alertData.title}
+        >
+          <Text>{errorAlert.alertData.content}</Text>
+        </AlertModal>
+      )}
+    </Flex>
   );
 };
 
