@@ -14,7 +14,7 @@ import NoPosts from "../Util/NoPosts";
 
 const ServiceBoard = () => {
   const loginStateValue = useRecoilValue(loginState);
-  const searchBarStateValue = useRecoilValue(searchBarState);
+  const searchWord = useRecoilValue(searchBarState);
   const [queryParams] = useSearchParams();
 
   const [viewOption, setViewOption] = useState(
@@ -35,11 +35,20 @@ const ServiceBoard = () => {
     setViewOption({ ...viewOption, page: pageIndex });
   };
 
-  const searchHandler = (word, condition) => {
+  const searchHandler = (word) => {
     setViewOption({
       ...viewOption,
       page: 0,
       search: word,
+      searchCondition: "ALL",
+    });
+  };
+
+  const searchOptionHandler = (condition) => {
+    setViewOption({
+      ...viewOption,
+      page: 0,
+      search: searchWord,
       searchCondition: condition,
     });
   };
@@ -49,9 +58,8 @@ const ServiceBoard = () => {
       page: 0,
       size: 5,
       sort: sortOption,
-      search: searchBarStateValue === "" ? "" : viewOption.search,
-      searchCondition:
-        searchBarStateValue === "" ? "NONE" : viewOption.searchCondition,
+      search: searchWord === "" ? "" : viewOption.search,
+      searchCondition: searchWord === "" ? "NONE" : viewOption.searchCondition,
     });
   };
 
@@ -63,7 +71,11 @@ const ServiceBoard = () => {
         allowHomeNavigate={true}
         allowBoardNavigate={false}
       />
-      <SearchFilterSort onSearch={searchHandler} onSort={sortHandler} />
+      <SearchFilterSort
+        onSearch={searchHandler}
+        onSearchOption={searchOptionHandler}
+        onSort={sortHandler}
+      />
       {boardInfo.empty ? (
         <NoPosts />
       ) : (

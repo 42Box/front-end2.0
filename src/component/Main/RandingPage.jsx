@@ -5,8 +5,16 @@ import ScriptBoardPreview from "./ScriptBoardPreview";
 import IconBoardPreview from "./IconBoardPreview";
 import ServiceBoardPreview from "./ServiceBoardPreview";
 import BackGround from "../Util/BackGround";
+import { searchBarState } from "../../recoil/searchBarState";
+import { useRecoilState } from "recoil";
 
 const RandingPage = () => {
+  const [searchBarStateValue, setSearchBarStateValue] =
+    useRecoilState(searchBarState);
+  if (searchBarStateValue !== "") {
+    setSearchBarStateValue("");
+  }
+
   return (
     <BackGround>
       <Box width="704px" marginTop="45px" marginLeft="32px" marginRight="32px">
