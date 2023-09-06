@@ -2,7 +2,7 @@ import "./IconBoard.css";
 
 import Container from "../Util/Container";
 import Header from "../Util/Header";
-import WriteButton from "../Util/Button/WriteButton";
+//import WriteButton from "../Util/Button/WriteButton";
 import IconGalleryView from "./IconGalleryView";
 
 const IconBoard = () => {
@@ -23,7 +23,8 @@ const IconBoard = () => {
     <Container>
       <Header
         pageTitle="아이콘 게시판"
-        rightButton={<WriteButton path="/icon/new" />}
+        allowHomeNavigate={true}
+        //rightButton={<WriteButton path="/icon/new" />}
       />
       <IconGalleryView />
     </Container>
