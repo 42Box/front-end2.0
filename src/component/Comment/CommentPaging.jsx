@@ -8,11 +8,8 @@ import { ReactComponent as PrevIcon } from "../../asset/previous.svg";
 import { ReactComponent as NextIcon } from "../../asset/next.svg";
 import { ReactComponent as PrevInvalidIcon } from "../../asset/previousInvalid.svg";
 import { ReactComponent as NextInvalidIcon } from "../../asset/nextInvalid.svg";
-import { loginState } from "../../recoil/states";
-import { useRecoilValue } from "recoil";
 
 export const CommentPaging = ({ boardType, postId, errorHandler }) => {
-  const isLogin = useRecoilValue(loginState);
   const [isComments, setIsComments] = useState(true);
   const [commentInfo, setCommentInfo] = useState(null);
   const [commentCurPage, setCommentCurPage] = useState(0);
@@ -56,20 +53,19 @@ export const CommentPaging = ({ boardType, postId, errorHandler }) => {
 
   return (
     <>
-      {isLogin && (
-        <CommentNew
-          boardType={boardType}
-          postId={postId}
-          onCommentSubmit={() => {
-            setReloadMarker(!reloadMarker);
-          }}
-        />
-      )}
+      <CommentNew
+        boardType={boardType}
+        postId={postId}
+        onCommentSubmit={() => {
+          setReloadMarker(!reloadMarker);
+        }}
+      />
       {isComments ? (
         <>
           {commentInfo !== null && commentInfo.totalElements > 0 && (
             <>
-              <CommentList comments={commentInfo.content}></CommentList>
+              <Box paddingTop="18px" />
+              <CommentList comments={commentInfo.content} />
               <Flex
                 margin={7}
                 justifyContent="space-between"

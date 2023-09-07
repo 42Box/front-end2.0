@@ -3,11 +3,10 @@ import "./CommentList.css";
 import Comment from "./Comment";
 
 import DateComponent from "../Util/DateComponent";
-import { Box } from "@chakra-ui/react";
 
 const CommentList = (props) => {
   return (
-    <Box margin={5} marginBottom="7px">
+    <>
       {props.comments.map((comment) => (
         <Comment
           key={comment.commentId}
@@ -17,7 +16,7 @@ const CommentList = (props) => {
           content={comment.commentContent}
         />
       ))}
-    </Box>
+    </>
   );
 };
 

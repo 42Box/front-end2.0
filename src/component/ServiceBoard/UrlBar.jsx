@@ -46,6 +46,7 @@ const UrlBar = ({ postInfo }) => {
       alignItems="center"
       paddingLeft="5px"
       paddingRight="3px"
+      justifyContent="space-between"
     >
       <a href={postInfo?.serviceUrl}>
         <Icon
@@ -58,7 +59,7 @@ const UrlBar = ({ postInfo }) => {
           _hover={{ background: "#EEEEEE" }}
         />
       </a>
-      <Text paddingTop="8px" height="45px" width="500px" align="center">
+      <Text paddingTop="8px" height="45px" align="center" margin={0}>
         {postInfo?.serviceUrl}
       </Text>
       <Icon
