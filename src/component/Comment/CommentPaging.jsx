@@ -13,11 +13,12 @@ export const CommentPaging = ({ boardType, postId, errorHandler }) => {
   const [isComments, setIsComments] = useState(true);
   const [commentInfo, setCommentInfo] = useState(null);
   const [commentCurPage, setCommentCurPage] = useState(0);
+  const [reloadMarker, setReloadMarker] = useState(false);
 
   useEffect(() => {
     commentsApiCall();
     // eslint-disable-next-line
-  }, [commentCurPage]);
+  }, [commentCurPage, reloadMarker]);
 
   const commentsApiCall = async () => {
     try {
@@ -56,8 +57,7 @@ export const CommentPaging = ({ boardType, postId, errorHandler }) => {
         boardType={boardType}
         postId={postId}
         onCommentSubmit={() => {
-          console.log("api call again!");
-          commentsApiCall();
+          setReloadMarker(!reloadMarker);
         }}
       />
       {isComments ? (
